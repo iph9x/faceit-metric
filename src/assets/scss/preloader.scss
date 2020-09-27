@@ -1,0 +1,26 @@
+@import './variables.scss';
+
+.preloader {
+    &-wrapper {
+        padding: 100px;
+    }
+    color: $white;
+    animation: rotater 1s infinite;
+    animation-timing-function: linear;
+    padding: 0;
+    margin: 0;
+    font-size: 70px;
+    transform-origin: center;
+    line-height: 1;
+    width: 70px;
+    height: 70px;
+}
+
+@keyframes rotater {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

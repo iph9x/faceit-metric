@@ -1,0 +1,9 @@
+.footer {
+    display: grid;
+    place-items: center;
+    height: 50px;
+    a, a:hover, a:visited, a:focus {
+        color: #fff;
+        text-decoration: underline;
+    }
+}
