@@ -7,10 +7,10 @@ function Header() {
     return (
         <header className="header">
             <div className="header__container">
-                <Link to="/"><h1>FACEIT METRIC</h1></Link>
+                <Link to="/faceit-metric/"><h1>FACEIT METRIC</h1></Link>
                 <nav className="nav">
-                    <Link to="/">Results</Link>
-                    <Link to="/compare">Compare</Link>
+                    <Link to="/faceit-metric/">Results</Link>
+                    <Link to="/faceit-metric/compare">Compare</Link>
                 </nav>
             </div>
         </header>

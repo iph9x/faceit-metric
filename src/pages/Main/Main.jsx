@@ -93,7 +93,7 @@ function Main() {
         e.preventDefault();
 
         history.push({
-            pathname: '/',
+            pathname: '/faceit-metric/',
             search: `?nickname=${value}&count=${listSize}`
         });     
 
@@ -108,7 +108,7 @@ function Main() {
         setListSize(Number.parseInt(e.target.value));
 
         history.push({
-            pathname: '/',
+            pathname: '/faceit-metric/',
             search: `?nickname=${nickname}&count=${e.target.value}`
         });    
     } 

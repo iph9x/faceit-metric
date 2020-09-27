@@ -7,8 +7,8 @@ import Comparison from '../pages/Comparison/Comparison';
 function AppRouter() {
 	return (
         <Switch>
-            <Route exact path="/" component={Main} />
-            <Route exact path="/compare" component={Comparison} />
+            <Route exact path="/faceit-metric/" component={Main} />
+            <Route exact path="/faceit-metric/compare" component={Comparison} />
         </Switch>
 	);
 }
