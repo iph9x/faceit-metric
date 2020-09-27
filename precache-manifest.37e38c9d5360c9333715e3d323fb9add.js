@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1e93af349dd4232407a5b1d507b04891",
+    "revision": "837da857785e1510bb603453e7a00b22",
     "url": "/faceit-metric/index.html"
   },
   {
-    "revision": "066a01e627b378fc3794",
+    "revision": "cf9be3c16b0c6786868f",
     "url": "/faceit-metric/static/css/main.31de4205.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/faceit-metric/static/js/2.d5ad8ddc.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "066a01e627b378fc3794",
-    "url": "/faceit-metric/static/js/main.5a35e00f.chunk.js"
+    "revision": "cf9be3c16b0c6786868f",
+    "url": "/faceit-metric/static/js/main.b61c122c.chunk.js"
   },
   {
     "revision": "731a377354d8a87f0d74",

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/faceit-metric/precache-manifest.0c44365b4cbf629b5b822e587c8b9705.js"
+  "/faceit-metric/precache-manifest.37e38c9d5360c9333715e3d323fb9add.js"
 );
 
 self.addEventListener('message', (event) => {
