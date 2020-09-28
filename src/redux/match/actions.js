@@ -8,9 +8,9 @@ import {
 // GET MATCHES LIST
 
 export const getMatchesRequest = () => ({ type: GET_MATCHES_LIST_REQUEST });
-export const getMatchesSuccess = (matches) => ({
+export const getMatchesSuccess = (allMatches) => ({
 	type: GET_MATCHES_LIST_SUCCESS,
-	matches,
+	allMatches,
 });
 export const getMatchesFailure = (error) => ({
 	type: GET_MATCHES_LIST_FAILURE,
@@ -22,9 +22,9 @@ export const getMatchesThunkCreator = (playerId, matchesCount) => {
 		dispatch(getMatchesRequest());
 
 		try {
-			const getMatches = await API.GET_ELO(`stats/api/v1/stats/time/users/${playerId}/games/csgo?size=${matchesCount}`);
+			const allMatchesResopnse = await API.GET_ELO(`stats/api/v1/stats/time/users/${playerId}/games/csgo?size=${matchesCount}`);
 
-			dispatch(getMatchesSuccess(getMatches.data));
+			dispatch(getMatchesSuccess(allMatchesResopnse.data));
 		} catch (error) {
 			dispatch(getMatchesFailure(error));
 		}

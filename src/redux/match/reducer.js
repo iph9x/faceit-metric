@@ -5,7 +5,7 @@ import {
 } from "./consts";
   
 const initialState = {
-  matches: null,
+  allMatches: null,
   isFetching: false,
   error: null
 };
@@ -15,13 +15,14 @@ const matchesReducer = (state = initialState, action) => {
     case GET_MATCHES_LIST_REQUEST:
       return {
         ...state,
-        matches: [],
-        isFetching: true
+        allMatches: null,
+        isFetching: true,
+        error: null
       };
     case GET_MATCHES_LIST_SUCCESS:
       return {
         ...state,
-        matches: action.matches,
+        allMatches: action.allMatches,
         error: null,
         isFetching: false
       };

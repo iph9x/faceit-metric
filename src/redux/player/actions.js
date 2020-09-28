@@ -2,7 +2,10 @@ import API from "../../api/api";
 import {
     GET_SEARCH_RESULT_SUCCESS,
     GET_SEARCH_RESULT_REQUEST,
-    GET_SEARCH_RESULT_FAILURE
+	GET_SEARCH_RESULT_FAILURE,
+	GET_COMPARISON_LIST_REQUEST,
+	GET_COMPARISON_LIST_SUCCESS,
+	GET_COMPARISON_LIST_FAILURE
 } from "./consts";
 
 // GET SEARCH RESULT
@@ -23,10 +26,6 @@ export const getPlayerIdThunkCreator = (nickname) => {
 		dispatch(getSearchResultRequest());
 
 		try {
-			// const searchResponse = await API.GET_OPEN(`search/players?nickname=${nickname}&offset=0&limit=1`);
-			// const playerStats = searchResponse.data.items[0];
-			// const playerId = playerStats.player_id;		
-
 			const getUserIdBySearch = await API.GET_ELO(`search/v1?limit=1&query=${nickname}`);
 			const userId = getUserIdBySearch.data.payload.players.results[0].guid;
 			const userNickname = getUserIdBySearch.data.payload.players.results[0].nickname;
@@ -46,6 +45,29 @@ export const getPlayerIdThunkCreator = (nickname) => {
 			dispatch(getSearchResultSuccess(statResponse.data.lifetime, playerInfo));
 
 
+		} catch (error) {
+			dispatch(getSearchResultFailure(error));
+		}
+	};
+};
+
+// SET COMPARISON OBJ
+
+export const setComparisonPlayersRequest = () => ({ type: GET_COMPARISON_LIST_REQUEST });
+export const setComparisonPlayersSuccess = (comparisonPlayers) => ({
+	type: GET_COMPARISON_LIST_SUCCESS,
+	comparisonPlayers
+});
+export const setComparisonPlayersFailure = (error) => ({
+	type: GET_COMPARISON_LIST_FAILURE,
+	error,
+});
+
+export const setComparisonPlayersThunkCreator = (comparisonPlayers) => {
+	return async (dispatch) => {
+		dispatch(getSearchResultRequest());
+		try {		
+			dispatch(getSearchResultSuccess(comparisonPlayers));
 		} catch (error) {
 			dispatch(getSearchResultFailure(error));
 		}

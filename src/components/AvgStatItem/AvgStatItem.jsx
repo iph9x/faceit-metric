@@ -11,6 +11,14 @@ function AvgStatItem ({matches, gamesCount}) {
             <div className="player-card__stat-box">
                 <div className="player-card__string">
                     <div className="player-card__prefix">
+                        avg frags: 
+                    </div>
+                    <div className="player-card__postfix">
+                        {frags}
+                    </div>
+                </div>
+                <div className="player-card__string">
+                    <div className="player-card__prefix">
                         K/D: 
                     </div>
                     <div className="player-card__postfix">
@@ -31,14 +39,6 @@ function AvgStatItem ({matches, gamesCount}) {
                     </div>
                     <div className="player-card__postfix">
                         {hs}
-                    </div>
-                </div>
-                <div className="player-card__string">
-                    <div className="player-card__prefix">
-                        avg frags: 
-                    </div>
-                    <div className="player-card__postfix">
-                        {frags}
                     </div>
                 </div>
                 <div className="player-card__string">

@@ -16,9 +16,9 @@ export const calcStatsForNGames = (matches) => {
         winrate: 0,
     };
 
-    const size = matches.length - 1;
+    const size = matches.length;
 
-    for (let i = 0; i < matches.length - 1; i += 1) {
+    for (let i = 0; i < size; i += 1) {
         sumStats.kd += Number.parseFloat(matches[i].c2);
         sumStats.kr += Number.parseFloat(matches[i].c3);
         sumStats.frags += Number.parseFloat(matches[i].i6);

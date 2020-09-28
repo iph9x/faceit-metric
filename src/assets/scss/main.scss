@@ -110,7 +110,6 @@ a, a:visited, a:active {
         grid-template-columns: repeat(3, 1fr);
         row-gap: 20px;
         column-gap: 20px;
-        grid-template-areas: avatar alltime avg;
         justify-items: center;
         justify-content: center;
         margin-bottom: 30px;
@@ -122,12 +121,12 @@ a, a:visited, a:active {
         }
     }
     &-card {
+        position: relative;
         display: flex;
         flex-direction: column;
         animation: popup .4s;
         align-items: center;
         width: 300px;
-        // background: #2c2f33;
         background: $card-bg;
         padding: 20px;
         border-radius: 20px;
@@ -137,13 +136,47 @@ a, a:visited, a:active {
         &__nickname {
             font-size: 36px;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            width: 100%;
+            text-align: center;
+        }
+        &__bg {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            color: transparent;
+            transform: translate(-50%, 75px);
+            width: 215px;
+            height: 215px;           
+            border-radius: 100%;
+            z-index: 2;
+            &_red {
+                background-image: linear-gradient(45deg, transparent 50%, #ce3530 50%),
+                linear-gradient(-45deg, transparent 50%, #ce3530 50%);
+            }
+            &_orange {
+                background-image: linear-gradient(45deg, transparent 50%, #e56a3b  50%),
+                linear-gradient(-45deg, transparent 50%, #e56a3b 50%);
+            }
+            &_yellow {
+                background-image: linear-gradient(45deg, transparent 50%, rgb(255, 200, 0) 50%),
+                linear-gradient(-45deg, transparent 50%, rgb(255, 200, 0)  50%);
+            }
+            &_green {
+                background-image: linear-gradient(45deg, transparent 50%, #36ae38 50%),
+                linear-gradient(-45deg, transparent 50%,  #36ae38 50%);
+            }
+            &_white {
+                background-image: linear-gradient(45deg, transparent 50%, rgb(238, 238, 238) 50%),
+                linear-gradient(-45deg, transparent 50%, rgb(238, 238, 238)  50%);
+            }
         }
         &__avatar {
+            position: relative;
             border-radius: 100%;
-            width: 150px;
-            height: 150px;
-            margin-bottom: 20px;
+            width: 180px;
+            height: 180px;
+            z-index: 3;
         }
         &__string {
             position: relative;
@@ -233,7 +266,7 @@ a, a:visited, a:active {
 .match {
     &__wrapper {
         width: 100%;
-        font-size: 18px;
+        font-size: 16px;
         animation: popupmatches .4s;
         transform-origin: top center;
         font-weight: 700;
@@ -250,20 +283,21 @@ a, a:visited, a:active {
             font-size: 8px;
         }
     }
+    &__item,
     &__item-titles {
         display: grid;
-        grid-template-columns: 2fr 2fr repeat(4, 1fr) 2fr 1fr;
+        grid-template-columns: 2fr 4fr 2fr 1fr 1fr 2fr 3fr 2fr;
         justify-items: center;
+        align-items: center;
+        padding: 0 5px;
+    }
+    &__item-titles {
         margin-bottom: 10px;
         font-weight: 400;
         border-top: 1px solid $table-top-border-color;
-        padding-top: 10px;
+        padding: 10px 5px 0 5px;
     }
-    &__item {
-        display: grid;
-        grid-template-columns: 2fr 2fr repeat(4, 1fr) 2fr 1fr;
-        justify-items: center;
-        align-items: center;
+    &__item {        
         height: 40px;
         border-radius: 20px;
         margin-bottom: 10px;

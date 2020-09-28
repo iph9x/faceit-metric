@@ -13,6 +13,7 @@ function MatchItem({
     assists,
     deaths,
     date,
+    eloDif,
     elo,
     matchId
 }) {
@@ -29,9 +30,9 @@ function MatchItem({
                 <div>{score}</div>
                 <div>{kd}</div>
                 <div>{hs}</div>
-                <div>{`${frags}/${assists}/${deaths}`}</div>
+                <div>{`${frags} - ${assists} - ${deaths}`}</div>
                 <div>{secToDate(date)}</div>
-                <div>{Number.isNaN(elo) ? 0 : (elo > 0 ? `+${elo}` : elo)}</div>
+                <div>{`${elo} ${eloDif ? `(${Number.isNaN(eloDif) ? "+0" : (eloDif > 0 ? `+${eloDif}` : eloDif)})` : `` }`}</div>
             </div>
         </a>
     );

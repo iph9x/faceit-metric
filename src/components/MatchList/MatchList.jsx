@@ -11,14 +11,14 @@ function MatchList({
                     <div>map</div>
                     <div>team</div>
                     <div>score</div>
-                    <div>k/d</div>
-                    <div>hs, %</div>
-                    <div>stat</div>
+                    <div>kd</div>
+                    <div>hs %</div>
+                    <div>k - a - d</div>
                     <div>date</div>
                     <div>elo</div>
                 </div>
             )}
-            {matches &&  matchesArr}
+            {matches && matchesArr}
         </div>           
     );
 }
