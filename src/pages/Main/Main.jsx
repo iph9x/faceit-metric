@@ -235,7 +235,7 @@ function Main() {
                             onChange={onChangeHandler} 
                         />
                         <button 
-                            disabled={globalFetching}
+                            // disabled={globalFetching}
                             type="submit"
                             className="main__btn-search btn"
                         >
