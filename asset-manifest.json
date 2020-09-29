@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/faceit-metric/static/css/main.7b84b937.chunk.css",
-    "main.js": "/faceit-metric/static/js/main.c110bd1e.chunk.js",
-    "main.js.map": "/faceit-metric/static/js/main.c110bd1e.chunk.js.map",
+    "main.css": "/faceit-metric/static/css/main.c51eb1a9.chunk.css",
+    "main.js": "/faceit-metric/static/js/main.3e0453ed.chunk.js",
+    "main.js.map": "/faceit-metric/static/js/main.3e0453ed.chunk.js.map",
     "runtime-main.js": "/faceit-metric/static/js/runtime-main.f2b938bc.js",
     "runtime-main.js.map": "/faceit-metric/static/js/runtime-main.f2b938bc.js.map",
-    "static/js/2.1ec8f39c.chunk.js": "/faceit-metric/static/js/2.1ec8f39c.chunk.js",
-    "static/js/2.1ec8f39c.chunk.js.map": "/faceit-metric/static/js/2.1ec8f39c.chunk.js.map",
+    "static/js/2.a09b2829.chunk.js": "/faceit-metric/static/js/2.a09b2829.chunk.js",
+    "static/js/2.a09b2829.chunk.js.map": "/faceit-metric/static/js/2.a09b2829.chunk.js.map",
     "index.html": "/faceit-metric/index.html",
-    "precache-manifest.9fa6fec7029eda2a1fef9063bd139eb5.js": "/faceit-metric/precache-manifest.9fa6fec7029eda2a1fef9063bd139eb5.js",
+    "precache-manifest.49de8a3f938562bd26d495cc208ddc78.js": "/faceit-metric/precache-manifest.49de8a3f938562bd26d495cc208ddc78.js",
     "service-worker.js": "/faceit-metric/service-worker.js",
-    "static/css/main.7b84b937.chunk.css.map": "/faceit-metric/static/css/main.7b84b937.chunk.css.map",
-    "static/js/2.1ec8f39c.chunk.js.LICENSE.txt": "/faceit-metric/static/js/2.1ec8f39c.chunk.js.LICENSE.txt"
+    "static/css/main.c51eb1a9.chunk.css.map": "/faceit-metric/static/css/main.c51eb1a9.chunk.css.map",
+    "static/js/2.a09b2829.chunk.js.LICENSE.txt": "/faceit-metric/static/js/2.a09b2829.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f2b938bc.js",
-    "static/js/2.1ec8f39c.chunk.js",
-    "static/css/main.7b84b937.chunk.css",
-    "static/js/main.c110bd1e.chunk.js"
+    "static/js/2.a09b2829.chunk.js",
+    "static/css/main.c51eb1a9.chunk.css",
+    "static/js/main.3e0453ed.chunk.js"
   ]
 }
