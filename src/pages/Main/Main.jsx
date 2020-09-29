@@ -2,87 +2,97 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
+import classNames from 'classnames';
+
 import { getPlayerIdThunkCreator } from '../../redux/player/actions';
 import { getMatchesThunkCreator } from '../../redux/match/actions';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import classNames from 'classnames';
-
 import Preloader from '../../components/Preloader/Preloader';
 import PlayerCard from '../../components/PlayerCard/PlayerCard';
-
 import MatchList from '../../components/MatchList/MatchList';
 import MatchItem from '../../components/MatchItem/MatchItem';
-
-import { calcStatsForNGames } from '../../assets/js/utils';
+import LineChart from '../../components/LineChart/LineChart';
 import AvgStatItem from '../../components/AvgStatItem/AvgStatItem';
 
+import { calcStatsForNGames, secToDate } from '../../assets/js/utils';
+
 import '../../assets/scss/select.scss';
+import Comparison from '../Comparison/Comparison';
 
 function Main() {
     const dispatch = useDispatch();
 
     const {playerStats, isFetching, error} = useSelector(store => store.playerSearch);
     const {allMatches, isFetching: matchFetching} = useSelector(store => store.matchesList);
-    const {playerAvatar, skill_level, faceit_elo, nickname, playerId} = useSelector(store => store.playerSearch.playerInfo);
+    const { playerAvatar,
+            skill_level,
+            faceit_elo,
+            nickname,
+            playerId
+        } = useSelector(store => store.playerSearch.playerInfo);
     
     const { search } = useLocation();   
     const history = useHistory();
+    
+    // GLOBAL FETCHING
+    const [globalFetching, setGlobalFetching] = useState(false);
 
     const [value, setValue] = useState('');
-    const [currentUrl, setCurrentUrl] = useState('');
+    const [currentUrl, setCurrentUrl] = useState(null);
 
     // Array of elements-matches
     const [matchesArr, setMatchesArr] = useState([]);
+
+    const [eloArr, setEloArr] = useState([]);
+    // Array of match date
+    const [numsChart, setNumsChart] = useState([]);
 
     const [listSize, setListSize] = useState(20);
     const [maxElo, setMaxElo] = useState(0);
 
     // Array of last matches
     const [matches, setMatchesBySize] = useState(null);
+    
+    // Manage Components
+    const [showProfile, setProfile] = useState(true);
+    const [showChart, setShowChart] = useState(false);
+    const [showCompare, setShowCompare] = useState(false);
 
+    const searchAndNickMatch = () => {
+        return nickname.toLowerCase() === currentUrl.toLowerCase();
+    } 
 
     // Get player info if url change
+    useEffect(() => {
+        setGlobalFetching(true);
+    }, [search])
+
     useEffect(() => {
         const nicknamePURL = new URLSearchParams(search);
         const currentNick = nicknamePURL.get("nickname");
 
         if (currentNick) {
-            setCurrentUrl(currentNick)
+            setCurrentUrl(currentNick);
             dispatch(getPlayerIdThunkCreator(currentNick));
         }       
     }, [dispatch, search]);    
 
     // Get allMatches after getting player info
-    useEffect(() => {
-        if (playerId && playerStats.m1) {
+    useEffect(() => {        
+        if (playerStats && !isFetching) {
             dispatch(getMatchesThunkCreator(playerId, playerStats.m1));
         }
-    }, [dispatch, playerId, playerStats]);
+    // eslint-disable-next-line
+    }, [dispatch, playerId]);
 
-    // Slice allMatches
-    useEffect(() => {
-        if (allMatches) {
-            if (allMatches.length < listSize) {
-                setListSize(allMatches.length);
-                setMatchesBySize(allMatches);
-            } else {
-                const newArrFull = [...allMatches];
-                const newArr = newArrFull.slice(0, listSize);
-    
-                setMatchesBySize(newArr);
-            }
-
-        }
-    }, [allMatches, listSize]);
 
     // Find max elo
-    // Mapping matches list
     useEffect(() => {
-        
-        let maxEloArr = [];
-        if (matches && allMatches) {
+        if (allMatches) {  
+            let maxEloArr = [];
 
             for (let i = 0; i < allMatches.length; i += 1) {
                 maxEloArr[i] = Number.parseInt(allMatches[i].elo);
@@ -90,36 +100,48 @@ function Main() {
             const maxEloReturn = maxEloArr.filter(item => !(Number.isNaN(item)) );
             setMaxElo(Math.max(...maxEloReturn));
         }
-        if (matches && allMatches) {
+    }, [allMatches])
+
+    // Slice allMatches
+    useEffect(() => {        
+        if (allMatches && !matchFetching) {
+            if (allMatches.length < listSize) {
+                setMatchesBySize(allMatches);
+            } else {
+                const newArrFull = [...allMatches];
+                setMatchesBySize(newArrFull.slice(0, listSize));
+            }
+        }
+    // eslint-disable-next-line
+    }, [allMatches, listSize]);
+
+    // Mapping matches list. Create DOM matches
+    useEffect(() => {        
+        if (matches && allMatches) {            
             let eloArr = [];
-            
+            let currentEloArr = [];
+            let nums = [];
+
             for (let i = 0; i < listSize; i += 1) {
                 if (allMatches[i + 1]) {
                     eloArr[i] = allMatches[i].elo - allMatches[i + 1].elo;
+                    if (allMatches[i].elo !== undefined) {
+                        currentEloArr[i] = allMatches[i].elo; 
+                        nums[i] = secToDate(allMatches[i].created_at);
+                    } else {
+                        currentEloArr[i] = null; 
+                        nums[i] = null;
+                    }
                 }
-            }           
+            }
+
+            setEloArr(currentEloArr.filter(item => item !== null).reverse());
+            setNumsChart(nums.filter(item => item !== null).reverse());
 
             const arrOfElMatches = matches.map((match, index) => {
-                const bgClass = classNames({
-                    match__item: true,
-                    'match__win': match.i10 === '1',
-                    'match__lose': match.i10 === '0'
-                });
-                
                 return ( <MatchItem
-                    key={match.matchId}
-                    matchId={match.matchId}
-                    bgClass={bgClass}
-                    map={match.i1}
-                    team={match.i5}
-                    score={match.i18}
-                    kd={match.c2}
-                    hs={match.c4}
-                    frags={match.i6}
-                    assists={match.i7}
-                    deaths={match.i8}
-                    date={match.created_at}
-                    elo={match.elo}
+                    key={match.matchId + index}
+                    match={match}
                     eloDif={eloArr[index]}
                 />)                
             });
@@ -127,7 +149,14 @@ function Main() {
             setMatchesArr(arrOfElMatches);
         }
     // eslint-disable-next-line
-    }, [allMatches, listSize, matches])
+    }, [listSize, matches]);
+
+    useEffect(() => {
+        if (matches && searchAndNickMatch()) {
+            setGlobalFetching(false);
+        }
+    // eslint-disable-next-line
+    }, [matches])
 
     const clickHandler = (e) => {
         e.preventDefault();
@@ -156,6 +185,40 @@ function Main() {
         setListSize(Number.parseInt(e.target.value));
     } 
 
+    const setProfileComponent = () => {
+        setProfile(true)
+        setShowChart(false)
+        setShowCompare(false)
+    }
+    const setChartComponent = () => {
+        setProfile(false)
+        setShowChart(true)
+        setShowCompare(false)
+    }
+    const setComparisonComponent = () => {
+        setProfile(false)
+        setShowChart(false)
+        setShowCompare(true)
+    }
+
+    const btnNavClassProfile = classNames({
+        btn: true,
+        "main__nav-btn": true,
+        'main__nav-btn_active': showProfile,
+    });
+
+    const btnNavClassChart = classNames({
+        btn: true,
+        "main__nav-btn": true,
+        'main__nav-btn_active': showChart,
+    });
+
+    const btnNavClassCompare = classNames({
+        btn: true,
+        "main__nav-btn": true,
+        'main__nav-btn_active': showCompare,
+    });
+
     return (
         <main className="main">
             <div className="main__container container">
@@ -171,11 +234,19 @@ function Main() {
                             placeholder="Enter nickname..."
                             onChange={onChangeHandler} 
                         />
-                        <button type="submit" className="main__btn-search btn">
+                        <button 
+                            disabled={globalFetching}
+                            type="submit"
+                            className="main__btn-search btn"
+                        >
                             <FontAwesomeIcon icon={faSearch} />
                         </button>
                         <div className="select">
-                            <select defaultValue={listSize} onChange={onSizeChangeHandler} className="main__select" >
+                            <select 
+                                value={listSize} 
+                                onChange={onSizeChangeHandler}
+                                className="main__select" 
+                            >
                                 <option value={10}>10</option>
                                 <option value={20}>20</option>
                                 <option value={30}>30</option>
@@ -185,15 +256,33 @@ function Main() {
                             </select>
                        </div>
                     </form>
-                    {!isFetching && currentUrl && nickname && (error && nickname.toLowerCase() !== currentUrl.toLowerCase()) 
-                    && (<div>Player {currentUrl} not found</div>)}
-                    
-                    {(isFetching || matchFetching) &&
+                    {playerStats && matches && !error && nickname &&  searchAndNickMatch()
+                    && !isFetching && !matchFetching
+                    && (<div className="main__nav-wrapper">
+                        <button className={btnNavClassProfile} onClick={setProfileComponent}>
+                            Profile
+                        </button>
+                        <button className={btnNavClassChart} onClick={setChartComponent}>
+                            Chart
+                        </button>
+                        <button className={btnNavClassCompare} onClick={setComparisonComponent}>
+                            Compare
+                        </button>
+                    </div>)}
+                    {(globalFetching && !error && currentUrl) &&
                     <Preloader />
                     }
+                    {/* {console.log(globalFetching, currentUrl, nickname,  nickname && searchAndNickMatch())} */}
+                    {((!globalFetching && nickname && !searchAndNickMatch()) || error)
+                    && (<div>Player {currentUrl} not found</div>)}                    
+                    {showChart && playerStats && matches && !error
+                    && nickname && searchAndNickMatch() && !isFetching && !matchFetching
+                    && <LineChart eloArr={eloArr} numsChart={numsChart} />
+                    }
+                    {showProfile && playerStats && matches && !error && nickname && searchAndNickMatch()
+                    && !isFetching && !matchFetching
+                    &&(                    
                     <div className="player-cards">
-                        {playerStats && !error && currentUrl && !isFetching && !matchFetching && nickname.toLowerCase() === currentUrl.toLowerCase() 
-                        &&(                    
                         <PlayerCard
                             maxElo={maxElo}
                             nickname={nickname}
@@ -205,17 +294,16 @@ function Main() {
                             hs={playerStats.k8}
                             winRate={playerStats.k6}
                         />
-                        )}
-                        {matches && !error && currentUrl && !isFetching && !matchFetching && nickname.toLowerCase() === currentUrl.toLowerCase() 
-                        && (                    
                         <AvgStatItem
-                            gamesCount={listSize}
+                            gamesCount={allMatches.length < listSize ? allMatches.length : listSize}
                             matches={calcStatsForNGames(matches)}
                         />
-                        )}
                     </div>
+                    )}
+                    {showCompare && <Comparison />}
                 </div>                
-                {matches && !error && currentUrl && !isFetching && !matchFetching && nickname.toLowerCase() === currentUrl.toLowerCase() 
+                {matches && !error && nickname && searchAndNickMatch() && !isFetching
+                && !matchFetching 
                 && (
                     <MatchList
                         matches={matches}

@@ -2,8 +2,7 @@ export const secToDate = (secs) => {
     const startTime = new Date(null); 
     startTime.setTime(secs);
     const outString = `
-        ${startTime.getDate() < 10 ? `0${startTime.getDate()}` : startTime.getDate()}.${startTime.getMonth() < 10 ? `0${startTime.getMonth() + 1}` : startTime.getMonth() + 1} -
-        ${startTime.getHours() < 10 ? `0${startTime.getHours()}` : startTime.getHours()}:${startTime.getMinutes() < 10 ? `0${startTime.getMinutes()}` : startTime.getMinutes()}`;
+        ${startTime.getDate() < 10 ? `0${startTime.getDate()}` : startTime.getDate()}.${startTime.getMonth() < 10 ? `0${startTime.getMonth() + 1}` : startTime.getMonth() + 1} - ${startTime.getHours() < 10 ? `0${startTime.getHours()}` : startTime.getHours()}:${startTime.getMinutes() < 10 ? `0${startTime.getMinutes()}` : startTime.getMinutes()}`;
     return outString;
 }
 

@@ -38,7 +38,7 @@ function AvgStatItem ({matches, gamesCount}) {
                         avg hs:
                     </div>
                     <div className="player-card__postfix">
-                        {hs}
+                        {hs}%
                     </div>
                 </div>
                 <div className="player-card__string">

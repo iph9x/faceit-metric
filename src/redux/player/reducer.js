@@ -27,7 +27,10 @@ const playerReducer = (state = initialState, action) => {
 			return {
 				...state,
 				playerStats: null,
-				playerInfo: {},
+				playerInfo: {
+					nickname: null, 
+					playerId: null
+				},
 				isFetching: true
 			};
 		case GET_SEARCH_RESULT_SUCCESS:
@@ -47,8 +50,8 @@ const playerReducer = (state = initialState, action) => {
 		case GET_COMPARISON_LIST_REQUEST:
 			return {
 				...state,
-				playerStats: null,
-				playerInfo: {},
+				// playerStats: null,
+				// playerInfo: {},
 				isFetching: true
 			};
 		case GET_COMPARISON_LIST_SUCCESS:

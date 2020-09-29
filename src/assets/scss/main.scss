@@ -40,6 +40,7 @@ a, a:visited, a:active {
     justify-content: center;
     align-items: center;
     -webkit-tap-highlight-color: transparent;
+    transition: background .2s;
     &:focus,
     &:active {
         outline: none;
@@ -52,24 +53,66 @@ a, a:visited, a:active {
 .main {
     padding-top: 30px;
     padding-bottom: 30px;
+    &__nav {
+        &-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        &-btn {
+            height: 40px;
+            font-size: 20px;
+            line-height: 1;
+            padding: 0 15px;
+            border: none;
+            background: rgb(139, 139, 139);
+            border-radius: 20px;
+            margin-right: 10px;
+            :disabled:active,
+            :disabled:focus {
+                color: $black;
+            }
+            &:hover {
+                background: rgb(196, 196, 196);
+            }
+            &:focus,
+            &:active {
+                color: $black;
+            }
+            &_active {
+                background: $white;
+            }
+        }
+    }
     &__select {
         height: 30px;
     }
     &__form {
-        display: flex;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: auto 74px 80px;
+        justify-content: stretch;
         align-items: center;
-        width: 100%;
-        margin-bottom: 40px;
+        width: 100%;    
+        margin-bottom: 20px;       
     }
     &__btn-search {
         color: $white;
-        height: 30px;
-        width: 30px;
+        width: 54px;
+        height: 40px;
+        z-index: 5;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
         border: none;
         background: $btn-search-bg;
-        transform: translateX(-17px);
-        border-radius: 100%;
+        z-index: 10;
+        margin-right: 20px;
+        &:hover {
+            background: #2c70d7;
+        }
+        &:disabled {
+            opacity: 0.5;
+        }
     }
     &__container {      
         display: flex;
@@ -81,15 +124,14 @@ a, a:visited, a:active {
         align-items: center;
     }
     &__input {
-        width: 80%;
+        width: 100%;
         height: 40px;
         font-size: 24px;
-        border-radius: 20px;
+        border-radius: 20px 0 0 20px;
         border: 2px solid $white;
         padding-left: 15px;
         padding-right: 40px;
         background: $input-bg;
-        transform: translateX(17px);
         &::placeholder {
             font-family: 'Roboto', sans-serif;
             font-weight: 400;
@@ -177,6 +219,10 @@ a, a:visited, a:active {
             width: 180px;
             height: 180px;
             z-index: 3;
+            background: $card-bg;
+            &:not([src]) {
+                content: "";
+            }
         }
         &__string {
             position: relative;
@@ -207,8 +253,7 @@ a, a:visited, a:active {
             width: 80%;
         }
         &__alltime-box {
-            grid-area: alltime;
-            grid-column: 2 / 3;
+            grid-column: 1 / 2;
             grid-row: 1 / 2;
             @media (max-width: 1024px) {
                 grid-column: 1 / 2;
@@ -222,8 +267,7 @@ a, a:visited, a:active {
             }
         }
         &__avatar-box {
-            grid-area: avatar;
-            grid-column: 1 / 2;
+            grid-column: 2 / 3;
             grid-row: 1 / 2;
             @media (max-width: 1024px) {
                 width: 100%;
@@ -238,7 +282,6 @@ a, a:visited, a:active {
         }
         &__avg {
             &-box {
-                grid-area: avg;
                 grid-column: 3 / 4;
                 grid-row: 1 / 2;
                 @media (max-width: 1024px) {
@@ -314,11 +357,9 @@ a, a:visited, a:active {
 
 @keyframes popup {
     from {
-        transform: scaleX(0);
         opacity: 0;
     }
     to {
-        transform: scaleX(1);
         opacity: 1;
     }
 }

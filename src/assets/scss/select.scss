@@ -21,16 +21,17 @@
     }
     
     &:before {
-      width: 25px;
+      content: '';
       position: absolute;
       top: 1px;
       right: 1px;
       bottom: 1px;
+      width: 25px;
       background: whitesmoke;
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
       border-left: 1px solid #ccc;
-      content: '';
+      transition: background .2s;
       pointer-events: none;
     }
     
