@@ -23,4 +23,28 @@ $win-match-image: linear-gradient(160deg, #178f68, #178f68ad 70%);
 $win-match-bg: #066f35;
 $lose-match-image: linear-gradient(160deg, #dd1141e0, #dd1141bf 70%);
 $lose-match-bg: #710e0e;
-// $lose-match-bg: #633f3f;
+
+$winner-match-bg: #3f634d;
+$loser-match-bg: #633f3f;
+
+$border-radius: 20px;
+
+@keyframes popup {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popupmatches {
+    from {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+    to {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}

@@ -12,8 +12,10 @@ function MatchList({
                     <div>team</div>
                     <div>score</div>
                     <div>kd</div>
-                    <div>hs %</div>
-                    <div>k - a - d</div>
+                    <div>hs</div>
+                    <div>K</div>
+                    <div>A</div>
+                    <div>D</div>
                     <div>date</div>
                     <div>elo</div>
                 </div>

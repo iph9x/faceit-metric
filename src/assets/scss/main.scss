@@ -36,14 +36,20 @@ a, a:visited, a:active {
 }
 
 .btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    -webkit-tap-highlight-color: transparent;
+    display: grid;
+    place-items: center;
     transition: background .2s;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: $border-radius;
+    background: #fff;
+    font-size: 20px;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
     &:focus,
     &:active {
         outline: none;
+        color: $black;
     }
     &:hover {
         cursor: pointer;
@@ -61,13 +67,9 @@ a, a:visited, a:active {
             margin-bottom: 20px;
         }
         &-btn {
-            height: 40px;
-            font-size: 20px;
             line-height: 1;
             padding: 0 15px;
-            border: none;
             background: rgb(139, 139, 139);
-            border-radius: 20px;
             margin-right: 10px;
             :disabled:active,
             :disabled:focus {
@@ -75,10 +77,6 @@ a, a:visited, a:active {
             }
             &:hover {
                 background: rgb(196, 196, 196);
-            }
-            &:focus,
-            &:active {
-                color: $black;
             }
             &_active {
                 background: $white;
@@ -101,12 +99,13 @@ a, a:visited, a:active {
         width: 54px;
         height: 40px;
         z-index: 5;
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
         border: none;
         background: $btn-search-bg;
         z-index: 10;
         margin-right: 20px;
+        padding: 0 17px;
         &:hover {
             background: #2c70d7;
         }
@@ -171,7 +170,7 @@ a, a:visited, a:active {
         width: 300px;
         background: $card-bg;
         padding: 20px;
-        border-radius: 20px;
+        border-radius: $border-radius;
         @media (max-width: 670px) {
             padding: 20px 10px;
         }
@@ -329,10 +328,10 @@ a, a:visited, a:active {
     &__item,
     &__item-titles {
         display: grid;
-        grid-template-columns: 2fr 4fr 2fr 1fr 1fr 2fr 3fr 2fr;
+        grid-template-columns: 3fr 4fr 3fr 2fr 2fr 1fr 1fr 1fr 4fr 2fr;
         justify-items: center;
         align-items: center;
-        padding: 0 5px;
+        padding: 0 10px;
     }
     &__item-titles {
         margin-bottom: 10px;
@@ -342,35 +341,16 @@ a, a:visited, a:active {
     }
     &__item {        
         height: 40px;
-        border-radius: 20px;
+        border-radius: $border-radius;
         margin-bottom: 10px;
+        &:hover {
+            cursor: pointer;
+        }
     }
     &__win {
-        background: $win-match-bg;
-        background-image: $win-match-image;
+        background: $winner-match-bg;
     }
     &__lose {
-        background: $lose-match-bg;
-        background-image: $lose-match-image;
-    }
-}
-
-@keyframes popup {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes popupmatches {
-    from {
-        transform: scaleY(0);
-        opacity: 0;
-    }
-    to {
-        transform: scaleY(1);
-        opacity: 1;
+        background: $loser-match-bg;
     }
 }

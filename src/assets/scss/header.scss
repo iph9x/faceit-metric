@@ -10,7 +10,7 @@
         position: relative;
         letter-spacing: .02em;
         font-weight: 400;
-        border-radius: 20px;
+        border-radius: $border-radius;
         display: grid;
         &::after {
             content: '';

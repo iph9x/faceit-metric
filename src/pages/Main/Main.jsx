@@ -21,6 +21,7 @@ import { calcStatsForNGames, secToDate } from '../../assets/js/utils';
 
 import '../../assets/scss/select.scss';
 import Comparison from '../Comparison/Comparison';
+import CheckRoom from '../CheckRoom/CheckRoom';
 
 function Main() {
     const dispatch = useDispatch();
@@ -61,13 +62,18 @@ function Main() {
     const [showChart, setShowChart] = useState(false);
     const [showCompare, setShowCompare] = useState(false);
 
+    const [showMatches, setShowMatches] = useState(true);
+    const [matchId, setMatchId] = useState('');
+
     const searchAndNickMatch = () => {
         return nickname.toLowerCase() === currentUrl.toLowerCase();
     } 
 
     // Get player info if url change
     useEffect(() => {
-        setGlobalFetching(true);
+        if (search !== '') {
+            setGlobalFetching(true);
+        }
     }, [search])
 
     useEffect(() => {
@@ -75,9 +81,12 @@ function Main() {
         const currentNick = nicknamePURL.get("nickname");
 
         if (currentNick) {
-            setCurrentUrl(currentNick);
+            if (currentNick !== currentUrl) {
+                setCurrentUrl(currentNick);
+            }
             dispatch(getPlayerIdThunkCreator(currentNick));
-        }       
+        }          
+    // eslint-disable-next-line
     }, [dispatch, search]);    
 
     // Get allMatches after getting player info
@@ -143,6 +152,8 @@ function Main() {
                     key={match.matchId + index}
                     match={match}
                     eloDif={eloArr[index]}
+                    setMatchId={setMatchId}
+                    setShowMatches={setShowMatches} 
                 />)                
             });
 
@@ -152,13 +163,13 @@ function Main() {
     }, [listSize, matches]);
 
     useEffect(() => {
-        if (matches && searchAndNickMatch()) {
+        if (matches) {
             setGlobalFetching(false);
         }
     // eslint-disable-next-line
     }, [matches])
 
-    const clickHandler = (e) => {
+    const onClickHandler = (e) => {
         e.preventDefault();
 
         history.push({
@@ -170,8 +181,8 @@ function Main() {
         const currentNick = nicknamePURL.get("nickname");
 
         if (currentNick) {
+            setShowMatches(true);
             setCurrentUrl(currentNick)
-            dispatch(getPlayerIdThunkCreator(currentNick));
         }
 
         setValue('');
@@ -223,7 +234,7 @@ function Main() {
         <main className="main">
             <div className="main__container container">
                 <div className="main__info-box">
-                    <form className="main__form" onSubmit={clickHandler}>
+                    <form className="main__form" onSubmit={onClickHandler}>
                         <input
                             autoComplete="off"
                             autoCorrect="off"
@@ -235,7 +246,7 @@ function Main() {
                             onChange={onChangeHandler} 
                         />
                         <button 
-                            // disabled={globalFetching}
+                            disabled={isFetching || matchFetching}
                             type="submit"
                             className="main__btn-search btn"
                         >
@@ -257,7 +268,7 @@ function Main() {
                        </div>
                     </form>
                     {playerStats && matches && !error && nickname &&  searchAndNickMatch()
-                    && !isFetching && !matchFetching
+                    && !globalFetching
                     && (<div className="main__nav-wrapper">
                         <button className={btnNavClassProfile} onClick={setProfileComponent}>
                             Profile
@@ -272,7 +283,6 @@ function Main() {
                     {(globalFetching && !error && currentUrl) &&
                     <Preloader />
                     }
-                    {/* {console.log(globalFetching, currentUrl, nickname,  nickname && searchAndNickMatch())} */}
                     {((!globalFetching && nickname && !searchAndNickMatch()) || error)
                     && (<div>Player {currentUrl} not found</div>)}                    
                     {showChart && playerStats && matches && !error
@@ -303,13 +313,19 @@ function Main() {
                     {showCompare && <Comparison />}
                 </div>                
                 {matches && !error && nickname && searchAndNickMatch() && !isFetching
-                && !matchFetching 
+                && !matchFetching && showMatches
                 && (
                     <MatchList
                         matches={matches}
                         matchesArr={matchesArr}
                     />               
                 )}
+                {!showMatches && matchId &&
+                    <CheckRoom 
+                        roomId={matchId}
+                        setShowMatches={setShowMatches} 
+                    />
+                }
             </div>
         </main>
     );
