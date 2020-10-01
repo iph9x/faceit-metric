@@ -6,18 +6,15 @@ import classNames from 'classnames';
 
 import { getTeamsThunkCreator } from '../../redux/room/actions';
 
-import Preloader from '../../components/Preloader/Preloader';
+import Preloader from '../Preloader/Preloader';
 
 import '../../assets/scss/checkRoom.scss';
-import RoomPlayerItem from '../../components/RoomPlayerItem/RoomPlayerItem';
-import RoomCaptions from '../../components/RoomCaptions/RoomCaptions';
+import RoomPlayerItem from '../RoomPlayerItem/RoomPlayerItem';
+import RoomCaptions from '../RoomCaptions/RoomCaptions';
 
 const CheckRoom = ({roomId, setShowMatches}) => {
     const dispatch = useDispatch();
 
-    
-    // const [value, setValue] = useState('');
-    // const [roomId, setRoomId] = useState('');
     const [team1Roster, setTeam1Roster] = useState(null);
     const [team2Roster, setTeam2Roster] = useState(null);
     const [team1Class, setTeam1Class] = useState('');
@@ -59,15 +56,18 @@ const CheckRoom = ({roomId, setShowMatches}) => {
 
     const createArr = (team, numTeamStats) => {
         return (team.map((player, i) => {
-            return ( 
-                <RoomPlayerItem 
-                    key={player.id} 
-                    setShowMatches={setShowMatches}
-                    player={player} 
-                    i={i} 
-                    numTeamStats={numTeamStats} 
-                />
-            );
+            if (numTeamStats[i]) {
+                return ( 
+                    <RoomPlayerItem 
+                        key={player.id} 
+                        setShowMatches={setShowMatches}
+                        player={player} 
+                        i={i} 
+                        numTeamStats={numTeamStats} 
+                    />
+                );
+            }
+            return null;
         }))
     };
 
@@ -87,6 +87,18 @@ const CheckRoom = ({roomId, setShowMatches}) => {
                     Show all matches
                 </button>
                 <div className="room__game-info">
+                    {teamsInfo.matchCustom.tree.location.values.value[0] &&
+                    (<div className="room__region">
+                            {teamsInfo.matchCustom.tree.location.values.value[0].name}
+                            <img src={teamsInfo.matchCustom.tree.location.values.value[0].image_sm} alt=""/>
+                    </div>
+                    )}
+                    {!teamsInfo.matchCustom.tree.location.values.value[0] &&
+                    (<div className="room__region">
+                            {teamsInfo.matchCustom.tree.location.values.value.name}
+                            <img src={teamsInfo.matchCustom.tree.location.values.value.image_sm} alt=""/>
+                    </div>
+                    )}
                     <div className="room__map">
                         {teamsStats.i1}
                     </div>
@@ -94,7 +106,9 @@ const CheckRoom = ({roomId, setShowMatches}) => {
                         {teamsStats.teams[0].c5} - {teamsStats.teams[1].c5}
                     </div>
                     <div className="room__endtime">
-                        {parseEndTime(teamsInfo.checkIn.endTime)}
+                        {teamsInfo.checkIn 
+                        ? parseEndTime(teamsInfo.checkIn.endTime)
+                        : parseEndTime(teamsInfo.substitution.endTime)}
                     </div>
                 </div>
                 <div className="room__team-wrapper">

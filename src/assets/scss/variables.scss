@@ -4,6 +4,8 @@ $apple-blue: rgb(3, 97, 204);
 
 $btn-search-bg: rgb(38, 102, 199);
 
+$secondary-color: rgb(145, 145, 145);
+
 $header-border-color: #26282b;
 $logo-gradient: linear-gradient(to right, #dd1141, #2666c7 70%);
 
@@ -16,16 +18,17 @@ $input-placeholder-color: rgb(161, 161, 161);
 
 $card-bg: #26282b;
 
-$table-legends-color: rgb(161, 161, 161);
 $table-top-border-color: rgb(92, 92, 92);
 
-$win-match-image: linear-gradient(160deg, #178f68, #178f68ad 70%);
+// $win-match-image: linear-gradient(160deg, #178f68, #178f68ad 70%);
 $win-match-bg: #066f35;
-$lose-match-image: linear-gradient(160deg, #dd1141e0, #dd1141bf 70%);
+// $lose-match-image: linear-gradient(160deg, #dd1141e0, #dd1141bf 70%);
 $lose-match-bg: #710e0e;
 
-$winner-match-bg: #3f634d;
-$loser-match-bg: #633f3f;
+// $winner-match-bg: #3f634d;
+$winner-match-bg: #415d61;
+// $loser-match-bg: #633f3f;
+$loser-match-bg: #683a49;
 
 $border-radius: 20px;
 

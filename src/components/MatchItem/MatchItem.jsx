@@ -11,6 +11,12 @@ function MatchItem({ match, eloDif, setMatchId, setShowMatches }) {
         'match__lose': match.i10 === '0'
     });
 
+    const kdClass = classNames({
+        "kd-high": Number.parseFloat(match.c2) > 1,
+        "kd-low": Number.parseFloat(match.c2) < 1,
+        "kd-one": Number.parseFloat(match.c2) === 1
+    });
+
     return (
         <div onClick={() => {
             setMatchId(match.matchId);
@@ -21,7 +27,7 @@ function MatchItem({ match, eloDif, setMatchId, setShowMatches }) {
             <div>{match.i1.split('/').pop()}</div>
             <div>{match.i5}</div>
             <div>{match.i18}</div>
-            <div>{match.c2}</div>
+            <div className={kdClass}>{match.c2}</div>
             <div>{match.c4}%</div>
             <div>{match.i6}</div>
             <div>{match.i7}</div>

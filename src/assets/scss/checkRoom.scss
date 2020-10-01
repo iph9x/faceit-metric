@@ -1,7 +1,6 @@
 @import './variables.scss';
 
 $avatar-size: 40px;
-$secondary-color: rgb(145, 145, 145);
 
 .room {
     transform-origin: center top;
@@ -10,7 +9,7 @@ $secondary-color: rgb(145, 145, 145);
         display: grid;
         place-items: center;
         row-gap: 20px;
-        grid-template-rows: 20px 50px 20px;
+        grid-template-rows: 14px 20px 50px 20px;
         margin: 20px 0;
         padding: 30px 10px;
         background: $card-bg;
@@ -19,6 +18,16 @@ $secondary-color: rgb(145, 145, 145);
     &__map{
         font-size: 30px;
         color: $secondary-color;
+    }
+    &__region {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        color: $secondary-color;
+        img {
+            margin-left: 10px;
+            width: 40px;
+        }
     }
     &__endtime {
         font-size: 20px;

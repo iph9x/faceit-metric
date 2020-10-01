@@ -4,36 +4,24 @@
     display: flex;
     align-items: center;
     height: 70px;
-    padding-left: 30px;
-    border-bottom: 1px solid $header-border-color;
-    h1 {
-        position: relative;
-        letter-spacing: .02em;
-        font-weight: 400;
-        border-radius: $border-radius;
-        display: grid;
-        &::after {
-            content: '';
-            position: absolute;
-            bottom: 1px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background-image: $logo-gradient;
-        }
-        @media (max-width: 670px) {
-            font-size: 30px;
-        }
-        @media (max-width: 500px) {
-            font-size: 20px;
-        }
+    background: #2c2f33;
+    &__logo {
+        width: 50px;
+        height: 50px;
     }
     &__container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 95vw;
         margin: 0 auto;
+        width: 1024px;
+        padding: 0 40px;
+        @media (max-width: 1024px) {
+            width: 95vw;
+        }
+        @media (max-width: 670px) {
+            padding: 30px 10px;
+        }
     }
 }
 

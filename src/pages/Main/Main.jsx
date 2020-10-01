@@ -84,6 +84,7 @@ function Main() {
             if (currentNick !== currentUrl) {
                 setCurrentUrl(currentNick);
             }
+            setShowMatches(true);
             dispatch(getPlayerIdThunkCreator(currentNick));
         }          
     // eslint-disable-next-line
@@ -267,7 +268,7 @@ function Main() {
                             </select>
                        </div>
                     </form>
-                    {playerStats && matches && !error && nickname &&  searchAndNickMatch()
+                    {playerStats && matches && !error && nickname && currentUrl &&  searchAndNickMatch()
                     && !globalFetching
                     && (<div className="main__nav-wrapper">
                         <button className={btnNavClassProfile} onClick={setProfileComponent}>
@@ -283,14 +284,14 @@ function Main() {
                     {(globalFetching && !error && currentUrl) &&
                     <Preloader />
                     }
-                    {((!globalFetching && nickname && !searchAndNickMatch()) || error)
+                    {((!globalFetching && currentUrl && nickname && !searchAndNickMatch()) || error)
                     && (<div>Player {currentUrl} not found</div>)}                    
                     {showChart && playerStats && matches && !error
                     && nickname && searchAndNickMatch() && !isFetching && !matchFetching
                     && <LineChart eloArr={eloArr} numsChart={numsChart} />
                     }
                     {showProfile && playerStats && matches && !error && nickname && searchAndNickMatch()
-                    && !isFetching && !matchFetching
+                    && !isFetching && currentUrl && !matchFetching 
                     &&(                    
                     <div className="player-cards">
                         <PlayerCard
@@ -312,7 +313,7 @@ function Main() {
                     )}
                     {showCompare && <Comparison />}
                 </div>                
-                {matches && !error && nickname && searchAndNickMatch() && !isFetching
+                {matches && !error && nickname && currentUrl && searchAndNickMatch() && !isFetching
                 && !matchFetching && showMatches
                 && (
                     <MatchList
@@ -320,7 +321,7 @@ function Main() {
                         matchesArr={matchesArr}
                     />               
                 )}
-                {!showMatches && matchId &&
+                {!showMatches && matchId && !globalFetching &&
                     <CheckRoom 
                         roomId={matchId}
                         setShowMatches={setShowMatches} 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Main from '../pages/Main/Main';
-import CheckRoom from '../pages/CheckRoom/CheckRoom';
+import CheckRoom from '../components/CheckRoom/CheckRoom';
 
 function AppRouter() {
 	return (
