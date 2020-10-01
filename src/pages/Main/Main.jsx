@@ -16,12 +16,12 @@ import MatchList from '../../components/MatchList/MatchList';
 import MatchItem from '../../components/MatchItem/MatchItem';
 import LineChart from '../../components/LineChart/LineChart';
 import AvgStatItem from '../../components/AvgStatItem/AvgStatItem';
+import CheckRoom from '../../components/CheckRoom/CheckRoom';
 
 import { calcStatsForNGames, secToDate } from '../../assets/js/utils';
 
 import '../../assets/scss/select.scss';
 import Comparison from '../Comparison/Comparison';
-import CheckRoom from '../CheckRoom/CheckRoom';
 
 function Main() {
     const dispatch = useDispatch();
