@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RoomCaptions () {
+function RoomCaptions() {
     return (    
         <div className="player-wrapper player-captions">
             <div className="player-captions__header">

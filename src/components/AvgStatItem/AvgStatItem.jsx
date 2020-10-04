@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AvgStatItem ({matches, gamesCount}) {
+function AvgStatItem({matches, gamesCount}) {
     const {kd, kr, hs, frags, winrate} = matches;
 
     return (    

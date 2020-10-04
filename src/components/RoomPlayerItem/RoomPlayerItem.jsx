@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-function RoomPlayerItem ({ numTeamStats, player, i, setShowMatches }) {
+function RoomPlayerItem({ numTeamStats, player, i, setShowMatches }) {
     const {nickname, gameSkillLevel, elo, avatar } = player;
 
     const history = useHistory();

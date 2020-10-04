@@ -23,6 +23,18 @@ const initialState = {
   
 const playerReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case "СLEAR_STATE":
+			return {
+				...state,
+				playerStats: null,
+				playerInfo: {
+					playerAvatar: null,
+            		skill_level: null,
+            		faceit_elo: null,
+            		nickname: null,
+            		playerId: null
+				}
+			};
 		case GET_SEARCH_RESULT_REQUEST:
 			return {
 				...state,

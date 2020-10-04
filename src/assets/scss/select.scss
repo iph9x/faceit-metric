@@ -1,93 +1,69 @@
 @import './variables.scss';
 
 .select {
-    position: relative;
-    height: 40px;
-    background: transparent;
-    width: 80px;
-    &:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      width: 0;
-      height: 0;
-      right: 10px;
-      bottom: 0;
-      margin: auto;
-      border-style: solid;
-      border-width: 5px 5px 0 5px;
-      border-color: $apple-blue transparent transparent transparent;
-      pointer-events: none;
-    }
-    
-    &:before {
-      content: '';
-      position: absolute;
-      top: 1px;
-      right: 1px;
-      bottom: 1px;
-      width: 25px;
-      background: whitesmoke;
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
-      border-left: 1px solid #ccc;
-      transition: background .2s;
-      pointer-events: none;
-    }
-    
-    &:hover {
-      &:before {
-        background: #cfedff;
-      }
-    }
-    
-    select {
-      font-size: 18px;
-      border: none;
-      box-shadow: none;
-      border-radius: 0;
-      background: #fff;
-      height: 100%;
-      width: 100%;
-      cursor: pointer;
-      outline: none;
-      padding-right: 35px;
-      padding-left: 15px;
-      border-radius: 20px;
-  
-      // Disable default styling on ff
-      -moz-appearance: none;
-      
-      // Disable ugly ass outline on firefox 
-      &:-moz-focusring {
-        color: transparent;
-        text-shadow: 0 0 0 #000;
-      } 
-      
-      // Disable default styling on webkit browsers 
-      -webkit-appearance: none;
-      
-      // Disable default arrow on IE 11+
-      &::-ms-expand {
-        display: none;
-      }
-      
-      &:focus {  
-        border-color: #63ffb4;    
-      }
-    }
-  }
-  
-  // IE 9 only 
-  @media all and (min-width:0\0) and (min-resolution:.001dpcm){
-    .select{ 
-      select {
-        padding-right: 0;
-      }
-  
-      &:after, &:before {
-        display: none;
-      }
-    }
-  }
+	position: relative;
+	height: $px40;
+	background: transparent;
+	width: 5rem;
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		width: 0;
+		height: 0;
+		right: $px10;
+		bottom: 0;
+		margin: auto;
+		border-style: solid;
+		border-width: $px5 $px5 0 $px5;
+		border-color: $apple-blue transparent transparent transparent;
+		pointer-events: none;
+	}
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 1px;
+		right: 1px;
+		bottom: 1px;
+		width: 1.5625rem;
+		background: whitesmoke;
+		border-top-right-radius: $px20;
+		border-bottom-right-radius: $px20;
+		border-left: 1px solid #ccc;
+		transition: background .2s;
+		pointer-events: none;
+	}
+	&:hover {
+		&:before {
+			background: #cfedff;
+		}
+	}
+	select {
+		font-size: 1.125rem;
+		border: none;
+		box-shadow: none;
+		border-radius: 0;
+		background: #fff;
+		height: 100%;
+		width: 100%;
+		cursor: pointer;
+		outline: none;
+		padding-right: 2.1875rem;
+		padding-left: 0.9375rem;
+		border-radius: $px20;
+		-moz-appearance: none;    
+		-webkit-appearance: none;
+		&:-moz-focusring {
+			color: transparent;
+			text-shadow: 0 0 0 #000;
+		} 
+		&::-ms-expand {
+			display: none;
+		}      
+		&:focus {  
+			border-color: #63ffb4;    
+		}
+	}
+}
   

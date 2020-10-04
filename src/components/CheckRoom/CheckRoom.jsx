@@ -12,13 +12,14 @@ import '../../assets/scss/checkRoom.scss';
 import RoomPlayerItem from '../RoomPlayerItem/RoomPlayerItem';
 import RoomCaptions from '../RoomCaptions/RoomCaptions';
 
-const CheckRoom = ({roomId, setShowMatches}) => {
-    const dispatch = useDispatch();
-
+function CheckRoom({roomId, setShowMatches}) {
     const [team1Roster, setTeam1Roster] = useState(null);
     const [team2Roster, setTeam2Roster] = useState(null);
+
     const [team1Class, setTeam1Class] = useState('');
     const [team2Class, setTeam2Class] = useState('');
+
+    const dispatch = useDispatch();
 
     const {teamsInfo, teamsStats, isFetching} = useSelector(state => state.roomPage);
 
@@ -163,7 +164,6 @@ const CheckRoom = ({roomId, setShowMatches}) => {
         );
     }
     return null;
-    
 }
 
 export default CheckRoom;

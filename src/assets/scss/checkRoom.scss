@@ -1,52 +1,51 @@
 @import './variables.scss';
 
-$avatar-size: 40px;
+$avatar-size: $px40;
 
 .room {
-    transform-origin: center top;
-    animation: popupmatches .4s;   
+    transform-origin: center top;  
     &__game-info {
         display: grid;
         place-items: center;
-        row-gap: 20px;
-        grid-template-rows: 14px 20px 50px 20px;
-        margin: 20px 0;
-        padding: 30px 10px;
+        row-gap: $px20;
+        grid-template-rows: $px14 $px20 $px50 $px20;
+        margin: $px20 0;
+        padding: $px30 $px10;
         background: $card-bg;
         border-radius: $border-radius;
     }
     &__map{
-        font-size: 30px;
+        font-size: $px30;
         color: $secondary-color;
     }
     &__region {
         display: flex;
         align-items: center;
-        font-size: 16px;
+        font-size: $px16;
         color: $secondary-color;
         img {
-            margin-left: 10px;
-            width: 40px;
+            margin-left: $px10;
+            width: $px40;
         }
     }
     &__endtime {
-        font-size: 20px;
+        font-size: $px20;
         color: $secondary-color;
     }
     &__btn {
-        margin-bottom: 20px;
+        margin-bottom: $px20;
     }
     &__score {
-        font-size: 50px;
+        font-size: $px50;
         font-weight: 700;
         &-half {
-            margin-left: 30px;
+            margin-left: $px30;
         }
         &-box {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 14px;
+            font-size: $px14;
         }
     }
     &__team {
@@ -55,8 +54,8 @@ $avatar-size: 40px;
             justify-content: space-between;
         }
         &-name {
-            margin: 20px 0;
-            font-size: 25px;
+            margin: $px20 0;
+            font-size: $px25;
             font-weight: 700;
         }
         &-wrapper {
@@ -64,9 +63,9 @@ $avatar-size: 40px;
             flex-direction: column;
             background: $card-bg;
             border-radius: $border-radius;
-            padding: 0 20px 20px 20px;
+            padding: 0 $px20 $px20 $px20;
             &:nth-of-type(2) {
-                margin-bottom: 20px;
+                margin-bottom: $px20;
             }
         }
         &-1,
@@ -87,21 +86,21 @@ $avatar-size: 40px;
     &-wrapper {
         display: grid;
         place-items: center;
-        grid-template-columns: 60px 4fr 1fr 2fr repeat(3, 1fr) repeat(3, 2fr) repeat(4, 1fr);
+        grid-template-columns: $px60 4fr 1fr 2fr repeat(3, 1fr) repeat(3, 2fr) repeat(4, 1fr);
         background: #5d47ac;
-        font-size: 18px;
-        height: 50px;
-        padding: 0 5px;
-        border-radius: 25px;
-        margin-bottom: 10px;
+        font-size: 1.125rem;
+        height: $px50;
+        padding: 0 $px5;
+        border-radius: $px25;
+        margin-bottom: $px10;
         &:hover {
             cursor: pointer;
         }
     }
     &-captions {
         background: none;
-        height: 20px;
-        font-size: 14px;
+        height: $px20;
+        font-size: $px14;
         color: $secondary-color;
         &__header {
             text-align: center;
@@ -118,7 +117,7 @@ $avatar-size: 40px;
     }
     &__info {
         div {
-            margin-bottom: 5px;
+            margin-bottom: $px5;
         }
     }
     &__js-start {

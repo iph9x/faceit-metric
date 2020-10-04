@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import classNames from 'classnames';
 
-import { getPlayerIdThunkCreator } from '../../redux/player/actions';
+import { getPlayerIdThunkCreator, clearState } from '../../redux/player/actions';
 import { getMatchesThunkCreator } from '../../redux/match/actions';
 
 import Preloader from '../../components/Preloader/Preloader';
@@ -22,8 +18,15 @@ import { calcStatsForNGames, secToDate } from '../../assets/js/utils';
 
 import '../../assets/scss/select.scss';
 import Comparison from '../Comparison/Comparison';
+import Preview from '../../components/Preview/Preview';
 
-function Main() {
+function Main({
+    search,
+	currentUrl,
+	setCurrentUrl,
+	showMatches,
+	setShowMatches,
+}) {
     const dispatch = useDispatch();
 
     const {playerStats, isFetching, error} = useSelector(store => store.playerSearch);
@@ -35,19 +38,14 @@ function Main() {
             playerId
         } = useSelector(store => store.playerSearch.playerInfo);
     
-    const { search } = useLocation();   
-    const history = useHistory();
-    
     // GLOBAL FETCHING
     const [globalFetching, setGlobalFetching] = useState(false);
-
-    const [value, setValue] = useState('');
-    const [currentUrl, setCurrentUrl] = useState(null);
 
     // Array of elements-matches
     const [matchesArr, setMatchesArr] = useState([]);
 
     const [eloArr, setEloArr] = useState([]);
+
     // Array of match date
     const [numsChart, setNumsChart] = useState([]);
 
@@ -62,7 +60,7 @@ function Main() {
     const [showChart, setShowChart] = useState(false);
     const [showCompare, setShowCompare] = useState(false);
 
-    const [showMatches, setShowMatches] = useState(true);
+    // const [showMatches, setShowMatches] = useState(true);
     const [matchId, setMatchId] = useState('');
 
     const searchAndNickMatch = () => {
@@ -74,7 +72,13 @@ function Main() {
         if (search !== '') {
             setGlobalFetching(true);
         }
-    }, [search])
+        if (search === '') {
+            dispatch(clearState());
+            setShowMatches(true);
+            setProfileComponent();
+        }
+    // eslint-disable-next-line
+    }, [dispatch, search])
 
     useEffect(() => {
         const nicknamePURL = new URLSearchParams(search);
@@ -170,29 +174,6 @@ function Main() {
     // eslint-disable-next-line
     }, [matches])
 
-    const onClickHandler = (e) => {
-        e.preventDefault();
-
-        history.push({
-            pathname: '/faceit-metric/',
-            search: `?nickname=${value}`
-        });     
-
-        const nicknamePURL = new URLSearchParams(search);
-        const currentNick = nicknamePURL.get("nickname");
-
-        if (currentNick) {
-            setShowMatches(true);
-            setCurrentUrl(currentNick)
-        }
-
-        setValue('');
-    }    
-
-    const onChangeHandler = (e) => {
-        setValue(e.target.value);
-    } 
-
     const onSizeChangeHandler = (e) => {
         setListSize(Number.parseInt(e.target.value));
     } 
@@ -234,25 +215,22 @@ function Main() {
     return (
         <main className="main">
             <div className="main__container container">
-                <div className="main__info-box">
-                    <form className="main__form" onSubmit={onClickHandler}>
-                        <input
-                            autoComplete="off"
-                            autoCorrect="off"
-                            spellCheck="false"
-                            type="text" 
-                            value={value}
-                            className="main__input" 
-                            placeholder="Enter nickname..."
-                            onChange={onChangeHandler} 
-                        />
-                        <button 
-                            disabled={isFetching || matchFetching}
-                            type="submit"
-                            className="main__btn-search btn"
-                        >
-                            <FontAwesomeIcon icon={faSearch} />
-                        </button>
+                {!playerStats && !globalFetching && <Preview />}
+                <div className="main__info-box">                    
+                    {playerStats && matches && !error && nickname && currentUrl &&  searchAndNickMatch()
+                    && !globalFetching
+                    && (<div className="main__nav-wrapper">
+                        <div className="main__nav-buttons">
+                            <button className={btnNavClassProfile} onClick={setProfileComponent}>
+                                Profile
+                            </button>
+                            <button className={btnNavClassChart} onClick={setChartComponent}>
+                                Chart
+                            </button>
+                            <button className={btnNavClassCompare} onClick={setComparisonComponent}>
+                                Compare
+                            </button>
+                        </div>
                         <div className="select">
                             <select 
                                 value={listSize} 
@@ -266,20 +244,7 @@ function Main() {
                                 <option value={50}>50</option>
                                 <option value={100}>100</option>
                             </select>
-                       </div>
-                    </form>
-                    {playerStats && matches && !error && nickname && currentUrl &&  searchAndNickMatch()
-                    && !globalFetching
-                    && (<div className="main__nav-wrapper">
-                        <button className={btnNavClassProfile} onClick={setProfileComponent}>
-                            Profile
-                        </button>
-                        <button className={btnNavClassChart} onClick={setChartComponent}>
-                            Chart
-                        </button>
-                        <button className={btnNavClassCompare} onClick={setComparisonComponent}>
-                            Compare
-                        </button>
+                        </div>
                     </div>)}
                     {(globalFetching && !error && currentUrl) &&
                     <Preloader />

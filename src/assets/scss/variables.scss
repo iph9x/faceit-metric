@@ -3,12 +3,9 @@ $black: #000;
 $apple-blue: rgb(3, 97, 204);
 
 $btn-search-bg: rgb(38, 102, 199);
-
 $secondary-color: rgb(145, 145, 145);
 
 $header-border-color: #26282b;
-$logo-gradient: linear-gradient(to right, #dd1141, #2666c7 70%);
-
 $stat-line-image: linear-gradient(to right, #c72695b0, #2666c7 50%);
 
 $main-bg-color: rgb(54, 57, 63);
@@ -30,7 +27,20 @@ $winner-match-bg: #415d61;
 // $loser-match-bg: #633f3f;
 $loser-match-bg: #683a49;
 
-$border-radius: 20px;
+$px5: 0.3125rem;
+$px10: 0.625rem;
+$px14: 0.875rem;
+$px15: 0.9375rem;
+$px16: 1rem;
+$px20: 1.25rem;
+$px25: 1.5625rem;
+$px30: 1.875rem;
+$px40: 2.5rem;
+$px50: 3.125rem;
+$px60: 3.75rem;
+$px70: 4.375rem;
+
+$border-radius: $px20;
 
 @keyframes popup {
     from {

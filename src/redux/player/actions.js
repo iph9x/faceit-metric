@@ -8,6 +8,7 @@ import {
 	GET_COMPARISON_LIST_FAILURE
 } from "./consts";
 
+export const clearState = () => ({ type: "СLEAR_STATE" });
 // GET SEARCH RESULT
 
 export const getSearchResultRequest = () => ({ type: GET_SEARCH_RESULT_REQUEST });

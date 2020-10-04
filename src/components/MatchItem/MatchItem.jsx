@@ -20,7 +20,7 @@ function MatchItem({ match, eloDif, setMatchId, setShowMatches }) {
     return (
         <div onClick={() => {
             setMatchId(match.matchId);
-            setShowMatches(false)
+            setShowMatches(false);
         }}
             className={bgClass}
         >
