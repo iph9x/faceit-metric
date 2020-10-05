@@ -21,6 +21,7 @@
     &__form {
         display: grid;
         grid-template-columns: auto 3.375rem;
+        justify-items: end;
         width: 100%;    
     }
     &__btn-search {
@@ -42,13 +43,14 @@
         }
     }
     &__input {
-        width: 100%;
+        width: 30%;
         height: $px40;
         font-size: 1.5rem;
         border-radius: $px20 0 0 $px20;
         border: none;
         padding-left: 0.9375rem;
         padding-right: $px40;
+        padding-bottom: 1px;
         background: $input-bg;
         &::placeholder {
             font-family: 'Roboto', sans-serif;
@@ -61,18 +63,4 @@
             background: $white;
         }
     } 
-}
-
-.nav {
-    display: flex;
-    justify-content: space-between;
-    a, a:visited, a:active {
-        color: $white;
-        text-decoration: none;
-        text-transform: lowercase;
-        font-weight: 300;
-        font-size: $px20;
-        margin-right: $px40;
-        letter-spacing: .02em;
-    }
 }

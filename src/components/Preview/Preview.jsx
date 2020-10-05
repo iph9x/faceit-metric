@@ -33,7 +33,7 @@ function Preview() {
                 <li>
                     &mdash;&nbsp;
                     <span className="preview__item">
-                        comparing players (soon)
+                        comparing players
                     </span> 
                 </li>
             </ul>

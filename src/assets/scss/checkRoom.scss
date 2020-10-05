@@ -4,6 +4,11 @@ $avatar-size: $px40;
 
 .room {
     transform-origin: center top;  
+    &__error {
+        color: rgb(223, 85, 85);
+        font-weight: 400;
+        margin-bottom: 20px;
+    }
     &__game-info {
         display: grid;
         place-items: center;
@@ -34,6 +39,7 @@ $avatar-size: $px40;
     }
     &__btn {
         margin-bottom: $px20;
+        color: $card-bg;
     }
     &__score {
         font-size: $px50;

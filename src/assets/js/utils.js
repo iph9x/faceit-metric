@@ -40,3 +40,22 @@ export const calcStatsForNGames = (matches) => {
    
     return avgStats;
 }
+
+export const getMaxElo = (matches) => {
+    let maxEloArr = [];
+
+    for (let i = 0; i < matches.length; i += 1) {
+        maxEloArr[i] = Number.parseInt(matches[i].elo);
+    }
+    const maxEloReturn = maxEloArr.filter(item => !(Number.isNaN(item)) );
+    return Math.max(...maxEloReturn);
+}
+
+export const getSlicedMatchList = (matches, listSize) => {
+    if (matches.length < listSize) {
+        return matches;
+    } else {
+        const newArrFull = [...matches];
+        return newArrFull.slice(0, listSize);
+    }
+}

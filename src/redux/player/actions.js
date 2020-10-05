@@ -1,5 +1,6 @@
 import API from "../../api/api";
 import {
+    СLEAR_STATE,
     GET_SEARCH_RESULT_SUCCESS,
     GET_SEARCH_RESULT_REQUEST,
 	GET_SEARCH_RESULT_FAILURE,
@@ -8,7 +9,7 @@ import {
 	GET_COMPARISON_LIST_FAILURE
 } from "./consts";
 
-export const clearState = () => ({ type: "СLEAR_STATE" });
+export const clearState = () => ({ type: СLEAR_STATE });
 // GET SEARCH RESULT
 
 export const getSearchResultRequest = () => ({ type: GET_SEARCH_RESULT_REQUEST });
@@ -27,9 +28,8 @@ export const getPlayerIdThunkCreator = (nickname) => {
 		dispatch(getSearchResultRequest());
 
 		try {
-			const getUserIdBySearch = await API.GET_ELO(`search/v1?limit=1&query=${nickname}`);
-			const userId = getUserIdBySearch.data.payload.players.results[0].guid;
-			const userNickname = getUserIdBySearch.data.payload.players.results[0].nickname;
+			const getUserIdBySearch = await API.GET_ELO(`search/v1?limit=3&query=${nickname}`);
+			const {guid: userId, nickname: userNickname} = getUserIdBySearch.data.payload.players.results[0];
 
 			const searchResponse = await API.GET_ELO(`core/v1/nicknames/${userNickname}`);
 				
@@ -52,25 +52,43 @@ export const getPlayerIdThunkCreator = (nickname) => {
 	};
 };
 
-// SET COMPARISON OBJ
+// SET SECOND PLAYER
 
-export const setComparisonPlayersRequest = () => ({ type: GET_COMPARISON_LIST_REQUEST });
-export const setComparisonPlayersSuccess = (comparisonPlayers) => ({
+export const setSecondPlayersRequest = () => ({ type: GET_COMPARISON_LIST_REQUEST });
+export const setSecondPlayersSuccess = (secondPlayerStats, secondPlayerInfo) => ({
 	type: GET_COMPARISON_LIST_SUCCESS,
-	comparisonPlayers
+	secondPlayerStats,
+	secondPlayerInfo
 });
-export const setComparisonPlayersFailure = (error) => ({
+export const setSecondPlayersFailure = (secError) => ({
 	type: GET_COMPARISON_LIST_FAILURE,
-	error,
+	secError,
 });
 
-export const setComparisonPlayersThunkCreator = (comparisonPlayers) => {
+export const setSecondPlayerThunkCreator = (nickname) => {
 	return async (dispatch) => {
-		dispatch(getSearchResultRequest());
-		try {		
-			dispatch(getSearchResultSuccess(comparisonPlayers));
+		dispatch(setSecondPlayersRequest());
+
+		try {			
+			const getUserIdBySearch = await API.GET_ELO(`search/v1?limit=3&query=${nickname}`);
+			const {guid: userId, nickname: userNickname} = getUserIdBySearch.data.payload.players.results[0];
+
+			const searchResponse = await API.GET_ELO(`core/v1/nicknames/${userNickname}`);
+			const playerStats = searchResponse.data.payload;
+
+			const playerInfo = {
+				playerAvatar: playerStats.avatar,
+				skill_level: playerStats.games.csgo.skill_level,
+				faceit_elo: playerStats.games.csgo.faceit_elo,
+				nickname: userNickname,
+				playerId: userId
+			};
+			const statResponse = await API.GET_ELO(`stats/v1/stats/users/${userId}/games/csgo`);
+
+			dispatch(setSecondPlayersSuccess(statResponse.data.lifetime, playerInfo));
+
 		} catch (error) {
-			dispatch(getSearchResultFailure(error));
+			dispatch(setSecondPlayersFailure(error));
 		}
 	};
 };

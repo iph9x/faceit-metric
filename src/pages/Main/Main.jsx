@@ -14,10 +14,10 @@ import LineChart from '../../components/LineChart/LineChart';
 import AvgStatItem from '../../components/AvgStatItem/AvgStatItem';
 import CheckRoom from '../../components/CheckRoom/CheckRoom';
 
-import { calcStatsForNGames, secToDate } from '../../assets/js/utils';
+import { calcStatsForNGames, secToDate, getMaxElo, getSlicedMatchList } from '../../assets/js/utils';
 
 import '../../assets/scss/select.scss';
-import Comparison from '../Comparison/Comparison';
+import Comparison from '../../components/Comparison/Comparison';
 import Preview from '../../components/Preview/Preview';
 
 function Main({
@@ -75,8 +75,8 @@ function Main({
         if (search === '') {
             dispatch(clearState());
             setShowMatches(true);
-            setProfileComponent();
         }
+        setProfileComponent();
     // eslint-disable-next-line
     }, [dispatch, search])
 
@@ -102,29 +102,17 @@ function Main({
     // eslint-disable-next-line
     }, [dispatch, playerId]);
 
-
-    // Find max elo
+    // Set Max elo
     useEffect(() => {
         if (allMatches) {  
-            let maxEloArr = [];
-
-            for (let i = 0; i < allMatches.length; i += 1) {
-                maxEloArr[i] = Number.parseInt(allMatches[i].elo);
-            }
-            const maxEloReturn = maxEloArr.filter(item => !(Number.isNaN(item)) );
-            setMaxElo(Math.max(...maxEloReturn));
+            setMaxElo(getMaxElo(allMatches));
         }
     }, [allMatches])
 
     // Slice allMatches
     useEffect(() => {        
         if (allMatches && !matchFetching) {
-            if (allMatches.length < listSize) {
-                setMatchesBySize(allMatches);
-            } else {
-                const newArrFull = [...allMatches];
-                setMatchesBySize(newArrFull.slice(0, listSize));
-            }
+            setMatchesBySize(getSlicedMatchList(allMatches, listSize))
         }
     // eslint-disable-next-line
     }, [allMatches, listSize]);
@@ -219,7 +207,8 @@ function Main({
                 <div className="main__info-box">                    
                     {playerStats && matches && !error && nickname && currentUrl &&  searchAndNickMatch()
                     && !globalFetching
-                    && (<div className="main__nav-wrapper">
+                    && (
+                    <div className="main__nav-wrapper">
                         <div className="main__nav-buttons">
                             <button className={btnNavClassProfile} onClick={setProfileComponent}>
                                 Profile
@@ -231,19 +220,25 @@ function Main({
                                 Compare
                             </button>
                         </div>
-                        <div className="select">
-                            <select 
-                                value={listSize} 
-                                onChange={onSizeChangeHandler}
-                                className="main__select" 
-                            >
-                                <option value={10}>10</option>
-                                <option value={20}>20</option>
-                                <option value={30}>30</option>
-                                <option value={40}>40</option>
-                                <option value={50}>50</option>
-                                <option value={100}>100</option>
-                            </select>
+                        {nickname && 
+                            <div>Current player: {nickname}</div>
+                        }
+                        <div className="select-wrapper">
+                            <span>Count of last games:</span>
+                            <div className="select">
+                                <select 
+                                    value={listSize} 
+                                    onChange={onSizeChangeHandler}
+                                    className="main__select" 
+                                >
+                                    <option value={10}>10</option>
+                                    <option value={20}>20</option>
+                                    <option value={30}>30</option>
+                                    <option value={40}>40</option>
+                                    <option value={50}>50</option>
+                                    <option value={100}>100</option>
+                                </select>
+                            </div>
                         </div>
                     </div>)}
                     {(globalFetching && !error && currentUrl) &&
@@ -276,9 +271,20 @@ function Main({
                         />
                     </div>
                     )}
-                    {showCompare && <Comparison />}
+                    {showCompare && 
+                        <Comparison
+                            listSize={listSize}
+                            mainMatches={calcStatsForNGames(matches)}
+                            mainMaxElo={maxElo}
+                            mainNickname={nickname}
+                            mainAvatar={playerAvatar}
+                            mainLevel={skill_level}
+                            mainElo={faceit_elo}
+                            mainPlayerStats={playerStats}
+                        />
+                    }
                 </div>                
-                {matches && !error && nickname && currentUrl && searchAndNickMatch() && !isFetching
+                {matches && !showCompare && !error && nickname && currentUrl && searchAndNickMatch() && !isFetching
                 && !matchFetching && showMatches
                 && (
                     <MatchList
@@ -286,7 +292,7 @@ function Main({
                         matchesArr={matchesArr}
                     />               
                 )}
-                {!showMatches && matchId && !globalFetching &&
+                {!showMatches && matchId && !globalFetching && !showCompare &&
                     <CheckRoom 
                         roomId={matchId}
                         setShowMatches={setShowMatches} 

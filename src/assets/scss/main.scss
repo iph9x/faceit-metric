@@ -40,17 +40,18 @@ ul, li {
     display: grid;
     place-items: center;
     transition: background .2s;
-    height: $px40;
-    padding: 0 $px20;
+    height: $px30;
+    padding: 0 $px15;
     border-radius: $border-radius;
     background: #fff;
     font-size: $px20;
+    font-weight: 300;
     border: none;
     -webkit-tap-highlight-color: transparent;
     &:focus,
     &:active {
         outline: none;
-        color: $black;
+        color: $card-bg;
     }
     &:hover {
         cursor: pointer;
@@ -64,6 +65,7 @@ ul, li {
         &-wrapper {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
             width: 100%;
             margin-bottom: $px20;

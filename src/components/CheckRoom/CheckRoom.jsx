@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import classNames from 'classnames';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 import { getTeamsThunkCreator } from '../../redux/room/actions';
 
 import Preloader from '../Preloader/Preloader';
@@ -21,7 +24,7 @@ function CheckRoom({roomId, setShowMatches}) {
 
     const dispatch = useDispatch();
 
-    const {teamsInfo, teamsStats, isFetching} = useSelector(state => state.roomPage);
+    const {teamsInfo, teamsStats, isFetching, error} = useSelector(state => state.roomPage);
 
     useEffect(() => {
         if (roomId.length > 0) {
@@ -42,6 +45,8 @@ function CheckRoom({roomId, setShowMatches}) {
         }
     // eslint-disable-next-line
     }, [teamsInfo]);
+
+    const arrowBack = <FontAwesomeIcon icon={faArrowLeft} />;
 
     const setClassForTeam = (i) => {
         return classNames({
@@ -77,7 +82,16 @@ function CheckRoom({roomId, setShowMatches}) {
 
         return `${entTime[0].slice(0)} - ${entTime[1].slice(0, -4)}`;
     }
-
+    if (!isFetching && error) {
+        return (
+            <div className="room">
+                <h2 className="room__error">Error 404: Match {roomId} not found</h2>
+                <button className="btn room__btn" onClick={() => setShowMatches(true)}>
+                    {arrowBack}
+                </button>
+            </div>
+        )
+    }
     if (isFetching && !teamsStats) {
         return <Preloader />
     }
@@ -85,7 +99,7 @@ function CheckRoom({roomId, setShowMatches}) {
         return (        
             <div className="room">
                 <button className="btn room__btn" onClick={() => setShowMatches(true)}>
-                    Show all matches
+                    {arrowBack}
                 </button>
                 <div className="room__game-info">
                     {teamsInfo.matchCustom.tree.location.values.value[0] &&

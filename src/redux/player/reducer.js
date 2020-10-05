@@ -1,4 +1,5 @@
 import {
+    СLEAR_STATE,
     GET_SEARCH_RESULT_SUCCESS,
     GET_SEARCH_RESULT_REQUEST,
 	GET_SEARCH_RESULT_FAILURE,
@@ -16,14 +17,23 @@ const initialState = {
 		nickname: '',
 		playerId: null
 	},
-	comparisonPlayers: null,  
+	secondPlayerStats: null,
+	secondPlayerInfo: {
+		playerAvatar: '',
+		skill_level: '',
+		faceit_elo: '',
+		nickname: '',
+		playerId: null
+	},
 	isFetching: false,
-	error: null
+	secondPlayerIsFetching: false,
+	error: null,
+	secError: null
 };
   
 const playerReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case "СLEAR_STATE":
+		case СLEAR_STATE:
 			return {
 				...state,
 				playerStats: null,
@@ -40,6 +50,11 @@ const playerReducer = (state = initialState, action) => {
 				...state,
 				playerStats: null,
 				playerInfo: {
+					nickname: null, 
+					playerId: null
+				},
+				secondPlayerStats: null,
+				secondPlayerInfo: {
 					nickname: null, 
 					playerId: null
 				},
@@ -62,21 +77,26 @@ const playerReducer = (state = initialState, action) => {
 		case GET_COMPARISON_LIST_REQUEST:
 			return {
 				...state,
-				// playerStats: null,
-				// playerInfo: {},
-				isFetching: true
+				secondPlayerStats: null,
+				secondPlayerInfo: {
+					nickname: null, 
+					playerId: null
+				},
+				secondPlayerIsFetching: true
 			};
 		case GET_COMPARISON_LIST_SUCCESS:
 			return {
 				...state,
-				comparisonPlayers: action.comparisonPlayers,
-				isFetching: false
+				secondPlayerStats: action.secondPlayerStats,
+				secondPlayerInfo: action.secondPlayerInfo,
+				secondPlayerIsFetching: false,
+				secError: null
 			};
 		case GET_COMPARISON_LIST_FAILURE:
 			return {
 				...state,
-				error: action.error,
-				isFetching: false,
+				secError: action.secError,
+				secondPlayerIsFetching: false,
 			};
 		default:
 			return state;

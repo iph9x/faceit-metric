@@ -1,7 +1,92 @@
+@import './variables.scss';
+
 .comparison {
     display: grid;
     place-items: center;
     width: 100%;
-    font-size: 50px;
-    height: 338px;
+    font-size: $px50;
+    .kd-high,
+    .kd-low {
+        font-weight: 300;
+    }    
+    &__wrapper {
+        width: 80%;
+        border-radius: $px20;
+    }
+    .player-card {
+        background: none;
+        &__title {
+            text-align: left;
+            align-self: flex-start;
+            font-size: $px20;
+            font-weight: 300;
+            color: $secondary-color;
+            margin-bottom: $px15;
+        }
+        &__compare {
+            width: 100%;
+            padding: 0 $px50;
+            margin-bottom: $px20;
+            .player-card {
+                &__string {
+                    grid-template-columns: 1fr 1fr 1fr;
+                }
+                &__postfix {
+                    justify-self: center;
+                }
+            }
+        }
+        &__stat-box {
+            width: 100%;
+        }
+    }
+    .header {
+        &__form {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            margin-top: $px10;
+        }
+        &__input,
+        &__btn-search {
+            height: 2.25rem;
+        }
+        &__btn-search {
+            width: 6.25rem;
+            padding: 0;
+            padding-bottom: 2px;
+            margin-bottom: $px20;
+        }
+        &__input {
+            width: 30%;
+            font-size: 1.125rem;
+            border: 1px solid #fff;
+            background: none;
+            border-right: none;
+            color: $white;
+        }
+    }
+    .player-cards__header {
+        display: flex;
+        justify-content: flex-end;
+        width: 80%;
+        margin: 0 auto;
+        .player-card {
+            padding-bottom: 0;
+            width: 10rem;
+            &:nth-child(2) {
+                margin-left: $px60;
+            }
+            &__nickname {
+                margin-bottom: $px20;
+                font-size: $px25;
+            }
+            &__avatar {
+                width: 6rem;
+                height: 6rem;
+            }
+           
+        }
+
+    }
 }

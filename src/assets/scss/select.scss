@@ -2,9 +2,15 @@
 
 .select {
 	position: relative;
-	height: $px40;
 	background: transparent;
 	width: 5rem;
+	&-wrapper {
+		display: flex;
+		align-items: center;
+		span {
+			margin-right: $px10;
+		}
+	}
 	&:after {
 		content: '';
 		position: absolute;
@@ -45,7 +51,7 @@
 		box-shadow: none;
 		border-radius: 0;
 		background: #fff;
-		height: 100%;
+		height: 30px;
 		width: 100%;
 		cursor: pointer;
 		outline: none;
