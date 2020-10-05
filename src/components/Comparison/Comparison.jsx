@@ -107,25 +107,29 @@ function Comparison({
                 />
                 <button type="submit" className="header__btn-search btn">Compare</button>
             </form>
-            {console.log(!localFetching, !!currentNick, !nickname)}
             {localFetching && !matches && !secError && <Preloader />}
             {((!localFetching && currentNick && !nickname) || secError) && <span>Player not found</span>} 
             {secondPlayerStats && !isFetching && matches &&
                 <div className="comparison__wrapper">
                     <div className="player-cards player-cards__header">
-                        <div className="player-card">
-                            <div className="player-card__nickname">{mainNickname}</div>
-                            <img className="player-card__avatar" src={mainAvatar} alt=""/>
+                        
+                        <div className="player-card__string">
+                            <div className="player-card__title">
+                                Statistic for alltime
+                            </div>
+                            <div className="player-card">
+                                <div className="player-card__nickname">{mainNickname}</div>
+                                <img className="player-card__avatar" src={mainAvatar} alt=""/>
+                            </div>
+                            <div className="player-card">
+                                <div className="player-card__nickname">{nickname}</div>
+                                <img className="player-card__avatar" src={playerAvatar} alt=""/>
+                            </div>
                         </div>
-                        <div className="player-card">
-                            <div className="player-card__nickname">{nickname}</div>
-                            <img className="player-card__avatar" src={playerAvatar} alt=""/>
-                        </div>
+                       
                     </div>
                     <div className="player-card player-card__compare">
-                        <div className="player-card__title">
-                            Statistic for alltime
-                        </div>
+                       
                         <div className="player-card__stat-box">
                             <div className="player-card__string">
                                 <div className="player-card__prefix">

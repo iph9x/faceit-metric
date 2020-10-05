@@ -69,13 +69,28 @@
     .player-cards__header {
         display: flex;
         justify-content: flex-end;
-        width: 80%;
-        margin: 0 auto;
+        margin: 0;
+        padding: 0 $px50;
         .player-card {
-            padding-bottom: 0;
+            padding-bottom: $px25;
             width: 10rem;
-            &:nth-child(2) {
-                margin-left: $px60;
+            &__nickname {
+                font-weight: 300;
+            }
+            &__string {
+                width: 100%;
+                grid-template-columns: 1fr 1fr 1fr;
+                justify-items: center;
+                align-self: flex-end;
+                text-transform: none;
+                margin-bottom: 0;
+                &::before {
+                    display: none;
+                }
+                .player-card__title {
+                    align-self: flex-end;
+                    justify-self: start;
+                }
             }
             &__nickname {
                 margin-bottom: $px20;
