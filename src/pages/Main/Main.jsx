@@ -244,7 +244,7 @@ function Main({
                     {(globalFetching && !error && currentUrl) &&
                     <Preloader />
                     }
-                    {((!globalFetching && currentUrl && nickname && !searchAndNickMatch()) || error)
+                    {((!globalFetching && currentUrl && !nickname) || error)
                     && (<div>Player {currentUrl} not found</div>)}                    
                     {showChart && playerStats && matches && !error
                     && nickname && searchAndNickMatch() && !isFetching && !matchFetching

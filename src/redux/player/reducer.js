@@ -58,7 +58,8 @@ const playerReducer = (state = initialState, action) => {
 					nickname: null, 
 					playerId: null
 				},
-				isFetching: true
+				isFetching: true,
+				error: null
 			};
 		case GET_SEARCH_RESULT_SUCCESS:
 			return {
@@ -82,7 +83,8 @@ const playerReducer = (state = initialState, action) => {
 					nickname: null, 
 					playerId: null
 				},
-				secondPlayerIsFetching: true
+				secondPlayerIsFetching: true,
+				secError: null
 			};
 		case GET_COMPARISON_LIST_SUCCESS:
 			return {
