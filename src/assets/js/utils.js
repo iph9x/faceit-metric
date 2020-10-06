@@ -34,7 +34,6 @@ export const calcStatsForNGames = (matches) => {
 
     const findCurrentElo = (matches) => {
         for (let i = 0; i < matches.length; i += 1) {
-            console.log(matches[i].elo)
             if (matches[i].elo !== undefined) {
                 return matches[i].elo
             } else {

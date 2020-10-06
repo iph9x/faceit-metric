@@ -38,6 +38,10 @@
         &:hover {
             background: #2c70d7;
         }
+        &:active,
+        &:focus {
+            color: $white;
+        }
         &:disabled {
             opacity: 0.5;
         }

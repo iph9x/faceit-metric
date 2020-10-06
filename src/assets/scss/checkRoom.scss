@@ -7,7 +7,7 @@ $avatar-size: $px40;
     &__error {
         color: rgb(223, 85, 85);
         font-weight: 400;
-        margin-bottom: 20px;
+        margin-bottom: $px20;
     }
     &__game-info {
         display: grid;

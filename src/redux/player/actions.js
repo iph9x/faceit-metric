@@ -62,7 +62,7 @@ export const setSecondPlayersSuccess = (secondPlayerStats, secondPlayerInfo) => 
 });
 export const setSecondPlayersFailure = (secError) => ({
 	type: GET_COMPARISON_LIST_FAILURE,
-	secError,
+	secError
 });
 
 export const setSecondPlayerThunkCreator = (nickname) => {

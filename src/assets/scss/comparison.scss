@@ -11,6 +11,7 @@
     }    
     &__wrapper {
         width: 80%;
+        transform: translateY(-$px60);
         border-radius: $px20;
     }
     .player-card {
@@ -25,7 +26,8 @@
         }
         &__compare {
             width: 100%;
-            padding: 0 $px50;
+            // padding: 0 $px50;
+            padding: 0;
             margin-bottom: $px20;
             .player-card {
                 &__string {
@@ -43,34 +45,42 @@
     .header {
         &__form {
             display: flex;
-            width: 100%;
-            justify-content: center;
+            width: 80%;
             margin-top: $px10;
+            z-index: 10;
         }
         &__input,
         &__btn-search {
             height: 2.25rem;
         }
         &__btn-search {
-            width: 6.25rem;
+            width: 5.25rem;
             padding: 0;
             padding-bottom: 2px;
-            margin-bottom: $px20;
+            font-size: 1rem;
+            &:disabled {
+                opacity: .5;
+            }
+            
         }
         &__input {
-            width: 30%;
+            width: 25%;
             font-size: 1.125rem;
             border: 1px solid #fff;
             background: none;
             border-right: none;
             color: $white;
+            &::placeholder {
+                font-size: 1.125rem;
+            }
         }
     }
     .player-cards__header {
         display: flex;
         justify-content: flex-end;
         margin: 0;
-        padding: 0 $px50;
+        // padding: 0 $px50;
+        padding: 0 ;
         .player-card {
             padding-bottom: $px25;
             width: 10rem;
@@ -107,5 +117,6 @@
 }
 
 .not-found {
-    font-size: 20px;
+    margin-top: $px30;
+    font-size: $px20;
 }

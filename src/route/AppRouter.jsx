@@ -1,14 +1,11 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Preview from '../pages/Preview/Preview';
 
 import Main from '../pages/Main/Main';
-import CheckRoom from '../components/CheckRoom/CheckRoom';
 
 const AppRouter = ({
     search,
-	history,
-	value,
-	setValue,
 	currentUrl,
 	setCurrentUrl,
 	showMatches,
@@ -16,19 +13,19 @@ const AppRouter = ({
 }) => {
 	return (
         <Switch>
-            <Route exact path="/faceit-metric/" component={() => {
-                return <Main 
+            <Route exact path="/faceit-metric/">
+                {search
+                    ? <Main 
                     search={search}
-                    history={history}
-                    value={value}
-                    setValue={setValue}
                     currentUrl={currentUrl}
                     setCurrentUrl={setCurrentUrl}
                     showMatches={showMatches}
                     setShowMatches={setShowMatches}
-                />
-            }} />
-            <Route exact path="/faceit-metric/room" component={CheckRoom} />
+                    />  
+                    : <Redirect to="/faceit-metric/home" />
+                }
+            </Route>
+            <Route exact path="/faceit-metric/home" component={Preview} />
         </Switch>
 	);
 }

@@ -4,12 +4,10 @@
 	position: relative;
 	background: transparent;
 	width: 5rem;
+	height: $px30;
 	&-wrapper {
 		display: flex;
 		align-items: center;
-		span {
-			margin-right: $px10;
-		}
 	}
 	&:after {
 		content: '';
@@ -51,7 +49,7 @@
 		box-shadow: none;
 		border-radius: 0;
 		background: #fff;
-		height: 30px;
+		height: $px30;
 		width: 100%;
 		cursor: pointer;
 		outline: none;

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import './assets/scss/main.scss';
+
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import Main from './pages/Main/Main';
+import AppRouter from './route/AppRouter';
 
 const App = () => {
 	const { search } = useLocation();   
@@ -26,11 +27,8 @@ const App = () => {
 				showMatches={showMatches}
 				setShowMatches={setShowMatches}
 			/>
-			<Main 
+			<AppRouter 
 				search={search}
-				history={history}
-				value={value}
-				setValue={setValue}
 				currentUrl={currentUrl}
 				setCurrentUrl={setCurrentUrl}
 				showMatches={showMatches}

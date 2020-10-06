@@ -18,7 +18,7 @@ import { calcStatsForNGames, secToDate, getMaxElo, getSlicedMatchList } from '..
 
 import '../../assets/scss/select.scss';
 import Comparison from '../../components/Comparison/Comparison';
-import Preview from '../../components/Preview/Preview';
+// import Preview from '../../components/Preview/Preview';
 
 function Main({
     search,
@@ -51,6 +51,7 @@ function Main({
 
     const [listSize, setListSize] = useState(20);
     const [maxElo, setMaxElo] = useState(0);
+    const [startEloPlus, setStartEloPlus] = useState(0);
 
     // Array of last matches
     const [matches, setMatchesBySize] = useState(null);
@@ -76,6 +77,7 @@ function Main({
             dispatch(clearState());
             setShowMatches(true);
         }
+        setMatchesBySize(null);
         setProfileComponent();
     // eslint-disable-next-line
     }, [dispatch, search])
@@ -106,7 +108,9 @@ function Main({
     useEffect(() => {
         if (allMatches) {  
             setMaxElo(getMaxElo(allMatches));
+            setStartEloPlus(allMatches[listSize - 1].elo - allMatches[listSize].elo);
         }
+    // eslint-disable-next-line
     }, [allMatches])
 
     // Slice allMatches
@@ -203,9 +207,8 @@ function Main({
     return (
         <main className="main">
             <div className="main__container container">
-                {!playerStats && !globalFetching && <Preview />}
-                <div className="main__info-box">                    
-                    {playerStats && matches && !error && nickname && currentUrl &&  searchAndNickMatch()
+                <div className="main__info-box">   
+                    {playerStats && matches && !error && nickname && currentUrl && searchAndNickMatch()
                     && !globalFetching
                     && (
                     <div className="main__nav-wrapper">
@@ -220,11 +223,9 @@ function Main({
                                 Compare
                             </button>
                         </div>
-                        {nickname && 
-                            <div>Current player: {nickname}</div>
-                        }
+                        <div><span className="main__nav-label">Current player:</span> {nickname}</div>
                         <div className="select-wrapper">
-                            <span>Count of last games:</span>
+                            <span className="main__nav-label">Count of last games:</span>
                             <div className="select">
                                 <select 
                                     value={listSize} 
@@ -244,8 +245,8 @@ function Main({
                     {(globalFetching && !error && currentUrl) &&
                     <Preloader />
                     }
-                    {((!globalFetching && currentUrl && !nickname) || error)
-                    && (<div>Player {currentUrl} not found</div>)}                    
+                    {((!globalFetching && currentUrl && !nickname && search) || error)
+                    && (<div>Player {currentUrl} not found</div>)}  
                     {showChart && playerStats && matches && !error
                     && nickname && searchAndNickMatch() && !isFetching && !matchFetching
                     && <LineChart eloArr={eloArr} numsChart={numsChart} />
@@ -281,9 +282,10 @@ function Main({
                             mainLevel={skill_level}
                             mainElo={faceit_elo}
                             mainPlayerStats={playerStats}
+                            mainStartEloPlus={startEloPlus}
                         />
                     }
-                </div>                
+                </div>
                 {matches && !showCompare && !error && nickname && currentUrl && searchAndNickMatch() && !isFetching
                 && !matchFetching && showMatches
                 && (

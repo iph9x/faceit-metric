@@ -1,8 +1,6 @@
 import React, { useEffect, useState }  from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import classNames from 'classnames';
-
 import Preloader from '../Preloader/Preloader';
 
 import { setSecondPlayerThunkCreator } from '../../redux/player/actions';
@@ -11,6 +9,7 @@ import { getSecMatchesThunkCreator } from '../../redux/match/actions';
 import { calcStatsForNGames, getMaxElo, getSlicedMatchList } from '../../assets/js/utils';
 
 import '../../assets/scss/comparison.scss';
+import CompareField from '../CompareField/CompareField';
 
 function Comparison({ 
     listSize,
@@ -20,14 +19,21 @@ function Comparison({
     mainAvatar,
     mainLevel,
     mainElo,
-    mainPlayerStats
+    mainPlayerStats,
+    mainStartEloPlus
  }) {
     const [value, setValue] = useState('')
     const [currentNick, setCurrentNick] = useState(null)
     const [matches, setMatches] = useState(null)
     const [maxElo, setMaxElo] = useState(0);
     const [localFetching, setLocalFetching] = useState(false);
+    
+    const [secStartEloPlus, setSecSartEloPlus] = useState(0);
+    const [secIncreasing, setSecIncreasing] = useState(0);
 
+    const mainIncreasing = mainStartEloPlus
+        ? Number.parseInt(mainMatches.eloDif) + Number.parseInt(mainStartEloPlus)
+        : mainMatches.eloDif;
 
     const dispatch = useDispatch();
 
@@ -44,17 +50,19 @@ function Comparison({
         if (secondPlayerStats && !isFetching) {
             dispatch(getSecMatchesThunkCreator(playerId, secondPlayerStats.m1));
         }
-        if (!nickname) {
+        if (!isFetching && !nickname) {
             setLocalFetching(false);
         }
     // eslint-disable-next-line
     }, [dispatch, playerId]);
-
+   
     // Set Max elo
     useEffect(() => {
         if (secMatches) {  
             setMaxElo(getMaxElo(secMatches));
+            setSecSartEloPlus(secMatches[listSize - 1].elo - secMatches[listSize].elo);
         }
+    // eslint-disable-next-line
     }, [secMatches])
 
     // Slice allMatches
@@ -67,23 +75,27 @@ function Comparison({
 
     useEffect(() => {        
         if (matches) {
+            setSecIncreasing(secStartEloPlus
+                ? Number.parseInt(matches.eloDif) + Number.parseInt(secStartEloPlus) 
+                : matches.eloDif);
+        }
+    // eslint-disable-next-line
+    }, [matches]);
+
+    useEffect(() => {        
+        if (matches) {
             setLocalFetching(false);
         }
     // eslint-disable-next-line
     }, [matches]);
 
-    const compareStat = (a, b) => {
-        return classNames({
-           "kd-high": Number.parseFloat(a) > Number.parseFloat(b),
-           "kd-low": Number.parseFloat(a) < Number.parseFloat(b),
-       });
-    }
-
     const onClickHandler = (e) => {
         e.preventDefault();  
+        setLocalFetching(true);
+
         if (value !== '') { dispatch(setSecondPlayerThunkCreator(value)) }
 
-        setLocalFetching(true);
+        setMatches(null)
         setCurrentNick(value);
         setValue('');
     }    
@@ -105,15 +117,15 @@ function Comparison({
                     value={value}
                     onChange={handleChange} 
                 />
-                <button type="submit" className="header__btn-search btn">Compare</button>
+                <button type="submit" disabled={value === ''} className="header__btn-search btn">Compare</button>
             </form>
-            {localFetching && !matches && !secError && <Preloader />}
-            {((!localFetching && currentNick && !nickname) || secError) 
+            {localFetching && mainNickname.toLowerCase() !== currentNick.toLowerCase() && !secError && <Preloader />}
+            {((!localFetching && currentNick && !nickname && !matches) || secError) 
             && <span className="not-found">Player {currentNick} not found</span>} 
-            {secondPlayerStats && !isFetching && matches &&
+            {nickname === mainNickname && <span className="not-found">Select another player</span>}
+            {secondPlayerStats && !isFetching && matches && nickname !== mainNickname &&
                 <div className="comparison__wrapper">
-                    <div className="player-cards player-cards__header">
-                        
+                    <div className="player-cards player-cards__header">                        
                         <div className="player-card__string">
                             <div className="player-card__title">
                                 Statistic for alltime
@@ -126,118 +138,52 @@ function Comparison({
                                 <div className="player-card__nickname">{nickname}</div>
                                 <img className="player-card__avatar" src={playerAvatar} alt=""/>
                             </div>
-                        </div>
-                       
+                        </div>                       
                     </div>
-                    <div className="player-card player-card__compare">
-                       
+                    <div className="player-card player-card__compare">                       
                         <div className="player-card__stat-box">
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    Level: 
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainLevel, skill_level)}>
-                                        {mainLevel}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(skill_level, mainLevel)}>
-                                        {skill_level}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    Elo: 
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainElo, faceit_elo)}>
-                                        {mainElo}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(faceit_elo, mainElo)}>
-                                        {faceit_elo}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    Max Elo: 
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMaxElo, maxElo)}>
-                                        {mainMaxElo}
-                                    </span>
-
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(maxElo, mainMaxElo)}>
-                                        {maxElo}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    matches: 
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainPlayerStats.m1, secondPlayerStats.m1)}>
-                                        {mainPlayerStats.m1}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(secondPlayerStats.m1, mainPlayerStats.m1)}>
-                                        {secondPlayerStats.m1}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    K/D Ratio: 
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainPlayerStats.k5, secondPlayerStats.k5)}>
-                                        {mainPlayerStats.k5}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(secondPlayerStats.k5, mainPlayerStats.k5)}>
-                                        {secondPlayerStats.k5}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    avg hs:
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainPlayerStats.k8, secondPlayerStats.k8)}>
-                                        {mainPlayerStats.k8}%
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(secondPlayerStats.k8, mainPlayerStats.k8)}>
-                                        {secondPlayerStats.k8}%
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    win rate: 
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainPlayerStats.k6, secondPlayerStats.k6)}>
-                                        {mainPlayerStats.k6}%
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(secondPlayerStats.k6, mainPlayerStats.k6)}>
-                                        {secondPlayerStats.k6}%
-                                    </span>
-                                </div>
-                            </div>
+                            <CompareField 
+                                label="Level" 
+                                parMain={mainLevel} 
+                                parSec={skill_level}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="Elo" 
+                                parMain={mainElo} 
+                                parSec={faceit_elo}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="Max Elo" 
+                                parMain={mainMaxElo} 
+                                parSec={maxElo}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="Matches" 
+                                parMain={mainPlayerStats.m1} 
+                                parSec={secondPlayerStats.m1}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="K/D Ratio" 
+                                parMain={mainPlayerStats.k5} 
+                                parSec={secondPlayerStats.k5}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="avg hs" 
+                                parMain={mainPlayerStats.k8} 
+                                parSec={secondPlayerStats.k8}
+                                unit="%" 
+                            />
+                            <CompareField 
+                                label="win rate" 
+                                parMain={mainPlayerStats.k6} 
+                                parSec={secondPlayerStats.k6}
+                                unit="%" 
+                            />
                         </div>
                     </div>    
                     <div className="player-card player-card__compare">
@@ -245,189 +191,80 @@ function Comparison({
                             Statistic for last {listSize} games
                         </div>
                         <div className="player-card__stat-box">
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    avg frags: 
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMatches.avgFrags, matches.avgFrags)}>
-                                        {mainMatches.avgFrags}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(matches.avgFrags, mainMatches.avgFrags)}>
-                                        {matches.avgFrags}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    K/D: 
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMatches.kd, matches.kd)}>
-                                        {mainMatches.kd}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(matches.kd, mainMatches.kd)}>
-                                        {matches.kd}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    K/R: 
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMatches.kr, matches.kr)}>
-                                        {mainMatches.kr}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(matches.kr, mainMatches.kr)}>
-                                        {matches.kr}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    avg hs:
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMatches.hs, matches.hs)}>
-                                        {mainMatches.hs}%
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(matches.hs, mainMatches.hs)}>
-                                        {matches.hs}%
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    win rate:
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMatches.winrate, matches.winrate)}>
-                                        {mainMatches.winrate}%
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(matches.winrate, mainMatches.winrate)}>
-                                        {matches.winrate}%
-                                    </span>
-                                </div>
-                            </div>  
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    Assists:
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMatches.assists, matches.assists)}>
-                                        {mainMatches.assists}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(matches.assists, mainMatches.assists)}>
-                                        {matches.assists}
-                                    </span>
-                                </div>
-                            </div>                            
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    Kills:
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMatches.frags, matches.frags)}>
-                                        {mainMatches.frags}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(matches.frags, mainMatches.frags)}>
-                                        {matches.frags}
-                                    </span>
-                                </div>
-                            </div>                            
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    Triple kills:
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMatches.trip, matches.trip)}>
-                                        {mainMatches.trip}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(matches.trip, mainMatches.trip)}>
-                                        {matches.trip}
-                                    </span>
-                                </div>
-                            </div>                                                      
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    Quadro kills:
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMatches.quad, matches.quad)}>
-                                        {mainMatches.quad}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(matches.quad, mainMatches.quad)}>
-                                        {matches.quad}
-                                    </span>
-                                </div>
-                            </div>                            
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    Penta kills:
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMatches.penta, matches.penta)}>
-                                        {mainMatches.penta}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(matches.penta, mainMatches.penta)}>
-                                        {matches.penta}
-                                    </span>
-                                </div>
-                            </div>                            
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    MVPs:
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMatches.mvps, matches.mvps)}>
-                                        {mainMatches.mvps}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(matches.mvps, mainMatches.mvps)}>
-                                        {matches.mvps}
-                                    </span>
-                                </div>
-                            </div>                            
-                            <div className="player-card__string">
-                                <div className="player-card__prefix">
-                                    Difference Elo:
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(mainMatches.eloDif, matches.eloDif)}>
-                                        {mainMatches.eloDif}
-                                    </span>
-                                </div>
-                                <div className="player-card__postfix">
-                                    <span className={compareStat(matches.eloDif, mainMatches.eloDif)}>
-                                        {matches.eloDif}
-                                    </span>
-                                </div>
-                            </div>                            
+                            <CompareField 
+                                label="avg frags" 
+                                parMain={mainMatches.avgFrags} 
+                                parSec={matches.avgFrags}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="K/D" 
+                                parMain={mainMatches.kd} 
+                                parSec={matches.kd}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="K/R" 
+                                parMain={mainMatches.kr} 
+                                parSec={matches.kr}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="avg hs" 
+                                parMain={mainMatches.hs} 
+                                parSec={matches.hs}
+                                unit="%" 
+                            />
+                            <CompareField 
+                                label="win rate" 
+                                parMain={mainMatches.winrate} 
+                                parSec={matches.winrate}
+                                unit="%" 
+                            />
+                            <CompareField 
+                                label="Assists" 
+                                parMain={mainMatches.assists} 
+                                parSec={matches.assists}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="Kills" 
+                                parMain={mainMatches.frags} 
+                                parSec={matches.frags}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="Triple kills" 
+                                parMain={mainMatches.trip} 
+                                parSec={matches.trip}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="Quadro kills" 
+                                parMain={mainMatches.quad} 
+                                parSec={matches.quad}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="Penta kills" 
+                                parMain={mainMatches.penta} 
+                                parSec={matches.penta}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="MVPs" 
+                                parMain={mainMatches.mvps} 
+                                parSec={matches.mvps}
+                                unit="" 
+                            />
+                            <CompareField 
+                                label="Increasing Elo" 
+                                parMain={mainIncreasing > 0 ? '+' + mainIncreasing : mainIncreasing}
+                                parSec={secIncreasing > 0 ? '+' + secIncreasing : secIncreasing}
+                                unit="" 
+                            />                            
                         </div>
-                    </div>                   
-
+                    </div>
                 </div>
             }
         </div>           

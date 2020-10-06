@@ -68,7 +68,11 @@ ul, li {
             align-items: center;
             flex-wrap: wrap;
             width: 100%;
-            margin-bottom: $px20;
+            margin-bottom: $px30;
+        }
+        &-label {
+            color: $secondary-color;
+            margin-right: $px5;
         }
         &-buttons {
             display: flex;

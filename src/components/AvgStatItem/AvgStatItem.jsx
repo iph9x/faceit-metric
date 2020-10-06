@@ -1,7 +1,7 @@
 import React from 'react';
 
 function AvgStatItem({matches, gamesCount}) {
-    const {kd, kr, hs, frags, winrate} = matches;
+    const {kd, kr, hs, avgFrags, winrate} = matches;
 
     return (    
         <div className="player-card player-card__avg-box">
@@ -14,7 +14,7 @@ function AvgStatItem({matches, gamesCount}) {
                         avg frags: 
                     </div>
                     <div className="player-card__postfix">
-                        {frags}
+                        {avgFrags}
                     </div>
                 </div>
                 <div className="player-card__string">
