@@ -18,7 +18,6 @@ import { calcStatsForNGames, secToDate, getMaxElo, getSlicedMatchList } from '..
 
 import '../../assets/scss/select.scss';
 import Comparison from '../../components/Comparison/Comparison';
-// import Preview from '../../components/Preview/Preview';
 
 function Main({
     search,
@@ -63,6 +62,7 @@ function Main({
 
     // const [showMatches, setShowMatches] = useState(true);
     const [matchId, setMatchId] = useState('');
+    const [mainIncreasing, setMainIncreasing] = useState('');
 
     const searchAndNickMatch = () => {
         return nickname.toLowerCase() === currentUrl.toLowerCase();
@@ -108,7 +108,7 @@ function Main({
     useEffect(() => {
         if (allMatches) {  
             setMaxElo(getMaxElo(allMatches));
-            setStartEloPlus(allMatches[listSize - 1].elo - allMatches[listSize].elo);
+            allMatches.length >= listSize && setStartEloPlus(allMatches[listSize - 1].elo - allMatches[listSize].elo);
         }
     // eslint-disable-next-line
     }, [allMatches])
@@ -161,6 +161,10 @@ function Main({
 
     useEffect(() => {
         if (matches) {
+            setMainIncreasing(startEloPlus
+                ? Number.parseInt(calcStatsForNGames(matches).eloDif) + Number.parseInt(startEloPlus)
+                : calcStatsForNGames(matches).eloDif
+            )
             setGlobalFetching(false);
         }
     // eslint-disable-next-line
@@ -204,74 +208,78 @@ function Main({
         'main__nav-btn_active': showCompare,
     });
 
+    const renderMain = playerStats && matches && !error && nickname
+    && currentUrl && searchAndNickMatch() && !globalFetching;
+    const renderPreloader = globalFetching && !error && currentUrl;
+    const renderPlayerNotFound = (!globalFetching && currentUrl && !nickname && search) || error;
+    const renderChart = showChart && playerStats && matches && !error
+    && nickname && searchAndNickMatch() && !isFetching && !matchFetching;
+    const renderProfile = showProfile && playerStats && matches && !error && nickname
+    && searchAndNickMatch() && !isFetching && currentUrl && !matchFetching;
+    const renderMatchList = matches && !showCompare && !error && nickname
+    && currentUrl && searchAndNickMatch() && !isFetching && !matchFetching && showMatches;
+    const renderCheckRoom = !showMatches && matchId && !globalFetching && !showCompare;
+
     return (
         <main className="main">
             <div className="main__container container">
                 <div className="main__info-box">   
-                    {playerStats && matches && !error && nickname && currentUrl && searchAndNickMatch()
-                    && !globalFetching
-                    && (
-                    <div className="main__nav-wrapper">
-                        <div className="main__nav-buttons">
-                            <button className={btnNavClassProfile} onClick={setProfileComponent}>
-                                Profile
-                            </button>
-                            <button className={btnNavClassChart} onClick={setChartComponent}>
-                                Chart
-                            </button>
-                            <button className={btnNavClassCompare} onClick={setComparisonComponent}>
-                                Compare
-                            </button>
-                        </div>
-                        <div><span className="main__nav-label">Current player:</span> {nickname}</div>
-                        <div className="select-wrapper">
-                            <span className="main__nav-label">Count of last games:</span>
-                            <div className="select">
-                                <select 
-                                    value={listSize} 
-                                    onChange={onSizeChangeHandler}
-                                    className="main__select" 
-                                >
-                                    <option value={10}>10</option>
-                                    <option value={20}>20</option>
-                                    <option value={30}>30</option>
-                                    <option value={40}>40</option>
-                                    <option value={50}>50</option>
-                                    <option value={100}>100</option>
-                                </select>
+                    {renderMain &&
+                        <div className="main__nav-wrapper">
+                            <div className="main__nav-buttons">
+                                <button className={btnNavClassProfile} onClick={setProfileComponent}>
+                                    Profile
+                                </button>
+                                <button className={btnNavClassChart} onClick={setChartComponent}>
+                                    Chart
+                                </button>
+                                <button className={btnNavClassCompare} onClick={setComparisonComponent}>
+                                    Compare
+                                </button>
+                            </div>
+                            <div><span className="main__nav-label">Current player:</span> {nickname}</div>
+                            <div className="select-wrapper">
+                                <span className="main__nav-label">Count of last games:</span>
+                                <div className="select">
+                                    <select 
+                                        value={listSize} 
+                                        onChange={onSizeChangeHandler}
+                                        className="main__select" 
+                                    >
+                                        <option value={10}>10</option>
+                                        <option value={20}>20</option>
+                                        <option value={30}>30</option>
+                                        <option value={40}>40</option>
+                                        <option value={50}>50</option>
+                                        <option value={100}>100</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>)}
-                    {(globalFetching && !error && currentUrl) &&
-                    <Preloader />
                     }
-                    {((!globalFetching && currentUrl && !nickname && search) || error)
-                    && (<div>Player {currentUrl} not found</div>)}  
-                    {showChart && playerStats && matches && !error
-                    && nickname && searchAndNickMatch() && !isFetching && !matchFetching
-                    && <LineChart eloArr={eloArr} numsChart={numsChart} />
+                    {renderPreloader && <Preloader />}
+                    {renderPlayerNotFound && <div>Player {currentUrl} not found</div>}  
+                    {renderChart && <LineChart eloArr={eloArr} numsChart={numsChart} />}
+                    {renderProfile &&                   
+                        <div className="player-cards">
+                            <PlayerCard
+                                maxElo={maxElo}
+                                nickname={nickname}
+                                avatar={playerAvatar}
+                                level={skill_level}
+                                elo={faceit_elo}
+                                matches={playerStats.m1}
+                                kd={playerStats.k5}
+                                hs={playerStats.k8}
+                                winRate={playerStats.k6}
+                            />
+                            <AvgStatItem
+                                gamesCount={allMatches.length < listSize ? allMatches.length : listSize}
+                                matches={calcStatsForNGames(matches)}
+                                mainIncreasing={mainIncreasing}
+                            />
+                        </div>
                     }
-                    {showProfile && playerStats && matches && !error && nickname && searchAndNickMatch()
-                    && !isFetching && currentUrl && !matchFetching 
-                    &&(                    
-                    <div className="player-cards">
-                        <PlayerCard
-                            maxElo={maxElo}
-                            nickname={nickname}
-                            avatar={playerAvatar}
-                            level={skill_level}
-                            elo={faceit_elo}
-                            matches={playerStats.m1}
-                            kd={playerStats.k5}
-                            hs={playerStats.k8}
-                            winRate={playerStats.k6}
-                        />
-                        <AvgStatItem
-                            gamesCount={allMatches.length < listSize ? allMatches.length : listSize}
-                            matches={calcStatsForNGames(matches)}
-                        />
-                    </div>
-                    )}
                     {showCompare && 
                         <Comparison
                             listSize={listSize}
@@ -283,18 +291,18 @@ function Main({
                             mainElo={faceit_elo}
                             mainPlayerStats={playerStats}
                             mainStartEloPlus={startEloPlus}
+                            setProfile={setProfile}
+                            mainIncreasing={mainIncreasing}
                         />
                     }
                 </div>
-                {matches && !showCompare && !error && nickname && currentUrl && searchAndNickMatch() && !isFetching
-                && !matchFetching && showMatches
-                && (
+                {renderMatchList &&
                     <MatchList
                         matches={matches}
                         matchesArr={matchesArr}
                     />               
-                )}
-                {!showMatches && matchId && !globalFetching && !showCompare &&
+                }
+                {renderCheckRoom &&
                     <CheckRoom 
                         roomId={matchId}
                         setShowMatches={setShowMatches} 

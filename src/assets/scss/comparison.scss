@@ -1,6 +1,7 @@
 @import './variables.scss';
 
 .comparison {
+    position: relative;
     display: grid;
     place-items: center;
     width: 100%;
@@ -11,11 +12,16 @@
     }    
     &__wrapper {
         width: 80%;
-        transform: translateY(-$px60);
         border-radius: $px20;
     }
     .player-card {
         background: none;
+        &__link {
+            z-index: 15;
+            &:hover {
+                cursor: pointer;
+            }
+        }
         &__title {
             text-align: left;
             align-self: flex-start;
@@ -35,7 +41,7 @@
                 }
                 &__postfix {
                     justify-self: center;
-                }
+                }               
             }
         }
         &__stat-box {
@@ -44,9 +50,11 @@
     }
     .header {
         &__form {
+            position: absolute;
+            top: 0;
             display: flex;
             width: 80%;
-            margin-top: $px10;
+            margin-top: $px5;
             z-index: 10;
         }
         &__input,
@@ -79,9 +87,9 @@
         display: flex;
         justify-content: flex-end;
         margin: 0;
-        // padding: 0 $px50;
-        padding: 0 ;
+        padding: 0;
         .player-card {
+            padding-top: 0;
             padding-bottom: $px25;
             width: 10rem;
             &__nickname {

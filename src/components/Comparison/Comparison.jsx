@@ -10,6 +10,9 @@ import { calcStatsForNGames, getMaxElo, getSlicedMatchList } from '../../assets/
 
 import '../../assets/scss/comparison.scss';
 import CompareField from '../CompareField/CompareField';
+import { useHistory } from 'react-router-dom';
+
+import defaultAvatar from '../../assets/img/avatar.jpg';
 
 function Comparison({ 
     listSize,
@@ -20,7 +23,8 @@ function Comparison({
     mainLevel,
     mainElo,
     mainPlayerStats,
-    mainStartEloPlus
+    setProfile,
+    mainIncreasing
  }) {
     const [value, setValue] = useState('')
     const [currentNick, setCurrentNick] = useState(null)
@@ -31,9 +35,7 @@ function Comparison({
     const [secStartEloPlus, setSecSartEloPlus] = useState(0);
     const [secIncreasing, setSecIncreasing] = useState(0);
 
-    const mainIncreasing = mainStartEloPlus
-        ? Number.parseInt(mainMatches.eloDif) + Number.parseInt(mainStartEloPlus)
-        : mainMatches.eloDif;
+	const history = useHistory();
 
     const dispatch = useDispatch();
 
@@ -60,7 +62,7 @@ function Comparison({
     useEffect(() => {
         if (secMatches) {  
             setMaxElo(getMaxElo(secMatches));
-            setSecSartEloPlus(secMatches[listSize - 1].elo - secMatches[listSize].elo);
+            secMatches.length >= listSize && setSecSartEloPlus(secMatches[listSize - 1].elo - secMatches[listSize].elo);
         }
     // eslint-disable-next-line
     }, [secMatches])
@@ -104,6 +106,19 @@ function Comparison({
         setValue(e.target.value);
     }
 
+    const setNewPlayer = (nickname) => {
+        history.push({
+            pathname: '/faceit-metric/',
+            search: `?nickname=${nickname}`
+        });
+
+        setProfile(true);
+    }
+
+    const renderPreloader = localFetching && mainNickname.toLowerCase() !== currentNick.toLowerCase() && !secError;
+    const renderPlayerNotFound = (!localFetching && currentNick && !nickname && !matches) || secError;
+    const renderStat = secondPlayerStats && !isFetching && matches && nickname !== mainNickname;
+
     return (        
         <div className="comparison">
             <form onSubmit={onClickHandler} className="header__form" >
@@ -119,11 +134,10 @@ function Comparison({
                 />
                 <button type="submit" disabled={value === ''} className="header__btn-search btn">Compare</button>
             </form>
-            {localFetching && mainNickname.toLowerCase() !== currentNick.toLowerCase() && !secError && <Preloader />}
-            {((!localFetching && currentNick && !nickname && !matches) || secError) 
-            && <span className="not-found">Player {currentNick} not found</span>} 
+            {renderPreloader && <Preloader />}
+            {renderPlayerNotFound && <span className="not-found">Player {currentNick} not found</span>} 
             {nickname === mainNickname && <span className="not-found">Select another player</span>}
-            {secondPlayerStats && !isFetching && matches && nickname !== mainNickname &&
+            {renderStat &&
                 <div className="comparison__wrapper">
                     <div className="player-cards player-cards__header">                        
                         <div className="player-card__string">
@@ -134,9 +148,9 @@ function Comparison({
                                 <div className="player-card__nickname">{mainNickname}</div>
                                 <img className="player-card__avatar" src={mainAvatar} alt=""/>
                             </div>
-                            <div className="player-card">
+                            <div className="player-card  player-card__link" onClick={() => setNewPlayer(nickname)}>
                                 <div className="player-card__nickname">{nickname}</div>
-                                <img className="player-card__avatar" src={playerAvatar} alt=""/>
+                                <img className="player-card__avatar" src={playerAvatar || defaultAvatar} alt=""/>
                             </div>
                         </div>                       
                     </div>
@@ -259,8 +273,8 @@ function Comparison({
                             />
                             <CompareField 
                                 label="Increasing Elo" 
-                                parMain={mainIncreasing > 0 ? '+' + mainIncreasing : mainIncreasing}
-                                parSec={secIncreasing > 0 ? '+' + secIncreasing : secIncreasing}
+                                parMain={mainIncreasing > 0 ? '+' + Number.parseInt(mainIncreasing) : mainIncreasing}
+                                parSec={secIncreasing > 0 ? '+' + Number.parseInt(secIncreasing) : secIncreasing}
                                 unit="" 
                             />                            
                         </div>

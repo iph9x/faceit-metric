@@ -129,13 +129,19 @@ ul, li {
         width: 18.75rem;
         background: $card-bg;
         padding: $px20;
-        border-radius: $border-radius;
+        border-radius: $border-radius;       
         &__nickname {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 2.25rem;
             font-weight: 700;
             margin-bottom: $px30;
             width: 100%;
             text-align: center;
+            span {
+                margin-right: $px10;
+            }
         }
         &__bg {
             position: absolute;

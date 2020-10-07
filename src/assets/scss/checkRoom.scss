@@ -98,10 +98,7 @@ $avatar-size: $px40;
         height: $px50;
         padding: 0 $px5;
         border-radius: $px25;
-        margin-bottom: $px10;
-        &:hover {
-            cursor: pointer;
-        }
+        margin-bottom: $px10;        
     }
     &-captions {
         background: none;
@@ -128,5 +125,8 @@ $avatar-size: $px40;
     }
     &__js-start {
         justify-self: start;
+        &:hover {
+            cursor: pointer;
+        }
     }
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import defaultAvatar from '../../assets/img/avatar.jpg';
+
 function RoomPlayerItem({ numTeamStats, player, i, setShowMatches }) {
     const {nickname, gameSkillLevel, elo, avatar } = player;
 
@@ -16,9 +18,9 @@ function RoomPlayerItem({ numTeamStats, player, i, setShowMatches }) {
     }
 
     return (    
-        <div className="player-wrapper" onClick={clickHandler}>
-            <img className="player__avatar player__js-start" src={avatar} alt="" />
-            <div className="player__info player__js-start">
+        <div className="player-wrapper">
+            <img className="player__avatar player__js-start" src={avatar || defaultAvatar} alt="" onClick={clickHandler}/>
+            <div className="player__info player__js-start" onClick={clickHandler}>
                 {nickname}
             </div>
             <div className="player__info">

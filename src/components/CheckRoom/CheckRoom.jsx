@@ -103,17 +103,17 @@ function CheckRoom({roomId, setShowMatches}) {
                 </button>
                 <div className="room__game-info">
                     {teamsInfo.matchCustom.tree.location.values.value[0] &&
-                    (<div className="room__region">
+                        <div className="room__region">
                             {teamsInfo.matchCustom.tree.location.values.value[0].name}
                             <img src={teamsInfo.matchCustom.tree.location.values.value[0].image_sm} alt=""/>
-                    </div>
-                    )}
+                        </div>
+                    }
                     {!teamsInfo.matchCustom.tree.location.values.value[0] &&
-                    (<div className="room__region">
+                        <div className="room__region">
                             {teamsInfo.matchCustom.tree.location.values.value.name}
                             <img src={teamsInfo.matchCustom.tree.location.values.value.image_sm} alt=""/>
-                    </div>
-                    )}
+                        </div>
+                    }
                     <div className="room__map">
                         {teamsStats.i1}
                     </div>
@@ -145,9 +145,7 @@ function CheckRoom({roomId, setShowMatches}) {
                     </div>
                     <RoomCaptions />
                     <div className={team1Class}>
-                        {team1Roster && team2Roster &&
-                            team1Roster
-                        }
+                        {team1Roster && team2Roster && team1Roster}
                     </div>
                 </div>
                 <div className="room__team-wrapper">
@@ -169,9 +167,7 @@ function CheckRoom({roomId, setShowMatches}) {
                     </div>
                     <RoomCaptions />
                     <div className={team2Class}>
-                        {team1Roster && team2Roster &&
-                            team2Roster
-                        }
+                        {team1Roster && team2Roster && team2Roster}
                     </div>
                 </div>          
             </div>
