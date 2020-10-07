@@ -12,11 +12,16 @@ function MatchItem({ match, eloDif, setMatchId, setShowMatches }) {
     });
 
     const kdClass = classNames({
-        "kd-high": Number.parseFloat(match.c2) > 1,
-        "kd-low": Number.parseFloat(match.c2) < 1,
-        "kd-one": Number.parseFloat(match.c2) === 1
+        'kd-high': Number.parseFloat(match.c2) > 1,
+        'kd-low': Number.parseFloat(match.c2) < 1,
+        'kd-one': Number.parseFloat(match.c2) === 1
     });
 
+    const matchElo = match.elo ? match.elo : '(+0)';
+    const eloSign = eloDif > 0 ? `+${eloDif}` : eloDif;
+    const eloDiffNaN = Number.isNaN(eloDif) ? '(+0)' : (eloSign);
+    const eloDiff =  eloDif ? `(${eloDiffNaN})` : '';
+    
     return (
         <div onClick={() => {
             setMatchId(match.matchId);
@@ -33,7 +38,7 @@ function MatchItem({ match, eloDif, setMatchId, setShowMatches }) {
             <div>{match.i7}</div>
             <div>{match.i8}</div>
             <div>{secToDate(match.created_at)}</div>
-            <div>{`${match.elo ? match.elo : '(+0)'} ${eloDif ? `(${Number.isNaN(eloDif) ? "+0" : (eloDif > 0 ? `+${eloDif}` : eloDif)})` : `` }`}</div>
+            <div>{`${matchElo} ${eloDiff}`}</div>
         </div>
     );
 }

@@ -18,6 +18,7 @@ function PlayerCard({ nickname, avatar, level, elo, matches, kd, hs, winRate, ma
         'player-card__bg_green': level >= 2 && level <= 3,
         'player-card__bg_white': level === 1
     });
+    
     return (<>    
         <div className="player-card player-card__avatar-box">
             <div className="player-card__nickname">

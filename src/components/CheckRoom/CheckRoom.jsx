@@ -10,12 +10,12 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { getTeamsThunkCreator } from '../../redux/room/actions';
 
 import Preloader from '../Preloader/Preloader';
-
-import '../../assets/scss/checkRoom.scss';
 import RoomPlayerItem from '../RoomPlayerItem/RoomPlayerItem';
 import RoomCaptions from '../RoomCaptions/RoomCaptions';
 
-function CheckRoom({roomId, setShowMatches}) {
+import '../../assets/scss/checkRoom.scss';
+
+function CheckRoom({ roomId, setShowMatches }) {
     const [team1Roster, setTeam1Roster] = useState(null);
     const [team2Roster, setTeam2Roster] = useState(null);
 
@@ -24,12 +24,10 @@ function CheckRoom({roomId, setShowMatches}) {
 
     const dispatch = useDispatch();
 
-    const {teamsInfo, teamsStats, isFetching, error} = useSelector(state => state.roomPage);
+    const { teamsInfo, teamsStats, isFetching, error } = useSelector(state => state.roomPage);
 
     useEffect(() => {
-        if (roomId.length > 0) {
-            dispatch(getTeamsThunkCreator(roomId));
-        }
+        if (roomId.length > 0) dispatch(getTeamsThunkCreator(roomId));
     }, [dispatch, roomId]);
 
     useEffect(() => {
@@ -50,12 +48,12 @@ function CheckRoom({roomId, setShowMatches}) {
 
     const setClassForTeam = (i) => {
         return classNames({
-            "room__team": true,
-            "room__team-1": i === 0,
-            "room__team-2": i === 1,
-            "room__team-loser": 
+            'room__team': true,
+            'room__team-1': i === 0,
+            'room__team-2': i === 1,
+            'room__team-loser': 
                 Number.parseInt(teamsStats.teams[i === 0 ? 0 : 1].c5) < Number.parseInt(teamsStats.teams[i === 0 ? 1 : 0].c5),
-            "room__team-winner": 
+            'room__team-winner': 
                 Number.parseInt(teamsStats.teams[i === 0 ? 0 : 1].c5) > Number.parseInt(teamsStats.teams[i === 0 ? 1 : 0].c5)
         });
     }
@@ -82,6 +80,7 @@ function CheckRoom({roomId, setShowMatches}) {
 
         return `${entTime[0].slice(0)} - ${entTime[1].slice(0, -4)}`;
     }
+    
     if (!isFetching && error) {
         return (
             <div className="room">
@@ -92,9 +91,11 @@ function CheckRoom({roomId, setShowMatches}) {
             </div>
         )
     }
+
     if (isFetching && !teamsStats) {
         return <Preloader />
     }
+
     if (teamsStats) {
         return (        
             <div className="room">
@@ -173,6 +174,7 @@ function CheckRoom({roomId, setShowMatches}) {
             </div>
         );
     }
+
     return null;
 }
 

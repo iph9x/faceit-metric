@@ -2,8 +2,8 @@ import React from 'react';
 
 import CardString from '../CardString/CardString';
 
-function AvgStatItem({matches, gamesCount, mainIncreasing}) {
-    const {kd, kr, hs, avgFrags, winrate} = matches;
+function AvgStatItem({ matches, gamesCount, mainIncreasing }) {
+    const { kd, kr, hs, avgFrags, winrate } = matches;
 
     return (    
         <div className="player-card player-card__avg-box">

@@ -2,13 +2,13 @@ import React  from 'react';
 
 import { Line } from 'react-chartjs-2';
 
-import useWindowSize from "../../assets/js/useWindowSize"
+import useWindowSize from "../../assets/js/useWindowSize";
 import '../../assets/scss/chart.scss';
 
 function LineChart({ eloArr, numsChart }) {
     const { width } = useWindowSize();
 
-    const calcedFontSize = width <= 1024 ? width * 0.01171875 : 12;
+    const calcedFontSize = (width <= 1024) ? (width * 0.01171875) : 12;
 
     const data = {
         labels: numsChart,

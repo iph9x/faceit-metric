@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Preview from '../pages/Preview/Preview';
 
+import Preview from '../pages/Preview/Preview';
 import Main from '../pages/Main/Main';
 
 const AppRouter = ({
@@ -16,11 +16,11 @@ const AppRouter = ({
             <Route exact path="/faceit-metric/">
                 {search
                     ? <Main 
-                    search={search}
-                    currentUrl={currentUrl}
-                    setCurrentUrl={setCurrentUrl}
-                    showMatches={showMatches}
-                    setShowMatches={setShowMatches}
+                        search={search}
+                        currentUrl={currentUrl}
+                        setCurrentUrl={setCurrentUrl}
+                        showMatches={showMatches}
+                        setShowMatches={setShowMatches}
                     />  
                     : <Redirect to="/faceit-metric/home" />
                 }

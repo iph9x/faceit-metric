@@ -1,9 +1,42 @@
 export const secToDate = (secs) => {
     const startTime = new Date(null); 
     startTime.setTime(secs);
+
     const outString = `${startTime.getDate() < 10 ? `0${startTime.getDate()}` : startTime.getDate()}.${startTime.getMonth() + 1 < 10 ? `0${startTime.getMonth() + 1}` : startTime.getMonth() + 1} - ${startTime.getHours() < 10 ? `0${startTime.getHours()}` : startTime.getHours()}:${startTime.getMinutes() < 10 ? `0${startTime.getMinutes()}` : startTime.getMinutes()}`;
+
     return outString;
 }
+
+const summer = (a, b) => {
+    return a + Number.parseFloat(b);
+};
+
+const findStartElo = (matches) => {
+    for (let i = matches.length - 1; i >= 0; i -= 1) {
+        if (matches[i].elo !== undefined) {
+            return matches[i].elo;
+        }
+    }
+}
+
+const findCurrentElo = (matches) => {
+    for (let i = 0; i < matches.length; i += 1) {
+        if (matches[i].elo !== undefined) {
+            return matches[i].elo;
+        } else {
+            continue;
+        }
+    }
+}
+
+const calcDifElo = (elo1, elo2) => {
+    const def = Number.parseInt(elo1) - Number.parseInt(elo2);
+    if (def < 0) {
+        return def;
+    } else {
+        return `+${def}`;
+    }
+}   
 
 export const calcStatsForNGames = (matches) => {
     let sumStats = {
@@ -19,37 +52,7 @@ export const calcStatsForNGames = (matches) => {
         penta: 0,
         mvps: 0,
         eloDif: 0
-    };
-
-    const summer = (a, b) => {
-        return a + Number.parseFloat(b);
-    };
-    const findStartElo = (matches) => {
-        for (let i = matches.length - 1; i >= 0; i -= 1) {
-            if (matches[i].elo !== undefined) {
-                return matches[i].elo
-            }
-        }
-    }
-
-    const findCurrentElo = (matches) => {
-        for (let i = 0; i < matches.length; i += 1) {
-            if (matches[i].elo !== undefined) {
-                return matches[i].elo
-            } else {
-                continue
-            }
-        }
-    }
-    const calcDifElo = (elo1, elo2) => {
-        const def = Number.parseInt(elo1) - Number.parseInt(elo2);
-        if (def < 0) {
-            return def;
-        } else {
-            return `+${def}`;
-        }
-
-    }   
+    };    
 
     const newObject = matches.reduce((accObj, curObj) => {
         return {

@@ -2,7 +2,7 @@ import React from 'react';
 
 function MatchList({
     matches,
-    matchesArr
+    matchesArr,
 }) {
     return (       
         <div className="match__wrapper">

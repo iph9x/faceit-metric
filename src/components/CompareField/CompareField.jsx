@@ -2,11 +2,11 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-function CompareField({label, parMain, parSec, unit}) {
+function CompareField({ label, parMain, parSec, unit }) {
     const compareStat = (a, b) => {
         return classNames({
-           "kd-high": Number.parseFloat(a) > Number.parseFloat(b),
-           "kd-low": Number.parseFloat(a) < Number.parseFloat(b),
+           'kd-high': Number.parseFloat(a) > Number.parseFloat(b),
+           'kd-low': Number.parseFloat(a) < Number.parseFloat(b),
        });
     }
 

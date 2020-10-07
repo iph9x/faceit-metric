@@ -29,9 +29,9 @@ function Header({
         });     
 
         const nicknamePURL = new URLSearchParams(search);
-        const currentNick = nicknamePURL.get("nickname");
+        const currentNick = nicknamePURL.get('nickname');
 
-        if (currentNick) {
+        if (currentNick !== '') {
             setShowMatches(true);
             setCurrentUrl(currentNick)
         }

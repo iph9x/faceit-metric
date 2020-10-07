@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import defaultAvatar from '../../assets/img/avatar.jpg';
 
 function RoomPlayerItem({ numTeamStats, player, i, setShowMatches }) {
-    const {nickname, gameSkillLevel, elo, avatar } = player;
+    const { nickname, gameSkillLevel, elo, avatar } = player;
 
     const history = useHistory();
 
@@ -19,7 +19,7 @@ function RoomPlayerItem({ numTeamStats, player, i, setShowMatches }) {
 
     return (    
         <div className="player-wrapper">
-            <img className="player__avatar player__js-start" src={avatar || defaultAvatar} alt="" onClick={clickHandler}/>
+            <img className="player__avatar player__js-start" src={ avatar || defaultAvatar } alt="" onClick={clickHandler}/>
             <div className="player__info player__js-start" onClick={clickHandler}>
                 {nickname}
             </div>

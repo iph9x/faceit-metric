@@ -1,16 +1,16 @@
 import React, { useEffect, useState }  from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-import Preloader from '../Preloader/Preloader';
 
 import { setSecondPlayerThunkCreator } from '../../redux/player/actions';
 import { getSecMatchesThunkCreator } from '../../redux/match/actions';
 
+import CompareField from '../CompareField/CompareField';
+import Preloader from '../Preloader/Preloader';
 import { calcStatsForNGames, getMaxElo, getSlicedMatchList } from '../../assets/js/utils';
 
 import '../../assets/scss/comparison.scss';
-import CompareField from '../CompareField/CompareField';
-import { useHistory } from 'react-router-dom';
 
 import defaultAvatar from '../../assets/img/avatar.jpg';
 
@@ -24,11 +24,11 @@ function Comparison({
     mainElo,
     mainPlayerStats,
     setProfile,
-    mainIncreasing
+    mainIncreasing,
  }) {
-    const [value, setValue] = useState('')
-    const [currentNick, setCurrentNick] = useState(null)
-    const [matches, setMatches] = useState(null)
+    const [value, setValue] = useState('');
+    const [currentNick, setCurrentNick] = useState(null);
+    const [matches, setMatches] = useState(null);
     const [maxElo, setMaxElo] = useState(0);
     const [localFetching, setLocalFetching] = useState(false);
     
@@ -39,22 +39,32 @@ function Comparison({
 
     const dispatch = useDispatch();
 
-    const {secondPlayerStats, secondPlayerIsFetching: isFetching, secError } = useSelector(store => store.playerSearch);
-    const { playerAvatar,
-            skill_level,
-            faceit_elo,
-            nickname,
-            playerId
-        } = useSelector(store => store.playerSearch.secondPlayerInfo);
-    const {secMatches, secMatchesIsFetching: matchFetching } = useSelector(store => store.matchesList);
+    const {
+        secondPlayerStats,
+        secondPlayerIsFetching: isFetching,
+        secError
+    } = useSelector(store => store.playerSearch);
+
+    const { 
+        playerAvatar,
+        skill_level,
+        faceit_elo,
+        nickname,
+        playerId,
+    } = useSelector(store => store.playerSearch.secondPlayerInfo);
+
+    const { 
+        secMatches,
+        secMatchesIsFetching: matchFetching 
+    } = useSelector(store => store.matchesList);
 
     useEffect(() => {        
         if (secondPlayerStats && !isFetching) {
             dispatch(getSecMatchesThunkCreator(playerId, secondPlayerStats.m1));
         }
-        if (!isFetching && !nickname) {
-            setLocalFetching(false);
-        }
+
+        if (!isFetching && !nickname) setLocalFetching(false);
+
     // eslint-disable-next-line
     }, [dispatch, playerId]);
    
@@ -62,16 +72,19 @@ function Comparison({
     useEffect(() => {
         if (secMatches) {  
             setMaxElo(getMaxElo(secMatches));
-            secMatches.length >= listSize && setSecSartEloPlus(secMatches[listSize - 1].elo - secMatches[listSize].elo);
+            
+            if (secMatches.length >= listSize) {
+                setSecSartEloPlus(secMatches[listSize - 1].elo - secMatches[listSize].elo);
+            }
         }
     // eslint-disable-next-line
-    }, [secMatches])
+    }, [secMatches, listSize])
 
     // Slice allMatches
     useEffect(() => {        
         if (secMatches && !matchFetching) {
-            setMatches(calcStatsForNGames(getSlicedMatchList(secMatches, listSize)))
-        }
+            setMatches(calcStatsForNGames(getSlicedMatchList(secMatches, listSize)));  
+        } 
     // eslint-disable-next-line
     }, [secMatches, listSize]);
 
@@ -85,9 +98,7 @@ function Comparison({
     }, [matches]);
 
     useEffect(() => {        
-        if (matches) {
-            setLocalFetching(false);
-        }
+        if (matches) setLocalFetching(false);
     // eslint-disable-next-line
     }, [matches]);
 
@@ -95,9 +106,9 @@ function Comparison({
         e.preventDefault();  
         setLocalFetching(true);
 
-        if (value !== '') { dispatch(setSecondPlayerThunkCreator(value)) }
+        if (value !== '') dispatch(setSecondPlayerThunkCreator(value));
 
-        setMatches(null)
+        setMatches(null);
         setCurrentNick(value);
         setValue('');
     }    
@@ -115,9 +126,21 @@ function Comparison({
         setProfile(true);
     }
 
-    const renderPreloader = localFetching && mainNickname.toLowerCase() !== currentNick.toLowerCase() && !secError;
-    const renderPlayerNotFound = (!localFetching && currentNick && !nickname && !matches) || secError;
-    const renderStat = secondPlayerStats && !isFetching && matches && nickname !== mainNickname;
+    const isRenderPreloader = localFetching
+        && mainNickname.toLowerCase() !== currentNick.toLowerCase()
+        && !secError;
+
+    const isRenderPlayerNotFound = 
+        (!localFetching 
+        && currentNick
+        && !nickname
+        && !matches)
+        || secError;
+
+    const isRenderStat = secondPlayerStats
+        && !isFetching
+        && matches
+        && nickname !== mainNickname;
 
     return (        
         <div className="comparison">
@@ -132,12 +155,18 @@ function Comparison({
                     value={value}
                     onChange={handleChange} 
                 />
-                <button type="submit" disabled={value === ''} className="header__btn-search btn">Compare</button>
+                <button type="submit" disabled={value === ''} className="header__btn-search btn">
+                    Compare
+                </button>
             </form>
-            {renderPreloader && <Preloader />}
-            {renderPlayerNotFound && <span className="not-found">Player {currentNick} not found</span>} 
+            {isRenderPreloader && <Preloader />}
+            {isRenderPlayerNotFound && 
+                <span className="not-found">
+                    Player {currentNick} not found
+                </span>
+            } 
             {nickname === mainNickname && <span className="not-found">Select another player</span>}
-            {renderStat &&
+            {isRenderStat &&
                 <div className="comparison__wrapper">
                     <div className="player-cards player-cards__header">                        
                         <div className="player-card__string">
@@ -146,7 +175,7 @@ function Comparison({
                             </div>
                             <div className="player-card">
                                 <div className="player-card__nickname">{mainNickname}</div>
-                                <img className="player-card__avatar" src={mainAvatar} alt=""/>
+                                <img className="player-card__avatar" src={mainAvatar || defaultAvatar} alt=""/>
                             </div>
                             <div className="player-card  player-card__link" onClick={() => setNewPlayer(nickname)}>
                                 <div className="player-card__nickname">{nickname}</div>

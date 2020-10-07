@@ -13,11 +13,11 @@ import MatchItem from '../../components/MatchItem/MatchItem';
 import LineChart from '../../components/LineChart/LineChart';
 import AvgStatItem from '../../components/AvgStatItem/AvgStatItem';
 import CheckRoom from '../../components/CheckRoom/CheckRoom';
+import Comparison from '../../components/Comparison/Comparison';
 
 import { calcStatsForNGames, secToDate, getMaxElo, getSlicedMatchList } from '../../assets/js/utils';
 
 import '../../assets/scss/select.scss';
-import Comparison from '../../components/Comparison/Comparison';
 
 function Main({
     search,
@@ -28,14 +28,15 @@ function Main({
 }) {
     const dispatch = useDispatch();
 
-    const {playerStats, isFetching, error} = useSelector(store => store.playerSearch);
-    const {allMatches, isFetching: matchFetching} = useSelector(store => store.matchesList);
-    const { playerAvatar,
-            skill_level,
-            faceit_elo,
-            nickname,
-            playerId
-        } = useSelector(store => store.playerSearch.playerInfo);
+    const { playerStats, isFetching, error } = useSelector(store => store.playerSearch);
+    const { allMatches, isFetching: matchFetching } = useSelector(store => store.matchesList);
+    const { 
+		playerAvatar,
+        skill_level,
+        faceit_elo,
+        nickname,
+        playerId,
+    } = useSelector(store => store.playerSearch.playerInfo);
     
     // GLOBAL FETCHING
     const [globalFetching, setGlobalFetching] = useState(false);
@@ -70,9 +71,7 @@ function Main({
 
     // Get player info if url change
     useEffect(() => {
-        if (search !== '') {
-            setGlobalFetching(true);
-        }
+        if (search !== '') setGlobalFetching(true);
         if (search === '') {
             dispatch(clearState());
             setShowMatches(true);
@@ -84,12 +83,11 @@ function Main({
 
     useEffect(() => {
         const nicknamePURL = new URLSearchParams(search);
-        const currentNick = nicknamePURL.get("nickname");
+        const currentNick = nicknamePURL.get('nickname');
 
-        if (currentNick) {
-            if (currentNick !== currentUrl) {
-                setCurrentUrl(currentNick);
-            }
+        if (currentNick !== '') {
+            if (currentNick !== currentUrl) setCurrentUrl(currentNick);
+
             setShowMatches(true);
             dispatch(getPlayerIdThunkCreator(currentNick));
         }          
@@ -108,17 +106,20 @@ function Main({
     useEffect(() => {
         if (allMatches) {  
             setMaxElo(getMaxElo(allMatches));
-            allMatches.length >= listSize && setStartEloPlus(allMatches[listSize - 1].elo - allMatches[listSize].elo);
+
+            if (allMatches.length >= listSize) {
+                setStartEloPlus(allMatches[listSize - 1].elo - allMatches[listSize].elo);
+            }
         }
     // eslint-disable-next-line
-    }, [allMatches])
+    }, [allMatches, listSize])
 
     // Slice allMatches
     useEffect(() => {        
         if (allMatches && !matchFetching) {
-            setMatchesBySize(getSlicedMatchList(allMatches, listSize))
+            setMatchesBySize(getSlicedMatchList(allMatches, listSize));
         }
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [allMatches, listSize]);
 
     // Mapping matches list. Create DOM matches
@@ -131,6 +132,7 @@ function Main({
             for (let i = 0; i < listSize; i += 1) {
                 if (allMatches[i + 1]) {
                     eloArr[i] = allMatches[i].elo - allMatches[i + 1].elo;
+
                     if (allMatches[i].elo !== undefined) {
                         currentEloArr[i] = allMatches[i].elo; 
                         nums[i] = secToDate(allMatches[i].created_at);
@@ -141,8 +143,8 @@ function Main({
                 }
             }
 
-            setEloArr(currentEloArr.filter(item => item !== null).reverse());
-            setNumsChart(nums.filter(item => item !== null).reverse());
+            setEloArr(currentEloArr.filter((item) => item !== null).reverse());
+            setNumsChart(nums.filter((item) => item !== null).reverse());
 
             const arrOfElMatches = matches.map((match, index) => {
                 return ( <MatchItem
@@ -164,7 +166,8 @@ function Main({
             setMainIncreasing(startEloPlus
                 ? Number.parseInt(calcStatsForNGames(matches).eloDif) + Number.parseInt(startEloPlus)
                 : calcStatsForNGames(matches).eloDif
-            )
+            );
+
             setGlobalFetching(false);
         }
     // eslint-disable-next-line
@@ -173,58 +176,98 @@ function Main({
     const onSizeChangeHandler = (e) => {
         setListSize(Number.parseInt(e.target.value));
     } 
-
     const setProfileComponent = () => {
-        setProfile(true)
-        setShowChart(false)
-        setShowCompare(false)
+        setProfile(true);
+        setShowChart(false);
+        setShowCompare(false);
     }
     const setChartComponent = () => {
-        setProfile(false)
-        setShowChart(true)
-        setShowCompare(false)
+        setProfile(false);
+        setShowChart(true);
+        setShowCompare(false);
     }
     const setComparisonComponent = () => {
-        setProfile(false)
-        setShowChart(false)
-        setShowCompare(true)
+        setProfile(false);
+        setShowChart(false);
+        setShowCompare(true);
     }
 
     const btnNavClassProfile = classNames({
         btn: true,
-        "main__nav-btn": true,
+        'main__nav-btn': true,
         'main__nav-btn_active': showProfile,
     });
 
     const btnNavClassChart = classNames({
         btn: true,
-        "main__nav-btn": true,
+        'main__nav-btn': true,
         'main__nav-btn_active': showChart,
     });
 
     const btnNavClassCompare = classNames({
         btn: true,
-        "main__nav-btn": true,
+        'main__nav-btn': true,
         'main__nav-btn_active': showCompare,
     });
 
-    const renderMain = playerStats && matches && !error && nickname
-    && currentUrl && searchAndNickMatch() && !globalFetching;
-    const renderPreloader = globalFetching && !error && currentUrl;
-    const renderPlayerNotFound = (!globalFetching && currentUrl && !nickname && search) || error;
-    const renderChart = showChart && playerStats && matches && !error
-    && nickname && searchAndNickMatch() && !isFetching && !matchFetching;
-    const renderProfile = showProfile && playerStats && matches && !error && nickname
-    && searchAndNickMatch() && !isFetching && currentUrl && !matchFetching;
-    const renderMatchList = matches && !showCompare && !error && nickname
-    && currentUrl && searchAndNickMatch() && !isFetching && !matchFetching && showMatches;
-    const renderCheckRoom = !showMatches && matchId && !globalFetching && !showCompare;
+    const isRenderMain = playerStats 
+        && matches 
+        && !error 
+        && nickname
+        && currentUrl
+        && searchAndNickMatch()
+        && !globalFetching;
+
+    const isRenderPreloader = globalFetching
+        && !error
+        && currentUrl;
+
+    const isRenderPlayerNotFound = 
+        (!globalFetching 
+        && currentUrl
+        && !nickname
+        && search)
+        || error;
+
+    const isRenderChart = showChart
+        && playerStats 
+        && matches
+        && !error
+        && nickname
+        && searchAndNickMatch()
+        && !isFetching 
+        && !matchFetching;
+
+    const isRenderProfile = showProfile
+        && playerStats
+        && matches
+        && !error
+        && nickname
+        && searchAndNickMatch()
+        && !isFetching
+        && currentUrl
+        && !matchFetching;
+
+    const isRenderMatchList = matches
+        && !showCompare
+        && !error
+        && nickname
+        && currentUrl
+        && searchAndNickMatch()
+        && !isFetching
+        && !matchFetching
+        && showMatches;
+
+    const isRenderCheckRoom = !showMatches
+        && matchId
+        && !globalFetching
+        && !showCompare;
 
     return (
         <main className="main">
             <div className="main__container container">
                 <div className="main__info-box">   
-                    {renderMain &&
+                    {isRenderMain &&
                         <div className="main__nav-wrapper">
                             <div className="main__nav-buttons">
                                 <button className={btnNavClassProfile} onClick={setProfileComponent}>
@@ -257,10 +300,10 @@ function Main({
                             </div>
                         </div>
                     }
-                    {renderPreloader && <Preloader />}
-                    {renderPlayerNotFound && <div>Player {currentUrl} not found</div>}  
-                    {renderChart && <LineChart eloArr={eloArr} numsChart={numsChart} />}
-                    {renderProfile &&                   
+                    {isRenderPreloader && <Preloader />}
+                    {isRenderPlayerNotFound && <div>Player {currentUrl} not found</div>}  
+                    {isRenderChart && <LineChart eloArr={eloArr} numsChart={numsChart} />}
+                    {isRenderProfile &&                   
                         <div className="player-cards">
                             <PlayerCard
                                 maxElo={maxElo}
@@ -296,13 +339,13 @@ function Main({
                         />
                     }
                 </div>
-                {renderMatchList &&
+                {isRenderMatchList &&
                     <MatchList
                         matches={matches}
                         matchesArr={matchesArr}
                     />               
                 }
-                {renderCheckRoom &&
+                {isRenderCheckRoom &&
                     <CheckRoom 
                         roomId={matchId}
                         setShowMatches={setShowMatches} 

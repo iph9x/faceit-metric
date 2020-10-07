@@ -32,7 +32,6 @@
         }
         &__compare {
             width: 100%;
-            // padding: 0 $px50;
             padding: 0;
             margin-bottom: $px20;
             .player-card {
@@ -117,14 +116,12 @@
             &__avatar {
                 width: 6rem;
                 height: 6rem;
-            }
-           
+            }  
         }
-
     }
 }
 
 .not-found {
-    margin-top: $px30;
+    margin-top: $px70;
     font-size: $px20;
 }
