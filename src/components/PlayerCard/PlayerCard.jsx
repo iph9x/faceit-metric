@@ -29,8 +29,10 @@ function PlayerCard({ nickname, avatar, level, elo, matches, kd, hs, winRate, ma
                     <img src={faceitLogo} alt=""/>
                 </a>
             </div>
-            <div className={bgColor}>.</div>
-            <img className="player-card__avatar" src={avatar || defaultAvatar} alt=""/>
+            <div className="player-card__avatar-circle">
+                <div className={bgColor}>.</div>
+                <img className="player-card__avatar" src={avatar || defaultAvatar} alt=""/>
+            </div>
         </div>
         <div className="player-card player-card__alltime-box">
             <div className="player-card__avg-title">

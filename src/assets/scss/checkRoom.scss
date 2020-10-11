@@ -3,7 +3,7 @@
 $avatar-size: $px40;
 
 .room {
-    transform-origin: center top;  
+    border-top: 1px solid #5c5c5c;
     &__error {
         color: rgb(223, 85, 85);
         font-weight: 400;
@@ -15,8 +15,6 @@ $avatar-size: $px40;
         row-gap: $px20;
         grid-template-rows: $px14 $px20 $px50 $px20;
         margin: $px20 0;
-        padding: $px30 $px10;
-        background: $card-bg;
         border-radius: $border-radius;
     }
     &__map{
@@ -38,7 +36,7 @@ $avatar-size: $px40;
         color: $secondary-color;
     }
     &__btn {
-        margin-bottom: $px20;
+        margin-top: $px20;
         color: $card-bg;
     }
     &__score {
@@ -67,9 +65,7 @@ $avatar-size: $px40;
         &-wrapper {
             display: flex;
             flex-direction: column;
-            background: $card-bg;
             border-radius: $border-radius;
-            padding: 0 $px20 $px20 $px20;
             &:nth-of-type(2) {
                 margin-bottom: $px20;
             }

@@ -4,14 +4,14 @@
     position: relative;
     display: grid;
     place-items: center;
-    width: 100%;
+    width: 95%;
     font-size: $px50;
     .kd-high,
     .kd-low {
         font-weight: 300;
     }    
     &__wrapper {
-        width: 80%;
+        width: 100%;
         border-radius: $px20;
     }
     .player-card {
@@ -52,7 +52,7 @@
             position: absolute;
             top: 0;
             display: flex;
-            width: 80%;
+            width: 100%;
             margin-top: $px5;
             z-index: 10;
         }
@@ -71,7 +71,7 @@
             
         }
         &__input {
-            width: 25%;
+            width: 22%;
             font-size: 1.125rem;
             border: 1px solid #fff;
             background: none;

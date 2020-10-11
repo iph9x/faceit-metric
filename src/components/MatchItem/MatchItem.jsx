@@ -29,16 +29,16 @@ function MatchItem({ match, eloDif, setMatchId, setShowMatches }) {
         }}
             className={bgClass}
         >
-            <div>{match.i1.split('/').pop()}</div>
-            <div>{match.i5}</div>
-            <div>{match.i18}</div>
-            <div className={kdClass}>{match.c2}</div>
-            <div>{match.c4}%</div>
-            <div>{match.i6}</div>
-            <div>{match.i7}</div>
-            <div>{match.i8}</div>
-            <div>{secToDate(match.created_at)}</div>
-            <div>{`${matchElo} ${eloDiff}`}</div>
+            <span>{match.i1.split('/').pop()}</span>
+            <span>{match.i5}</span>
+            <span>{match.i18}</span>
+            <span className={kdClass}>{match.c2}</span>
+            <span>{match.c4}%</span>
+            <span>{match.i6}</span>
+            <span>{match.i7}</span>
+            <span>{match.i8}</span>
+            <span>{secToDate(match.created_at)}</span>
+            <span>{`${matchElo} ${eloDiff}`}</span>
         </div>
     );
 }

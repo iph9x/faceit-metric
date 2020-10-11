@@ -61,6 +61,9 @@ function Main({
     const [showChart, setShowChart] = useState(false);
     const [showCompare, setShowCompare] = useState(false);
 
+    //Compare Nick 
+    const [currentNickSec, setCurrentNickSec] = useState(null);
+
     // const [showMatches, setShowMatches] = useState(true);
     const [matchId, setMatchId] = useState('');
     const [mainIncreasing, setMainIncreasing] = useState('');
@@ -76,6 +79,7 @@ function Main({
             dispatch(clearState());
             setShowMatches(true);
         }
+
         setMatchesBySize(null);
         setProfileComponent();
     // eslint-disable-next-line
@@ -227,6 +231,10 @@ function Main({
         && currentUrl
         && !nickname
         && search)
+        || (!globalFetching
+        && currentUrl
+        && nickname
+        && !searchAndNickMatch())
         || error;
 
     const isRenderChart = showChart
@@ -336,6 +344,8 @@ function Main({
                             mainStartEloPlus={startEloPlus}
                             setProfile={setProfile}
                             mainIncreasing={mainIncreasing}
+                            currentNick={currentNickSec}
+                            setCurrentNick={setCurrentNickSec}
                         />
                     }
                 </div>

@@ -116,7 +116,7 @@ function CheckRoom({ roomId, setShowMatches }) {
                         </div>
                     }
                     <div className="room__map">
-                        {teamsStats.i1}
+                        {teamsStats.i1.split('/').pop()}
                     </div>
                     <div className="room__score">
                         {teamsStats.teams[0].c5} - {teamsStats.teams[1].c5}

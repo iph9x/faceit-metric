@@ -25,9 +25,10 @@ function Comparison({
     mainPlayerStats,
     setProfile,
     mainIncreasing,
+    currentNick,
+    setCurrentNick,
  }) {
     const [value, setValue] = useState('');
-    const [currentNick, setCurrentNick] = useState(null);
     const [matches, setMatches] = useState(null);
     const [maxElo, setMaxElo] = useState(0);
     const [localFetching, setLocalFetching] = useState(false);
@@ -126,6 +127,10 @@ function Comparison({
         setProfile(true);
     }
 
+    const nickIsValid = () => {
+        return nickname.toLowerCase() === currentNick.toLowerCase()
+    } 
+
     const isRenderPreloader = localFetching
         && mainNickname.toLowerCase() !== currentNick.toLowerCase()
         && !secError;
@@ -135,12 +140,18 @@ function Comparison({
         && currentNick
         && !nickname
         && !matches)
+        || (!localFetching
+        && currentNick 
+        && nickname
+        && !nickIsValid())
         || secError;
-
+    
     const isRenderStat = secondPlayerStats
         && !isFetching
         && matches
-        && nickname !== mainNickname;
+        && currentNick
+        && nickname !== mainNickname
+        && nickIsValid();
 
     return (        
         <div className="comparison">
@@ -301,7 +312,7 @@ function Comparison({
                                 unit="" 
                             />
                             <CompareField 
-                                label="Increasing Elo" 
+                                label="Elo Diff" 
                                 parMain={mainIncreasing > 0 ? '+' + Number.parseInt(mainIncreasing) : mainIncreasing}
                                 parSec={secIncreasing > 0 ? '+' + Number.parseInt(secIncreasing) : secIncreasing}
                                 unit="" 

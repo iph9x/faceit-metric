@@ -3,13 +3,18 @@
 
 body, html {
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    background: $main-bg-color;
+    font-size: 16px;    
     color: $white;
     overflow-x: hidden;
+    background-color: #202326;
     @media (max-width: 1024px) {
         font-size: 1.48vw;
     }
+}
+
+#root {
+    background: url("../img/de_nuke.jpg") $main-bg-color no-repeat 50% 0 fixed;
+    background-size: cover;
 }
 
 * {
@@ -31,7 +36,9 @@ ul, li {
     width: 64rem;
     margin: 0 auto;
     border-radius: $px40;
-    background: #2c2f33;
+    background: $main-bg-color;
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
     padding: $px40 $px40;
     min-height: 80vh;
 }
@@ -41,7 +48,7 @@ ul, li {
     place-items: center;
     transition: background .2s;
     height: $px30;
-    padding: 0 $px15;
+    padding: 0 $px20;
     border-radius: $border-radius;
     background: #fff;
     font-size: $px20;
@@ -59,7 +66,7 @@ ul, li {
 }
 
 .main {
-    padding-top: $px30;
+    padding-top: 6.25rem;
     padding-bottom: $px30;
     &__nav {
         &-wrapper {
@@ -82,6 +89,7 @@ ul, li {
             padding: 0 $px15;
             background: rgb(139, 139, 139);
             margin-right: $px10;
+            font-weight: 300;
             :disabled:active,
             :disabled:focus {
                 color: $black;
@@ -127,7 +135,6 @@ ul, li {
         flex-direction: column;
         align-items: center;
         width: 18.75rem;
-        background: $card-bg;
         padding: $px20;
         border-radius: $border-radius;       
         &__nickname {
@@ -142,15 +149,22 @@ ul, li {
             span {
                 margin-right: $px10;
             }
+            a {
+                display: flex;
+                align-items: center;
+            }
+            img {
+                width: 1rem;
+                height: 1rem;
+            }
         }
         &__bg {
             position: absolute;
             top: 0;
-            left: 50%;
+            left: 0;
             color: transparent;
-            transform: translate(-50%, 4.6875rem);
-            width: 13.4375rem;
-            height: 13.4375rem;           
+            width: 100%;
+            height: 100%;
             border-radius: 100%;
             z-index: 2;
             &_red {
@@ -175,7 +189,6 @@ ul, li {
             }
         }
         &__avatar {
-            position: relative;
             border-radius: 100%;
             width: 11.25rem;
             height: 11.25rem;
@@ -184,11 +197,22 @@ ul, li {
             &:not([src]) {
                 content: "";
             }
+            &-circle {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 13.4375rem;
+                height: 13.4375rem;     
+            }
+        }
+        &__btn-detailes {
+            margin-top: $px15;
         }
         &__string {
             position: relative;
             display: grid;
-            grid-template-columns: 3fr 2fr;
+            grid-template-columns: 6fr 4fr;
             column-gap: 0.3125rem;
             font-size: 1.375rem;
             text-transform: uppercase;
@@ -211,7 +235,7 @@ ul, li {
             font-weight: 300;
         }
         &__stat-box {
-            width: 84%;
+            width: 88%;
         }
         &__alltime-box {
             grid-column: 1 / 2;
@@ -225,6 +249,9 @@ ul, li {
             &-box {
                 grid-column: 3 / 4;
                 grid-row: 1 / 2;
+                &_full {
+                    grid-row: 1 / 3
+                }
             }
             &-title {
                 font-size: $px20;
@@ -246,7 +273,7 @@ ul, li {
     &__item,
     &__item-titles {
         display: grid;
-        grid-template-columns: 3fr 4fr 3fr 2fr 2fr 1fr 1fr 1fr 4fr 2fr;
+        grid-template-columns: 3fr 4fr 3fr 2fr 2fr 1fr 1fr 1fr 4fr 3fr;
         justify-items: center;
         align-items: center;
         padding: 0 $px10;

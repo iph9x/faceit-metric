@@ -20,45 +20,45 @@ function RoomPlayerItem({ numTeamStats, player, i, setShowMatches }) {
     return (    
         <div className="player-wrapper">
             <img className="player__avatar player__js-start" src={ avatar || defaultAvatar } alt="" onClick={clickHandler}/>
-            <div className="player__info player__js-start" onClick={clickHandler}>
+            <span className="player__info player__js-start" onClick={clickHandler}>
                 {nickname}
-            </div>
-            <div className="player__info">
+            </span>
+            <span className="player__info">
                 {gameSkillLevel}
-            </div>
-            <div className="player__info">
+            </span>
+            <span className="player__info">
                 {elo}
-            </div>
-            <div className="player__info">
+            </span>
+            <span className="player__info">
                 {numTeamStats[i].i6}
-            </div>
-            <div className="player__info">
+            </span>
+            <span className="player__info">
                 {numTeamStats[i].i7}
-            </div>
-            <div className="player__info">
+            </span>
+            <span className="player__info">
                 {numTeamStats[i].i8}
-            </div>
-            <div className="player__info">
+            </span>
+            <span className="player__info">
                 {numTeamStats[i].c2}
-            </div>
-            <div className="player__info">
+            </span>
+            <span className="player__info">
                 {numTeamStats[i].c3}
-            </div>
-            <div className="player__info">
+            </span>
+            <span className="player__info">
                 {numTeamStats[i].c4}%
-            </div>
-            <div className="player__info">
+            </span>
+            <span className="player__info">
                 {numTeamStats[i].i9}
-            </div>
-            <div className="player__info">
+            </span>
+            <span className="player__info">
                 {numTeamStats[i].i14}
-            </div>
-            <div className="player__info">
+            </span>
+            <span className="player__info">
                 {numTeamStats[i].i15}
-            </div>
-            <div className="player__info">
+            </span>
+            <span className="player__info">
                 {numTeamStats[i].i16}
-            </div>
+            </span>
         </div>            
     );
 }

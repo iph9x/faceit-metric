@@ -4,7 +4,14 @@
     display: flex;
     align-items: center;
     height: $px70;
-    background: #2c2f33;
+    background: $main-bg-color;
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
     &__logo {
         width: $px50;
         height: $px50;

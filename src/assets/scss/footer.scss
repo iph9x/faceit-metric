@@ -1,7 +1,11 @@
+@import './variables.scss';
+
 .footer {
     display: grid;
     place-items: center;
-    height: 50px;
+    height: $px50;
+    padding-top: $px5;
+    background: $main-bg-color;
     a, a:hover, a:visited, a:focus {
         color: #fff;
         text-decoration: underline;

@@ -2,9 +2,9 @@
 
 .preloader {
     &-wrapper {
+        margin-top: 8rem;
         display: grid;
         place-items: center;
-        padding: 6.25rem;
         width: 100%;
     }
     color: $white;
