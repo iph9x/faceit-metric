@@ -3,11 +3,10 @@
 .footer {
     display: grid;
     place-items: center;
-    height: $px50;
-    padding-top: $px5;
-    background: $main-bg-color;
+    font-size: $px20;
+    margin-bottom: $px30;
     a, a:hover, a:visited, a:focus {
-        color: #fff;
+        color: $main-bg-color;
         text-decoration: underline;
     }
 }

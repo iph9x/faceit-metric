@@ -43,7 +43,7 @@
         z-index: 10;
         padding: 0 1.0625rem;
         &:hover {
-            background: #2c70d7;
+            background: $btn-search-hover-bg;
         }
         &:active,
         &:focus {

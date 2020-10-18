@@ -3,9 +3,9 @@
 $avatar-size: $px40;
 
 .room {
-    border-top: 1px solid #5c5c5c;
+    border-top: 1px solid $room-border-top-color;
     &__error {
-        color: rgb(223, 85, 85);
+        color: $error-color;
         font-weight: 400;
         margin-bottom: $px20;
     }
@@ -37,7 +37,7 @@ $avatar-size: $px40;
     }
     &__btn {
         margin-top: $px20;
-        color: $card-bg;
+        color: $btn-color;
     }
     &__score {
         font-size: $px50;
@@ -89,7 +89,6 @@ $avatar-size: $px40;
         display: grid;
         place-items: center;
         grid-template-columns: $px60 4fr 1fr 2fr repeat(3, 1fr) repeat(3, 2fr) repeat(4, 1fr);
-        background: #5d47ac;
         font-size: 1.125rem;
         height: $px50;
         padding: 0 $px5;
@@ -109,7 +108,6 @@ $avatar-size: $px40;
         width: $avatar-size;
         height: $avatar-size;
         border-radius: 50%;
-        background: #333;
         &:not([src]) {
             content: '';
         }

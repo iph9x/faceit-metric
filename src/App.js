@@ -12,8 +12,9 @@ const App = () => {
 	const history = useHistory();
 	
 	const [value, setValue] = useState('');
-    const [currentUrl, setCurrentUrl] = useState(null);
-    const [showMatches, setShowMatches] = useState(true);
+	const [currentUrl, setCurrentUrl] = useState(null);
+	const [showMatches, setShowMatches] = useState(true);
+	const [globalFetching, setGlobalFetching] = useState(false);
 	
 	return (
 		<>
@@ -26,6 +27,7 @@ const App = () => {
 				setCurrentUrl={setCurrentUrl}
 				showMatches={showMatches}
 				setShowMatches={setShowMatches}
+				setGlobalFetching={setGlobalFetching}
 			/>
 			<AppRouter 
 				search={search}
@@ -33,6 +35,8 @@ const App = () => {
 				setCurrentUrl={setCurrentUrl}
 				showMatches={showMatches}
 				setShowMatches={setShowMatches}
+				globalFetching={globalFetching}
+				setGlobalFetching={setGlobalFetching}
 			/>
 			<Footer />
 		</>

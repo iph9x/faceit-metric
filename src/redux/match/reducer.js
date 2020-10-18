@@ -4,7 +4,8 @@ import {
   GET_MATCHES_LIST_FAILURE,
   GET_SEC_MATCHES_LIST_REQUEST,
   GET_SEC_MATCHES_LIST_SUCCESS,
-  GET_SEC_MATCHES_LIST_FAILURE
+  GET_SEC_MATCHES_LIST_FAILURE,
+  CLEAR_MATCHES
 } from "./consts";
   
 const initialState = {
@@ -17,6 +18,12 @@ const initialState = {
 
 const matchesReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR_MATCHES:
+      return {
+        ...state,
+        allMatches: null,
+        error: null
+      };
     case GET_MATCHES_LIST_REQUEST:
       return {
         ...state,

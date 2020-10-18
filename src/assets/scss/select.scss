@@ -20,10 +20,9 @@
 		margin: auto;
 		border-style: solid;
 		border-width: $px5 $px5 0 $px5;
-		border-color: $apple-blue transparent transparent transparent;
+		border-color: $btn-search-bg transparent transparent transparent;
 		pointer-events: none;
 	}
-
 	&:before {
 		content: '';
 		position: absolute;

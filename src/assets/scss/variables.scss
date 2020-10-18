@@ -1,31 +1,39 @@
 $white: #fff;
 $black: #000;
-$apple-blue: rgb(3, 97, 204);
-
 $btn-search-bg: rgb(38, 102, 199);
+$btn-search-hover-bg: #2c70d7;
 $secondary-color: rgb(145, 145, 145);
-
-$header-border-color: #26282b;
-$stat-line-image: linear-gradient(to right, #c72695b0, #2666c7 50%);
-
+$string-even-bg-color: #77828c24;
+$root-bg-color: #202326;
+$btn-inactive-bg: rgb(139, 139, 139);
+$btn-hover-bg: rgb(196, 196, 196);
+$kd-green: #51df44;
+$kd-red: #f27b72;
 $main-bg-color: #202326de;
-
 $input-bg: rgb(235, 235, 235);
 $input-placeholder-color: rgb(161, 161, 161);
-
-$card-bg: #26282b;
-
+$btn-color: #26282b;
 $table-top-border-color: rgb(92, 92, 92);
-
-// $win-match-image: linear-gradient(160deg, #178f68, #178f68ad 70%);
-$win-match-bg: #066f35;
-// $lose-match-image: linear-gradient(160deg, #dd1141e0, #dd1141bf 70%);
-$lose-match-bg: #710e0e;
-
-// $winner-match-bg: #3f634d;
 $winner-match-bg: #415d61;
-// $loser-match-bg: #633f3f;
 $loser-match-bg: #683a49;
+$error-color: rgb(223, 85, 85);
+$room-border-top-color: #5c5c5c;
+
+$bg-10level: 
+    linear-gradient(45deg, transparent 50%, #ce3530 50%),
+    linear-gradient(-45deg, transparent 50%, #ce3530 50%);
+$bg-8level:
+    linear-gradient(45deg, transparent 50%, #e56a3b  50%),
+    linear-gradient(-45deg, transparent 50%, #e56a3b 50%);
+$bg-4level:
+    linear-gradient(45deg, transparent 50%, rgb(255, 200, 0) 50%),
+    linear-gradient(-45deg, transparent 50%, rgb(255, 200, 0)  50%);
+$bg-2level:
+    linear-gradient(45deg, transparent 50%, #36ae38 50%),
+    linear-gradient(-45deg, transparent 50%,  #36ae38 50%);
+$bg-1level:
+    linear-gradient(45deg, transparent 50%, rgb(238, 238, 238) 50%),
+    linear-gradient(-45deg, transparent 50%, rgb(238, 238, 238)  50%);
 
 $px5: 0.3125rem;
 $px10: 0.625rem;
@@ -41,23 +49,3 @@ $px60: 3.75rem;
 $px70: 4.375rem;
 
 $border-radius: $px20;
-
-@keyframes popup {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes popupmatches {
-    from {
-        transform: scaleY(0);
-        opacity: 0;
-    }
-    to {
-        transform: scaleY(1);
-        opacity: 1;
-    }
-}

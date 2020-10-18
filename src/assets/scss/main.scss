@@ -6,15 +6,22 @@ body, html {
     font-size: 16px;    
     color: $white;
     overflow-x: hidden;
-    background-color: #202326;
+    background-color: transparent;
     @media (max-width: 1024px) {
         font-size: 1.48vw;
     }
 }
 
-#root {
-    background: url("../img/de_nuke.jpg") $main-bg-color no-repeat 50% 0 fixed;
+#root::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    background: url("../img/de_nuke.jpg") $main-bg-color no-repeat 50% 50%;
     background-size: cover;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: $root-bg-color;
 }
 
 * {
@@ -50,7 +57,7 @@ ul, li {
     height: $px30;
     padding: 0 $px20;
     border-radius: $border-radius;
-    background: #fff;
+    background: $white;
     font-size: $px20;
     font-weight: 300;
     border: none;
@@ -58,7 +65,7 @@ ul, li {
     &:focus,
     &:active {
         outline: none;
-        color: $card-bg;
+        color: $btn-color;
     }
     &:hover {
         cursor: pointer;
@@ -87,7 +94,7 @@ ul, li {
         &-btn {
             line-height: 1;
             padding: 0 $px15;
-            background: rgb(139, 139, 139);
+            background: $btn-inactive-bg;
             margin-right: $px10;
             font-weight: 300;
             :disabled:active,
@@ -95,7 +102,7 @@ ul, li {
                 color: $black;
             }
             &:hover {
-                background: rgb(196, 196, 196);
+                background: $btn-hover-bg;
             }
             &_active {
                 background: $white;
@@ -135,7 +142,6 @@ ul, li {
         flex-direction: column;
         align-items: center;
         width: 18.75rem;
-        padding: $px20;
         border-radius: $border-radius;       
         &__nickname {
             display: flex;
@@ -168,24 +174,19 @@ ul, li {
             border-radius: 100%;
             z-index: 2;
             &_red {
-                background-image: linear-gradient(45deg, transparent 50%, #ce3530 50%),
-                linear-gradient(-45deg, transparent 50%, #ce3530 50%);
+                background-image: $bg-10level;
             }
             &_orange {
-                background-image: linear-gradient(45deg, transparent 50%, #e56a3b  50%),
-                linear-gradient(-45deg, transparent 50%, #e56a3b 50%);
+                background-image: $bg-8level;
             }
             &_yellow {
-                background-image: linear-gradient(45deg, transparent 50%, rgb(255, 200, 0) 50%),
-                linear-gradient(-45deg, transparent 50%, rgb(255, 200, 0)  50%);
+                background-image: $bg-4level;
             }
             &_green {
-                background-image: linear-gradient(45deg, transparent 50%, #36ae38 50%),
-                linear-gradient(-45deg, transparent 50%,  #36ae38 50%);
+                background-image: $bg-2level;
             }
             &_white {
-                background-image: linear-gradient(45deg, transparent 50%, rgb(238, 238, 238) 50%),
-                linear-gradient(-45deg, transparent 50%, rgb(238, 238, 238)  50%);
+                background-image: $bg-1level;
             }
         }
         &__avatar {
@@ -193,7 +194,7 @@ ul, li {
             width: 11.25rem;
             height: 11.25rem;
             z-index: 3;
-            background: $card-bg;
+            background: $root-bg-color;
             &:not([src]) {
                 content: "";
             }
@@ -216,15 +217,9 @@ ul, li {
             column-gap: 0.3125rem;
             font-size: 1.375rem;
             text-transform: uppercase;
-            margin-bottom: 0.4375rem;
-            &::before {
-                content: '';
-                position: absolute;
-                top: 100%;
-                left: 0;
-                background-image: $stat-line-image;
-                height: 1px;
-                width: 100%;
+            padding: $px5;
+            &:nth-child(even) {
+                background: $string-even-bg-color;
             }
         }
         &__prefix {
@@ -273,7 +268,7 @@ ul, li {
     &__item,
     &__item-titles {
         display: grid;
-        grid-template-columns: 3fr 4fr 3fr 2fr 2fr 1fr 1fr 1fr 4fr 3fr;
+        grid-template-columns: 3fr 4fr 3fr 2fr 2fr repeat(3, 1fr) 4fr 3fr;
         justify-items: center;
         align-items: center;
         padding: 0 $px10;
@@ -300,16 +295,18 @@ ul, li {
         background: $loser-match-bg;
     }
 }
-.kd-high {
-    color: #51df44;
-}
-.kd-low {
-    color: #f27b72;
-}
-.kd-one,
-.kd-low,
-.kd-high {
-    font-weight: 700;
+.kd {
+    &-high {
+        color: $kd-green;
+    }
+    &-low {
+        color: $kd-red;
+    }
+    &-one,
+    &-low,
+    &-high {
+        font-weight: 700;
+    }
 }
 
 .preview {
@@ -319,6 +316,7 @@ ul, li {
         text-align: center;
         font-size: 2.8125rem;
         margin-bottom: $px60;
+        font-weight: 400;
     }
     &__subtitle {
         font-size: $px30;
@@ -333,14 +331,5 @@ ul, li {
         font-size: $px20;
         font-weight: 400;
         letter-spacing: .02em;
-        &::before {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-image: $stat-line-image;
-            height: 1px;
-            width: 100%;
-        }
     }
 }

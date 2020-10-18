@@ -1,8 +1,8 @@
 import API from "../../api/api";
 import {
-    СLEAR_STATE,
-    GET_SEARCH_RESULT_SUCCESS,
-    GET_SEARCH_RESULT_REQUEST,
+	СLEAR_STATE,
+	GET_SEARCH_RESULT_SUCCESS,
+	GET_SEARCH_RESULT_REQUEST,
 	GET_SEARCH_RESULT_FAILURE,
 	GET_COMPARISON_LIST_REQUEST,
 	GET_COMPARISON_LIST_SUCCESS,
@@ -10,8 +10,8 @@ import {
 } from "./consts";
 
 export const clearState = () => ({ type: СLEAR_STATE });
-// GET SEARCH RESULT
 
+/** GET SEARCH RESULT */
 export const getSearchResultRequest = () => ({ type: GET_SEARCH_RESULT_REQUEST });
 export const getSearchResultSuccess = (playerStats, playerInfo) => ({
 	type: GET_SEARCH_RESULT_SUCCESS,
@@ -23,17 +23,17 @@ export const getSearchResultFailure = (error) => ({
 	error,
 });
 
-export const getPlayerIdThunkCreator = (nickname) => {
+export const getSearchResultThunkCreator = (nickname) => {
 	return async (dispatch) => {
 		dispatch(getSearchResultRequest());
 
 		try {
-			const getUserIdBySearch = await API.GET_ELO(`search/v1?limit=3&query=${nickname}`);
+			const getUserIdBySearch = await API.GET(`search/v1?limit=3&query=${nickname}`);
 			const {guid: userId, nickname: userNickname} = getUserIdBySearch.data.payload.players.results[0];
 
-			const searchResponse = await API.GET_ELO(`core/v1/nicknames/${userNickname}`);
+			const searchResponse = await API.GET(`core/v1/nicknames/${userNickname}`);
 				
-			const statResponse = await API.GET_ELO(`stats/v1/stats/users/${userId}/games/csgo`);
+			const statResponse = await API.GET(`stats/v1/stats/users/${userId}/games/csgo`);
 			const playerStats = searchResponse.data.payload;
 
 			const playerInfo = {
@@ -52,8 +52,7 @@ export const getPlayerIdThunkCreator = (nickname) => {
 	};
 };
 
-// SET SECOND PLAYER
-
+/** SET SECOND PLAYER */
 export const setSecondPlayersRequest = () => ({ type: GET_COMPARISON_LIST_REQUEST });
 export const setSecondPlayersSuccess = (secondPlayerStats, secondPlayerInfo) => ({
 	type: GET_COMPARISON_LIST_SUCCESS,
@@ -70,10 +69,10 @@ export const setSecondPlayerThunkCreator = (nickname) => {
 		dispatch(setSecondPlayersRequest());
 
 		try {			
-			const getUserIdBySearch = await API.GET_ELO(`search/v1?limit=3&query=${nickname}`);
+			const getUserIdBySearch = await API.GET(`search/v1?limit=3&query=${nickname}`);
 			const {guid: userId, nickname: userNickname} = getUserIdBySearch.data.payload.players.results[0];
 
-			const searchResponse = await API.GET_ELO(`core/v1/nicknames/${userNickname}`);
+			const searchResponse = await API.GET(`core/v1/nicknames/${userNickname}`);
 			const playerStats = searchResponse.data.payload;
 
 			const playerInfo = {
@@ -83,7 +82,7 @@ export const setSecondPlayerThunkCreator = (nickname) => {
 				nickname: userNickname,
 				playerId: userId
 			};
-			const statResponse = await API.GET_ELO(`stats/v1/stats/users/${userId}/games/csgo`);
+			const statResponse = await API.GET(`stats/v1/stats/users/${userId}/games/csgo`);
 
 			dispatch(setSecondPlayersSuccess(statResponse.data.lifetime, playerInfo));
 

@@ -1,15 +1,17 @@
 import API from "../../api/api";
 import {
-    GET_MATCHES_LIST_REQUEST,
-    GET_MATCHES_LIST_SUCCESS,
+  GET_MATCHES_LIST_REQUEST,
+  GET_MATCHES_LIST_SUCCESS,
 	GET_MATCHES_LIST_FAILURE,
 	GET_SEC_MATCHES_LIST_REQUEST,
 	GET_SEC_MATCHES_LIST_SUCCESS,
-	GET_SEC_MATCHES_LIST_FAILURE
+	GET_SEC_MATCHES_LIST_FAILURE,
+	CLEAR_MATCHES
 } from "./consts";
 
-// GET MATCHES LIST
+export const clearMatches = () => ({ type: CLEAR_MATCHES });
 
+/** GET MATCHES LIST */
 export const getMatchesRequest = () => ({ type: GET_MATCHES_LIST_REQUEST });
 export const getMatchesSuccess = (allMatches) => ({
 	type: GET_MATCHES_LIST_SUCCESS,
@@ -25,7 +27,7 @@ export const getMatchesThunkCreator = (playerId, matchesCount) => {
 		dispatch(getMatchesRequest());
 
 		try {
-			const allMatchesResopnse = await API.GET_ELO(`stats/api/v1/stats/time/users/${playerId}/games/csgo?size=${matchesCount}`);
+			const allMatchesResopnse = await API.GET(`stats/api/v1/stats/time/users/${playerId}/games/csgo?size=${matchesCount}`);
 
 			dispatch(getMatchesSuccess(allMatchesResopnse.data));
 		} catch (error) {
@@ -33,8 +35,8 @@ export const getMatchesThunkCreator = (playerId, matchesCount) => {
 		}
 	};
 };
-// GET SECONDS PLAYER MATCHES LIST
 
+/** GET SECONDS PLAYER MATCHES LIST */
 export const getSecMatchesRequest = () => ({ type: GET_SEC_MATCHES_LIST_REQUEST });
 export const getSecMatchesSuccess = (secMatches) => ({
 	type: GET_SEC_MATCHES_LIST_SUCCESS,
@@ -50,7 +52,7 @@ export const getSecMatchesThunkCreator = (playerId, matchesCount) => {
 		dispatch(getSecMatchesRequest());
 
 		try {
-			const allMatchesResopnse = await API.GET_ELO(`stats/api/v1/stats/time/users/${playerId}/games/csgo?size=${matchesCount}`);
+			const allMatchesResopnse = await API.GET(`stats/api/v1/stats/time/users/${playerId}/games/csgo?size=${matchesCount}`);
 
 			dispatch(getSecMatchesSuccess(allMatchesResopnse.data));
 		} catch (error) {
