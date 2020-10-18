@@ -1,7 +1,7 @@
-import instanceElo from "./instanceElo";
+import instance from "./instance";
 
 export default {
   GET(path) {
-    return instanceElo.get(path);
+    return instance.get(path);
   }
 };
