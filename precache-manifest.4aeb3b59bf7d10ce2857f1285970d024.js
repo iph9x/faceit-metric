@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "514aecc5fd0f17fe8ed3724319cf6bc7",
+    "revision": "0d466d79f4342e55f199a04fe4dbb861",
     "url": "/faceit-metric/index.html"
   },
   {
-    "revision": "a456289e27ac044b998f",
-    "url": "/faceit-metric/static/css/main.9751bc38.chunk.css"
+    "revision": "7b0d33e3c7ec582d33bb",
+    "url": "/faceit-metric/static/css/main.b48fcf13.chunk.css"
   },
   {
-    "revision": "fcc74b5339cc30da5139",
-    "url": "/faceit-metric/static/js/2.2412f1ac.chunk.js"
+    "revision": "24e3df6a47345487ddda",
+    "url": "/faceit-metric/static/js/2.5bda09af.chunk.js"
   },
   {
     "revision": "eb825d785f7a33be4f13471daee73ff2",
-    "url": "/faceit-metric/static/js/2.2412f1ac.chunk.js.LICENSE.txt"
+    "url": "/faceit-metric/static/js/2.5bda09af.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a456289e27ac044b998f",
-    "url": "/faceit-metric/static/js/main.ba65db79.chunk.js"
+    "revision": "7b0d33e3c7ec582d33bb",
+    "url": "/faceit-metric/static/js/main.38f4dc6a.chunk.js"
   },
   {
     "revision": "731a377354d8a87f0d74",
