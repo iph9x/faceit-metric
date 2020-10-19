@@ -23,8 +23,6 @@ function MatchItem({ match, eloDif, setMatchId, setShowMatches }) {
 	const eloSign = eloDif > 0 ? `+${eloDif}` : eloDif;
 	const eloDiffNaN = Number.isNaN(eloDif) ? '(+0)' : (eloSign);
 	const eloDiff =  eloDif ? `(${eloDiffNaN})` : '';
-	
-	console.log(match.created_at);
 
 	return (
 		<div onClick={() => {
