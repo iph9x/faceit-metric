@@ -24,6 +24,8 @@ function MatchItem({ match, eloDif, setMatchId, setShowMatches }) {
 	const eloDiffNaN = Number.isNaN(eloDif) ? '(+0)' : (eloSign);
 	const eloDiff =  eloDif ? `(${eloDiffNaN})` : '';
 	
+	console.log(match.created_at);
+
 	return (
 		<div onClick={() => {
 			setMatchId(match.matchId);
@@ -31,16 +33,16 @@ function MatchItem({ match, eloDif, setMatchId, setShowMatches }) {
 		}}
 			className={bgClass}
 		>
-			<span>{match.i1.split('/').pop()}</span>
-			<span>{match.i5}</span>
+			<span>{secToDate(match.created_at)}</span>
+			<span>{`${matchElo} ${eloDiff}`}</span>
 			<span>{match.i18}</span>
 			<span className={kdClass}>{match.c2}</span>
 			<span>{match.c4}%</span>
 			<span>{match.i6}</span>
 			<span>{match.i7}</span>
-			<span>{match.i8}</span>
-			<span>{secToDate(match.created_at)}</span>
-			<span>{`${matchElo} ${eloDiff}`}</span>
+			<span>{match.i8}</span>			
+			<span>{match.i1.split('/').pop()}</span>
+			<span>{match.i5}</span>
 		</div>
 	);
 }

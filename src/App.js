@@ -7,7 +7,7 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import AppRouter from './route/AppRouter';
 
-const App = () => {
+function App() {
 	const { search } = useLocation();   
 	const history = useHistory();
 	

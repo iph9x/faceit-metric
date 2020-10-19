@@ -13,7 +13,8 @@ const initialState = {
   secMatches: null,
   isFetching: false,
   secMatchesIsFetching: false,
-  error: null
+  error: null,
+  language: 'ru'  
 };
 
 const matchesReducer = (state = initialState, action) => {

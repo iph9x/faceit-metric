@@ -16,7 +16,7 @@ import AvgStatItem from '../../components/AvgStatItem/AvgStatItem';
 import CheckRoom from '../../components/CheckRoom/CheckRoom';
 import Comparison from '../../components/Comparison/Comparison';
 
-import { calcStatsForNGames, secToDate, getMaxElo, getSlicedMatchList } from '../../assets/js/utils';
+import { calcStatsForNGames, getMaxElo, getSlicedMatchList } from '../../assets/js/utils';
 
 import '../../assets/scss/select.scss';
 
@@ -45,6 +45,8 @@ function Main({
 	const [matchesArr, setMatchesArr] = useState([]);
 
 	const [eloArr, setEloArr] = useState([]);
+	const [KDArr, setKDArr] = useState([]);
+	const [fragsArr, setFragsArr] = useState([]);
 	
 	/** Array of matches dates */
 	const [numsChart, setNumsChart] = useState([]);
@@ -131,7 +133,13 @@ function Main({
 	/** Getting elo array and correct dates */
 	const getEloArrAndDates = (eloArr) => {
 		let currentEloArr = [];
+		let currentKDArr = [];
+		let currrentFragsArr = [];
 		let nums = [];
+
+		const getFilteredArr = (arr) => {
+			return arr.filter((item) => item !== null).reverse()
+		}
 
 		for (let i = 0; i < listSize; i += 1) {
 			if (allMatches[i + 1]) {
@@ -139,15 +147,24 @@ function Main({
 
 				if (allMatches[i].elo !== undefined) {
 					currentEloArr[i] = allMatches[i].elo; 
-					nums[i] = secToDate(allMatches[i].created_at);
+					currentKDArr[i] = allMatches[i].c2; 
+					currrentFragsArr[i] = allMatches[i].i6; 
+
+					nums[i] = i + 1;
 				} else {
 					currentEloArr[i] = null; 
+					currentKDArr[i] = null;
+					currrentFragsArr[i] = null;
+
 					nums[i] = null;
 				}
 			}
 		}
-		
-		setEloArr(currentEloArr.filter((item) => item !== null).reverse());
+
+		setFragsArr(getFilteredArr(currrentFragsArr));
+		setEloArr(getFilteredArr(currentEloArr));
+		setKDArr(getFilteredArr(currentKDArr));
+
 		setNumsChart(nums.filter((item) => item !== null).reverse());
 	}
 
@@ -300,21 +317,23 @@ function Main({
 									Profile
 								</button>
 								<button className={btnNavClassChart} onClick={setChartComponent}>
-									Chart
+									Charts
 								</button>
 								<button className={btnNavClassCompare} onClick={setComparisonComponent}>
 									Compare
 								</button>
 							</div>
-							<div>
-								<span className="main__nav-label">
-									Current player:
-								</span>
-								{nickname}
-							</div>
+							{!showProfile &&
+								<div>
+									<span className="main__nav-label">
+										Player:
+									</span>
+									{nickname}
+								</div>
+							}
 							<div className="select-wrapper">
 								<span className="main__nav-label">
-									Count of last games:
+									Count of last matches:
 								</span>
 								<div className="select">
 									<select 
@@ -335,7 +354,14 @@ function Main({
 					}
 					{isRenderPreloader && <Preloader />}
 					{isRenderPlayerNotFound && <div>Player {currentUrl} not found</div>}  
-					{isRenderChart && <LineChart eloArr={eloArr} numsChart={numsChart} />}
+					{isRenderChart && 
+						<LineChart 
+							eloArr={eloArr}
+							numsChart={numsChart}
+							KDArr={KDArr}
+							fragsArr={fragsArr}
+						/>
+					}
 					{isRenderProfile &&                   
 						<div className="player-cards">
 							<PlayerCard

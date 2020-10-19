@@ -2,7 +2,7 @@ export const secToDate = (secs) => {
   const startTime = new Date(null); 
   startTime.setTime(secs);
 
-  const outString = `${startTime.getDate() < 10 ? `0${startTime.getDate()}` : startTime.getDate()}.${startTime.getMonth() + 1 < 10 ? `0${startTime.getMonth() + 1}` : startTime.getMonth() + 1} - ${startTime.getHours() < 10 ? `0${startTime.getHours()}` : startTime.getHours()}:${startTime.getMinutes() < 10 ? `0${startTime.getMinutes()}` : startTime.getMinutes()}`;
+  const outString = `${startTime.getDate() < 10 ? `0${startTime.getDate()}` : startTime.getDate()}.${startTime.getMonth() + 1 < 10 ? `0${startTime.getMonth() + 1}` : startTime.getMonth() + 1}.${(startTime.getFullYear()).toString().slice(-2)} - ${startTime.getHours() < 10 ? `0${startTime.getHours()}` : startTime.getHours()}:${startTime.getMinutes() < 10 ? `0${startTime.getMinutes()}` : startTime.getMinutes()}`;
 
   return outString;
 }
@@ -31,7 +31,7 @@ const findCurrentElo = (matches) => {
 
 const calcDifElo = (elo1, elo2) => {
   const def = Number.parseInt(elo1) - Number.parseInt(elo2);
-
+  
   if (def < 0) {
     return def;
   } else {
