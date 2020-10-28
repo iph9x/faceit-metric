@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/faceit-metric/static/css/main.b48fcf13.chunk.css",
+    "main.css": "/faceit-metric/static/css/main.8637a1f2.chunk.css",
     "main.js": "/faceit-metric/static/js/main.2c567f19.chunk.js",
     "main.js.map": "/faceit-metric/static/js/main.2c567f19.chunk.js.map",
     "runtime-main.js": "/faceit-metric/static/js/runtime-main.f2b938bc.js",
@@ -8,16 +8,16 @@
     "static/js/2.5bda09af.chunk.js": "/faceit-metric/static/js/2.5bda09af.chunk.js",
     "static/js/2.5bda09af.chunk.js.map": "/faceit-metric/static/js/2.5bda09af.chunk.js.map",
     "index.html": "/faceit-metric/index.html",
-    "precache-manifest.5210238a1f95a75a64f6f37a0fccd58d.js": "/faceit-metric/precache-manifest.5210238a1f95a75a64f6f37a0fccd58d.js",
+    "precache-manifest.27ba2efed3a7a44ca2bec71f5cff467b.js": "/faceit-metric/precache-manifest.27ba2efed3a7a44ca2bec71f5cff467b.js",
     "service-worker.js": "/faceit-metric/service-worker.js",
-    "static/css/main.b48fcf13.chunk.css.map": "/faceit-metric/static/css/main.b48fcf13.chunk.css.map",
+    "static/css/main.8637a1f2.chunk.css.map": "/faceit-metric/static/css/main.8637a1f2.chunk.css.map",
     "static/js/2.5bda09af.chunk.js.LICENSE.txt": "/faceit-metric/static/js/2.5bda09af.chunk.js.LICENSE.txt",
     "static/media/main.scss": "/faceit-metric/static/media/de_nuke.0cddca00.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.f2b938bc.js",
     "static/js/2.5bda09af.chunk.js",
-    "static/css/main.b48fcf13.chunk.css",
+    "static/css/main.8637a1f2.chunk.css",
     "static/js/main.2c567f19.chunk.js"
   ]
 }
