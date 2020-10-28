@@ -22,6 +22,9 @@
 		border-width: $px5 $px5 0 $px5;
 		border-color: $btn-search-bg transparent transparent transparent;
 		pointer-events: none;
+		option {
+			color: rgb(53, 53, 53);
+		}
 	}
 	&:hover {
 		&:after {

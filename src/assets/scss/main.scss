@@ -213,6 +213,10 @@ ul, li {
             background: transparent;
             text-decoration: underline;
             color: #fff;
+            &:active,
+            &:focus {
+                color: #fff;
+            }
         }
         &__string {
             position: relative;
