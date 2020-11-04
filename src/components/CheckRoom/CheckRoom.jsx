@@ -76,24 +76,27 @@ function CheckRoom({ roomId, setShowMatches }) {
 			
 			return null;
 		});
-
+		console.log(joinArraysTeam);
 		return joinArraysTeam
 			.sort((a, b) => {
-				if (Number.parseInt(a.i6, 10) > Number.parseInt(b.i6, 10)) {
+				if (Number.parseInt((a ? a.i6 : 0), 10) > Number.parseInt((b ? b.i6 : 0), 10)) {
 					return 1;
 				}
-				if (Number.parseInt(a.i6, 10) < Number.parseInt(b.i6, 10)) {
+				if (Number.parseInt((a ? a.i6 : 0), 10) < Number.parseInt((b ? b.i6 : 0), 10)) {
 					return -1;
 				}
 				return 0;
 			})
 			.reverse()
 			.map(player => {
-				return <RoomPlayerItem 
-					key={player.id} 
-					player={player}
-					setShowMatches={setShowMatches}
-				/>
+				if (player) {
+					return <RoomPlayerItem 
+						key={player.id} 
+						player={player}
+						setShowMatches={setShowMatches}
+					/>
+				}
+				return null
 			});
 	};
 

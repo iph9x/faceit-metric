@@ -113,6 +113,9 @@ ul, li {
     }
     &__select {
         height: $px30;
+        option {
+            color: $black;
+        }
     }  
     &__container {      
         display: flex;
