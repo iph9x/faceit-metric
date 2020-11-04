@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import PropTypes from 'prop-types'; 
 
@@ -28,10 +28,10 @@ const AppRouter = ({
 						setGlobalFetching={setGlobalFetching}
 						globalFetching={globalFetching}
 					/>  
-					: <Redirect to="/faceit-metric/home" />
+					: <Preview />
 				}
 			</Route>
-			<Route exact path="/faceit-metric/home" component={Preview} />
+			<Route path="/faceit-metric/home" component={Preview} />
 		</Switch>
 	);
 }
