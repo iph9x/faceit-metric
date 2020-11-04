@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8966c9701f813414616a1d58e73887d5",
+    "revision": "5df48825bc5239c8754c380a01a5620a",
     "url": "/faceit-metric/index.html"
   },
   {
-    "revision": "8fc7122beeb089989cc6",
-    "url": "/faceit-metric/static/css/main.8637a1f2.chunk.css"
+    "revision": "55c7841ad6ba4ef29507",
+    "url": "/faceit-metric/static/css/main.2b19339d.chunk.css"
   },
   {
     "revision": "24e3df6a47345487ddda",
@@ -16,15 +16,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/faceit-metric/static/js/2.5bda09af.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8fc7122beeb089989cc6",
-    "url": "/faceit-metric/static/js/main.2c567f19.chunk.js"
+    "revision": "55c7841ad6ba4ef29507",
+    "url": "/faceit-metric/static/js/main.e10c1e80.chunk.js"
   },
   {
     "revision": "731a377354d8a87f0d74",
     "url": "/faceit-metric/static/js/runtime-main.f2b938bc.js"
   },
   {
-    "revision": "0cddca00e7e8ceed9767bab05c8a8830",
-    "url": "/faceit-metric/static/media/de_nuke.0cddca00.jpg"
+    "revision": "8e035cd059184ff58d47d2c15090d570",
+    "url": "/faceit-metric/static/media/de_nuke.8e035cd0.jpg"
   }
 ]);
