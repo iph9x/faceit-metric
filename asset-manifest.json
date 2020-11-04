@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/faceit-metric/static/css/main.2b19339d.chunk.css",
-    "main.js": "/faceit-metric/static/js/main.e10c1e80.chunk.js",
-    "main.js.map": "/faceit-metric/static/js/main.e10c1e80.chunk.js.map",
+    "main.js": "/faceit-metric/static/js/main.a536b9da.chunk.js",
+    "main.js.map": "/faceit-metric/static/js/main.a536b9da.chunk.js.map",
     "runtime-main.js": "/faceit-metric/static/js/runtime-main.f2b938bc.js",
     "runtime-main.js.map": "/faceit-metric/static/js/runtime-main.f2b938bc.js.map",
-    "static/js/2.5bda09af.chunk.js": "/faceit-metric/static/js/2.5bda09af.chunk.js",
-    "static/js/2.5bda09af.chunk.js.map": "/faceit-metric/static/js/2.5bda09af.chunk.js.map",
+    "static/js/2.8b3bfc37.chunk.js": "/faceit-metric/static/js/2.8b3bfc37.chunk.js",
+    "static/js/2.8b3bfc37.chunk.js.map": "/faceit-metric/static/js/2.8b3bfc37.chunk.js.map",
     "index.html": "/faceit-metric/index.html",
-    "precache-manifest.21691f2a43dccfea241c5e5d18ccb524.js": "/faceit-metric/precache-manifest.21691f2a43dccfea241c5e5d18ccb524.js",
+    "precache-manifest.80d224c827225834c1df997a895db4d7.js": "/faceit-metric/precache-manifest.80d224c827225834c1df997a895db4d7.js",
     "service-worker.js": "/faceit-metric/service-worker.js",
     "static/css/main.2b19339d.chunk.css.map": "/faceit-metric/static/css/main.2b19339d.chunk.css.map",
-    "static/js/2.5bda09af.chunk.js.LICENSE.txt": "/faceit-metric/static/js/2.5bda09af.chunk.js.LICENSE.txt",
+    "static/js/2.8b3bfc37.chunk.js.LICENSE.txt": "/faceit-metric/static/js/2.8b3bfc37.chunk.js.LICENSE.txt",
     "static/media/main.scss": "/faceit-metric/static/media/de_nuke.8e035cd0.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.f2b938bc.js",
-    "static/js/2.5bda09af.chunk.js",
+    "static/js/2.8b3bfc37.chunk.js",
     "static/css/main.2b19339d.chunk.css",
-    "static/js/main.e10c1e80.chunk.js"
+    "static/js/main.a536b9da.chunk.js"
   ]
 }
