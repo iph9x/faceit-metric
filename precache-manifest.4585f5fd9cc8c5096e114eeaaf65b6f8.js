@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0116bf7230890c2dd2d48ac18a5fc379",
+    "revision": "020b4f83c380dadee5ec8933ee4fed85",
     "url": "/faceit-metric/index.html"
   },
   {
