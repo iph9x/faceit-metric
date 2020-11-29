@@ -29,7 +29,7 @@ function Header({
 		setGlobalFetching(true);
 
 		history.push({
-			pathname: '/faceit-metric/',
+			pathname: '/',
 			search: `?nickname=${value}`
 		});     
 
@@ -51,7 +51,7 @@ function Header({
 	return (
 		<header className="header">
 			<div className="header__container">
-				<Link to="/faceit-metric/home" className="header__logo">
+				<Link to="/home" className="header__logo">
 					<img src={logo} alt="" className="header__logo" />
 				</Link>               
 				<form className="header__form" onSubmit={onClickHandler}>

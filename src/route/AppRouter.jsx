@@ -17,7 +17,7 @@ const AppRouter = ({
 }) => {
 	return (
 		<Switch>
-			<Route exact path="/faceit-metric/">
+			<Route exact path="/">
 				{search
 					? <Main 
 						search={search}
@@ -31,7 +31,7 @@ const AppRouter = ({
 					: <Preview />
 				}
 			</Route>
-			<Route path="/faceit-metric/home" component={Preview} />
+			<Route path="/home" component={Preview} />
 		</Switch>
 	);
 }
