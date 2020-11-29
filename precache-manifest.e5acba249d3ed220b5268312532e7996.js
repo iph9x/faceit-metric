@@ -25,6 +25,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   },
   {
     "revision": "8e035cd059184ff58d47d2c15090d570",
-    "url": "/static/media/de_nuke.8e035cd0.jpg"
+    "url": "https://faceit-metric.online/static/media/de_nuke.8e035cd0.jpg"
   }
 ]);
