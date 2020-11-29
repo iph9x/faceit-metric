@@ -12,7 +12,7 @@
     "service-worker.js": "/faceit-metric/service-worker.js",
     "static/css/main.2b19339d.chunk.css.map": "/faceit-metric/static/css/main.2b19339d.chunk.css.map",
     "static/js/2.8b3bfc37.chunk.js.LICENSE.txt": "/faceit-metric/static/js/2.8b3bfc37.chunk.js.LICENSE.txt",
-    "static/media/main.scss": "/faceit-metric/static/media/de_nuke.8e035cd0.jpg"
+    "static/media/main.scss": "/static/media/de_nuke.8e035cd0.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.f2b938bc.js",
