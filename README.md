@@ -10,4 +10,4 @@ Faceit Metric give you see:
 * detailed statistic of match
 * comparing players
 
-[Try it here!](http://iph9x.github.io/faceit-metric/)
+[Try it here!](http://faceit-metric.ru/)
