@@ -4,10 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Faceit Metric allows you to see: 
 
-* detailed statistic of all players
-* player statistic for the last 10-100 matches
+* detailed statistics of all players
+* player statistics for the last 10-100 matches
 * list of recent matches
 * detailed match statistics
 * comparing players
+* elo / kd / frags charts
 
 [Try it here!](http://faceit-metric.ru/)
