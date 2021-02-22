@@ -2,12 +2,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## FACEIT METRIC
 
-Faceit Metric give you see: 
+Faceit Metric allows you to see: 
 
 * detailed statistic of all players
-* statistic player for last 10-100 matches
-* list of last matches
-* detailed statistic of match
+* player statistic for the last 10-100 matches
+* list of recent matches
+* detailed match statistics
 * comparing players
 
 [Try it here!](http://faceit-metric.ru/)
