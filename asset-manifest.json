@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.b10f71af.chunk.css",
-    "main.js": "/static/js/main.c6c12b98.chunk.js",
-    "main.js.map": "/static/js/main.c6c12b98.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.a43d2cea.js",
-    "runtime-main.js.map": "/static/js/runtime-main.a43d2cea.js.map",
-    "static/js/2.6764b69b.chunk.js": "/static/js/2.6764b69b.chunk.js",
-    "static/js/2.6764b69b.chunk.js.map": "/static/js/2.6764b69b.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.9ff156b482f566163646f574d1cf908c.js": "/precache-manifest.9ff156b482f566163646f574d1cf908c.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.b10f71af.chunk.css.map": "/static/css/main.b10f71af.chunk.css.map",
-    "static/js/2.6764b69b.chunk.js.LICENSE.txt": "/static/js/2.6764b69b.chunk.js.LICENSE.txt",
-    "static/media/main.scss": "/static/media/roboto-regular.f36638c2.ttf",
-    "static/media/karambit.svg": "/static/media/karambit.cf3156e1.svg"
+    "main.css": "/faceit-metric/static/css/main.bc60a207.chunk.css",
+    "main.js": "/faceit-metric/static/js/main.b92ea839.chunk.js",
+    "main.js.map": "/faceit-metric/static/js/main.b92ea839.chunk.js.map",
+    "runtime-main.js": "/faceit-metric/static/js/runtime-main.f2b938bc.js",
+    "runtime-main.js.map": "/faceit-metric/static/js/runtime-main.f2b938bc.js.map",
+    "static/js/2.83df162b.chunk.js": "/faceit-metric/static/js/2.83df162b.chunk.js",
+    "static/js/2.83df162b.chunk.js.map": "/faceit-metric/static/js/2.83df162b.chunk.js.map",
+    "index.html": "/faceit-metric/index.html",
+    "precache-manifest.c17f8927bbb79f27c3a6b28168b86d9d.js": "/faceit-metric/precache-manifest.c17f8927bbb79f27c3a6b28168b86d9d.js",
+    "service-worker.js": "/faceit-metric/service-worker.js",
+    "static/css/main.bc60a207.chunk.css.map": "/faceit-metric/static/css/main.bc60a207.chunk.css.map",
+    "static/js/2.83df162b.chunk.js.LICENSE.txt": "/faceit-metric/static/js/2.83df162b.chunk.js.LICENSE.txt",
+    "static/media/main.scss": "/faceit-metric/static/media/roboto-regular.f36638c2.ttf",
+    "static/media/karambit.svg": "/faceit-metric/static/media/karambit.cf3156e1.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.a43d2cea.js",
-    "static/js/2.6764b69b.chunk.js",
-    "static/css/main.b10f71af.chunk.css",
-    "static/js/main.c6c12b98.chunk.js"
+    "static/js/runtime-main.f2b938bc.js",
+    "static/js/2.83df162b.chunk.js",
+    "static/css/main.bc60a207.chunk.css",
+    "static/js/main.b92ea839.chunk.js"
   ]
 }
