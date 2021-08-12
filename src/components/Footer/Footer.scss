@@ -1,0 +1,13 @@
+@import '../../assets/scss/variables.scss';
+
+.footer {
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
+  font-size: $px20;
+  margin-bottom: $px30;
+  a, a:hover, a:visited, a:focus {
+    color: $main-bg-color;
+    text-decoration: underline;
+  }
+}

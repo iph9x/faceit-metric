@@ -27,7 +27,7 @@ function RoomPlayerItem({ player, setShowMatches }) {
 
 	const clickHandler = () => {
 		history.push({
-			pathname: '/faceit-metric/',
+			pathname: '/',
 			search: `?nickname=${nickname}`
 		});
 

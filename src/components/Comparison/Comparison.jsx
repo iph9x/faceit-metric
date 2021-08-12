@@ -120,7 +120,7 @@ function Comparison({
 
 	const setNewPlayer = (nickname) => {
 		history.push({
-			pathname: '/faceit-metric/',
+			pathname: '/',
 			search: `?nickname=${nickname}`
 		});
 

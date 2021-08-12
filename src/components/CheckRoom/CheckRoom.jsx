@@ -21,8 +21,8 @@ function CheckRoom({ roomId, setShowMatches }) {
 	const [team1Roster, setTeam1Roster] = useState(null);
 	const [team2Roster, setTeam2Roster] = useState(null);
 
-	const [team1Class, setTeam1Class] = useState('');
-	const [team2Class, setTeam2Class] = useState('');
+	const [team1HeaderClass, setTeam1Class] = useState('');
+	const [team2HeaderClass, setTeam2Class] = useState('');
 
 	const dispatch = useDispatch();
 
@@ -40,23 +40,20 @@ function CheckRoom({ roomId, setShowMatches }) {
 				setTeam1Roster(createArr(teamsInfo.teams.faction1.roster, team1Stats));
 				setTeam2Roster(createArr(teamsInfo.teams.faction2.roster, team2Stats));
 
-				setTeam1Class(setClassForTeam(0));
-				setTeam2Class(setClassForTeam(1));
+				setTeam1Class(teamHeaderClass(0));
+				setTeam2Class(teamHeaderClass(1));
 		}
 	// eslint-disable-next-line
 	}, [teamsInfo]);
 
 	const arrowBack = <FontAwesomeIcon icon={faArrowLeft} />;
 
-	const setClassForTeam = (i) => {
-		return classNames({
-			'room__team': true,
-			'room__team-1': i === 0,
-			'room__team-2': i === 1,
-			'room__team-loser': 
+	const teamHeaderClass = (i) => {
+		return classNames('room__team-header', {
+			'room__team-header_loser': 
 				Number.parseInt(teamsStats.teams[i === 0 ? 0 : 1].c5)
 				< Number.parseInt(teamsStats.teams[i === 0 ? 1 : 0].c5),
-			'room__team-winner': 
+			'room__team-header_winner': 
 				Number.parseInt(teamsStats.teams[i === 0 ? 0 : 1].c5)
 				> Number.parseInt(teamsStats.teams[i === 0 ? 1 : 0].c5)
 		});
@@ -66,7 +63,7 @@ function CheckRoom({ roomId, setShowMatches }) {
 		let joinArraysTeam = team.map((player, i) => {
 			if (numTeamStats[i]) {
 				return ({
-					...numTeamStats[i],
+					...(numTeamStats.filter(({ playerId }) => playerId === player.id)[0]),
 					avatar: player.avatar, 
 					id: player.id, 
 					elo: player.elo, 
@@ -76,15 +73,17 @@ function CheckRoom({ roomId, setShowMatches }) {
 			
 			return null;
 		});
-		console.log(joinArraysTeam);
+		
 		return joinArraysTeam
 			.sort((a, b) => {
 				if (Number.parseInt((a ? a.i6 : 0), 10) > Number.parseInt((b ? b.i6 : 0), 10)) {
 					return 1;
 				}
+
 				if (Number.parseInt((a ? a.i6 : 0), 10) < Number.parseInt((b ? b.i6 : 0), 10)) {
 					return -1;
 				}
+
 				return 0;
 			})
 			.reverse()
@@ -153,7 +152,7 @@ function CheckRoom({ roomId, setShowMatches }) {
 					</div>
 				</div>
 				<div className="room__team-wrapper">
-					<div className="room__team-header">
+					<div className={team1HeaderClass}>
 						<div className="room__team-name">
 							{teamsStats.teams[0].i5}
 						</div>
@@ -170,12 +169,12 @@ function CheckRoom({ roomId, setShowMatches }) {
 						</div>
 					</div>
 					<RoomCaptions />
-					<div className={team1Class}>
+					<div className="room__team">
 						{team1Roster && team2Roster && team1Roster}
 					</div>
 				</div>
 				<div className="room__team-wrapper">
-					<div className="room__team-header">
+					<div className={team2HeaderClass}>
 						<div className="room__team-name">
 							{teamsStats.teams[1].i5}
 						</div>
@@ -192,7 +191,7 @@ function CheckRoom({ roomId, setShowMatches }) {
 						</div>
 					</div>
 					<RoomCaptions />
-					<div className={team2Class}>
+					<div className="room__team">
 						{team1Roster && team2Roster && team2Roster}
 					</div>
 				</div>          

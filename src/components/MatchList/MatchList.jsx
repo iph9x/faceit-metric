@@ -13,7 +13,8 @@ function MatchList({
 					<span>date</span>
 					<span>elo</span>					
 					<span>score</span>
-					<span>kd</span>
+					<span>KR</span>
+					<span>KD</span>
 					<span>hs</span>
 					<span>K</span>
 					<span>A</span>

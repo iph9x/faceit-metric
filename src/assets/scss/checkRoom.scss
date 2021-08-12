@@ -3,124 +3,126 @@
 $avatar-size: $px40;
 
 .room {
-    border-top: 1px solid $room-border-top-color;
-    &__error {
-        color: $error-color;
-        font-weight: 400;
+  // border-top: 1px solid $room-border-top-color;
+  &__error {
+    color: $error-color;
+    font-weight: 400;
+    margin-bottom: $px20;
+  }
+  &__game-info {
+    display: grid;
+    place-items: center;
+    row-gap: $px20;
+    grid-template-rows: $px14 $px20 $px50 $px20;
+    margin: $px20 0;
+    border-radius: $border-radius;
+  }
+  &__map{
+    font-size: $px30;
+    color: $secondary-color;
+  }
+  &__region {
+    display: flex;
+    align-items: center;
+    font-size: $px16;
+    color: $secondary-color;
+    img {
+      margin-left: $px10;
+      width: $px40;
+    }
+  }
+  &__endtime {
+    font-size: $px20;
+    color: $secondary-color;
+  }
+  &__btn {
+    margin-top: $px20;
+    margin-left: $px40;
+    color: #fff;
+  }
+  &__score {
+    font-size: $px50;
+    font-weight: 700;
+  &-half {
+    margin-left: $px30;
+  }
+  &-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: $px14;
+  }
+  }
+  &__team {
+    display: flex;
+    flex-direction: column;
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 $px40;
+      &_winner {
+        border-left: 8px solid $kd-green;
+      }
+      &_loser {
+        border-left: 8px solid $kd-red;
+      }
+    }
+    &-name {
+      margin: $px20 0;
+      font-size: $px25;
+      font-weight: 700;
+    }
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      border-radius: $border-radius;
+      &:nth-of-type(2) {
         margin-bottom: $px20;
+      }
     }
-    &__game-info {
-        display: grid;
-        place-items: center;
-        row-gap: $px20;
-        grid-template-rows: $px14 $px20 $px50 $px20;
-        margin: $px20 0;
-        border-radius: $border-radius;
-    }
-    &__map{
-        font-size: $px30;
-        color: $secondary-color;
-    }
-    &__region {
-        display: flex;
-        align-items: center;
-        font-size: $px16;
-        color: $secondary-color;
-        img {
-            margin-left: $px10;
-            width: $px40;
-        }
-    }
-    &__endtime {
-        font-size: $px20;
-        color: $secondary-color;
-    }
-    &__btn {
-        margin-top: $px20;
-        color: $btn-color;
-    }
-    &__score {
-        font-size: $px50;
-        font-weight: 700;
-        &-half {
-            margin-left: $px30;
-        }
-        &-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: $px14;
-        }
-    }
-    &__team {
-        &-header {
-            display: flex;
-            justify-content: space-between;
-        }
-        &-name {
-            margin: $px20 0;
-            font-size: $px25;
-            font-weight: 700;
-        }
-        &-wrapper {
-            display: flex;
-            flex-direction: column;
-            border-radius: $border-radius;
-            &:nth-of-type(2) {
-                margin-bottom: $px20;
-            }
-        }
-        &-1,
-        &-2 {
-            display: flex;
-            flex-direction: column;
-        }
-        &-winner .player-wrapper {
-            background: $winner-match-bg;
-        }
-        &-loser .player-wrapper {
-            background: $loser-match-bg;
-        }
-    }
+  }
 }
 
 .player {
-    &-wrapper {
-        display: grid;
-        place-items: center;
-        grid-template-columns: $px60 4fr 1fr 2fr repeat(3, 1fr) repeat(3, 2fr) repeat(4, 1fr);
-        font-size: 1.125rem;
-        height: $px50;
-        padding: 0 $px5;
-        border-radius: $px25;
-        margin-bottom: $px10;        
+  &-wrapper {
+    display: grid;
+    place-items: center;
+    grid-template-columns: $px60 4fr 1fr 2fr repeat(3, 1fr) repeat(3, 2fr) repeat(4, 1fr);
+    font-size: 1.125rem;
+    height: $px50;
+    padding-left: $px20;
+    &:nth-child(odd) {
+      background: $string-even-bg-color;
     }
-    &-captions {
-        background: none;
-        height: $px20;
-        font-size: $px14;
-        color: $secondary-color;
-        &__header {
-            text-align: center;
-        }
+  }
+  &-captions {
+    background: none;
+    height: $px20;
+    font-size: $px14;
+    color: $secondary-color;
+    text-transform: uppercase;
+    margin-bottom: $px10;
+  }
+  &__header {
+    text-align: center;
+  }
+  &__avatar {
+    width: $avatar-size;
+    height: $avatar-size;
+    border-radius: 50%;
+    &:not([src]) {
+      content: '';
     }
-    &__avatar {
-        width: $avatar-size;
-        height: $avatar-size;
-        border-radius: 50%;
-        &:not([src]) {
-            content: '';
-        }
+  }
+  &__info {
+    div {
+      margin-bottom: $px5;
     }
-    &__info {
-        div {
-            margin-bottom: $px5;
-        }
+  }
+  &__js-start {
+    justify-self: start;
+    &:hover {
+      cursor: pointer;
     }
-    &__js-start {
-        justify-self: start;
-        &:hover {
-            cursor: pointer;
-        }
-    }
+  }
 }

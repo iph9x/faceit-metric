@@ -1,11 +1,15 @@
 export const secToDate = (secs) => {
-  const startTime = new Date(null); 
-  startTime.setTime(secs);
+  const startTime = new Date(secs); 
+  const month = zeroPad(startTime.getMonth() + 1);
+  const day = zeroPad(startTime.getDate());
+  const year = startTime.getFullYear().toString().slice(-2);
+  const hours = zeroPad(startTime.getHours());
+  const minutes = zeroPad(startTime.getMinutes());
 
-  const outString = `${startTime.getDate() < 10 ? `0${startTime.getDate()}` : startTime.getDate()}.${startTime.getMonth() + 1 < 10 ? `0${startTime.getMonth() + 1}` : startTime.getMonth() + 1}.${(startTime.getFullYear()).toString().slice(-2)} - ${startTime.getHours() < 10 ? `0${startTime.getHours()}` : startTime.getHours()}:${startTime.getMinutes() < 10 ? `0${startTime.getMinutes()}` : startTime.getMinutes()}`;
+  return `${day}.${month}.${year} ${hours}:${minutes}`;
+};
 
-  return outString;
-}
+const zeroPad = (value) => value.toString().padStart(2, '0');
 
 const summer = (a, b) => {
   return a + Number.parseFloat(b);
@@ -17,7 +21,7 @@ const findStartElo = (matches) => {
       return matches[i].elo;
     }
   }
-}
+};
 
 const findCurrentElo = (matches) => {
   for (let i = 0; i < matches.length; i += 1) {
@@ -27,17 +31,13 @@ const findCurrentElo = (matches) => {
       continue;
     }
   }
-}
+};
 
 const calcDifElo = (elo1, elo2) => {
   const def = Number.parseInt(elo1) - Number.parseInt(elo2);
   
-  if (def < 0) {
-    return def;
-  } else {
-    return `+${def}`;
-  }
-}   
+  return def < 0 ? def : `+${def}`;
+};
 
 export const calcStatsForNGames = (matches) => {
   let sumStats = {
@@ -72,7 +72,7 @@ export const calcStatsForNGames = (matches) => {
 
   const size = matches.length;
 
-  let avgStats = {
+  return {
     kd: (newObject.kd / size).toFixed(2),
     kr: (newObject.kr / size).toFixed(2),
     hs: Math.floor(newObject.hs / size),
@@ -85,9 +85,7 @@ export const calcStatsForNGames = (matches) => {
     penta: newObject.penta,
     mvps: newObject.mvps,
     eloDif: calcDifElo(findCurrentElo(matches), findStartElo(matches))
-  }
-  
-  return avgStats;
+  };
 }
 
 export const getMaxElo = (matches) => {
@@ -103,11 +101,5 @@ export const getMaxElo = (matches) => {
 }
 
 export const getSlicedMatchList = (matches, listSize) => {
-  if (matches.length < listSize) {
-    return matches;
-  } else {    
-    const newArrFull = [...matches];
-    
-    return newArrFull.slice(0, listSize);
-  }
+  return matches.length < listSize ? matches : matches.slice(0, listSize);
 }

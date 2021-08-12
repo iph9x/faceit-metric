@@ -30,7 +30,7 @@ function RoomCaptions() {
 				K/R
 			</span>
 			<span className="player-captions__header">
-				Headshot
+				HS
 			</span>
 			<span className="player-captions__header">
 				MVPs

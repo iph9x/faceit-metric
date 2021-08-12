@@ -1,346 +1,345 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
 @import './variables.scss';
+@import './roboto.scss';
 
 body, html {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;    
-    color: $white;
-    overflow-x: hidden;
-    background-color: transparent;
-    @media (max-width: 1024px) {
-        font-size: 1.48vw;
-    }
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;    
+  color: $white;
+  overflow-x: hidden;
+  background-color: transparent;
+  @media (max-width: 1024px) {
+    font-size: 1.48vw;
+  }
 }
 
 #root::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    background: url("../img/de_nuke.jpg") $main-bg-color no-repeat 50% 50%;
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background-color: $root-bg-color;
+  content: '';
+  position: fixed;
+  top: 0;
+  background: url("../img/de_nuke.jpg") $main-bg-color no-repeat 50% 50%;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: $root-bg-color;
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button, input {
+  font-family: 'Roboto', sans-serif;
+}
+
+input {
+  &::placeholder {
+    font-family: 'Roboto', sans-serif;
+  }
 }
 
 a, a:visited, a:active {
-    color: $white;
-    text-decoration: none;
+  color: $white;
+  text-decoration: none;
 }
 
 ul, li {
-    list-style: none;
+  list-style: none;
 }
 
 .container {
-    width: 64rem;
-    margin: 0 auto;
-    border-radius: $px40;
-    background: $main-bg-color;
-    backdrop-filter: blur(10px) saturate(180%);
-    -webkit-backdrop-filter: blur(10px) saturate(180%);
-    padding: $px40 $px40;
-    min-height: 80vh;
+  width: 64rem;
+  margin: 0 auto;
+  border-radius: $px40;
+  background: $main-bg-color;
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  padding: $px40 0;
+  min-height: 80vh;
 }
 
 .btn {
-    display: grid;
-    place-items: center;
-    transition: background .2s;
-    height: $px30;
-    padding: 0 $px20;
-    border-radius: $border-radius;
-    background: $white;
-    font-size: $px20;
-    font-weight: 300;
-    color: #252525;
-    border: none;
-    -webkit-tap-highlight-color: transparent;
-    &:focus,
-    &:active {
-        outline: none;
-        color: $btn-color;
-    }
-    &:hover {
-        cursor: pointer;
-    }
+  display: grid;
+  place-items: center;
+  transition: background .2s;
+  height: $px30;
+  padding: 0 $px20;
+  border-radius: $border-radius;
+  background: $btn-search-bg;
+  font-size: $px20;
+  font-weight: 300;
+  color: #fff;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  &:focus,
+  &:active {
+    outline: none;
+    color: $white;
+  }
+  &:hover {
+    cursor: pointer;
+    background: $btn-search-hover-bg;
+  }
 }
 
 .main {
-    padding-top: 6.25rem;
-    padding-bottom: $px30;
-    &__nav {
-        &-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            width: 100%;
-            margin-bottom: $px30;
-        }
-        &-label {
-            color: $secondary-color;
-            margin-right: $px5;
-        }
-        &-buttons {
-            display: flex;
-        }
-        &-btn {
-            line-height: 1;
-            padding: 0 $px15;
-            background: $btn-inactive-bg;
-            margin-right: $px10;
-            font-weight: 300;
-            :disabled:active,
-            :disabled:focus {
-                color: $black;
-            }
-            &:hover {
-                background: $btn-hover-bg;
-            }
-            &_active {
-                background: $white;
-            }
-
-        }
+  padding-top: 6.25rem;
+  padding-bottom: $px30;
+  &__nav {
+    &-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-bottom: $px30;
     }
-    &__select {
-        height: $px30;
-        option {
-            color: $black;
-        }
-    }  
-    &__container {      
-        display: flex;
-        flex-direction: column;
+    &-label {
+      color: $secondary-color;
+      margin-right: $px5;
     }
-    &__info-box {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    &-buttons {
+      display: flex;
     }
-   
+    &-btn {
+      line-height: 1;
+      padding: 0 $px16;
+      background: $btn-search-bg;
+      margin-right: $px20;
+      font-weight: 700;
+      opacity: .5;
+      &:hover {
+        background: $btn-search-hover-bg;
+      }
+      &:active,
+      &:focus {
+        color: $white;
+      }
+      &_active {
+        opacity: 1;
+      }
+    }
+  }
+  &__select {
+    height: $px30;
+    option {
+      color: $black;
+    }
+  }  
+  &__container {      
+    display: flex;
+    flex-direction: column;
+  }
+  &__info-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    padding: 0 $px40;
+  }
 }
 
 .player {
-    &-cards {
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        row-gap: $px20;
-        column-gap: $px20;
-        justify-items: center;
-        justify-content: center;
-        margin-bottom: $px30;
+  &-cards {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: $px20;
+    column-gap: $px20;
+    justify-items: center;
+    justify-content: center;
+    margin-bottom: $px30;
+  }
+  &-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 18.75rem;
+    border-radius: $border-radius;       
+    &__nickname {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: $px30;
+      width: 100%;
+      text-align: center;
+      span {
+        margin-right: $px10;
+      }
+      a {
+        display: flex;
+        align-items: center;
+      }
+      img {
+        width: 1rem;
+        height: 1rem;
+      }
     }
-    &-card {
+    &__bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: transparent;
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      z-index: 2;
+      &_red {
+        background-image: $bg-10level;
+      }
+      &_orange {
+        background-image: $bg-8level;
+      }
+      &_yellow {
+        background-image: $bg-4level;
+      }
+      &_green {
+        background-image: $bg-2level;
+      }
+      &_white {
+        background-image: $bg-1level;
+      }
+    }
+    &__avatar {
+      border-radius: 100%;
+      width: 11.25rem;
+      height: 11.25rem;
+      z-index: 3;
+      background: $root-bg-color;
+      &:not([src]) {
+        content: "";
+      }
+      &-circle {
         position: relative;
         display: flex;
-        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        width: 18.75rem;
-        border-radius: $border-radius;       
-        &__nickname {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin-bottom: $px30;
-            width: 100%;
-            text-align: center;
-            span {
-                margin-right: $px10;
-            }
-            a {
-                display: flex;
-                align-items: center;
-            }
-            img {
-                width: 1rem;
-                height: 1rem;
-            }
-        }
-        &__bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            color: transparent;
-            width: 100%;
-            height: 100%;
-            border-radius: 100%;
-            z-index: 2;
-            &_red {
-                background-image: $bg-10level;
-            }
-            &_orange {
-                background-image: $bg-8level;
-            }
-            &_yellow {
-                background-image: $bg-4level;
-            }
-            &_green {
-                background-image: $bg-2level;
-            }
-            &_white {
-                background-image: $bg-1level;
-            }
-        }
-        &__avatar {
-            border-radius: 100%;
-            width: 11.25rem;
-            height: 11.25rem;
-            z-index: 3;
-            background: $root-bg-color;
-            &:not([src]) {
-                content: "";
-            }
-            &-circle {
-                position: relative;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 13.4375rem;
-                height: 13.4375rem;     
-            }
-        }
-        &__btn-detailes {
-            margin-top: $px5;
-            background: transparent;
-            text-decoration: underline;
-            color: #fff;
-            &:active,
-            &:focus {
-                color: #fff;
-            }
-        }
-        &__string {
-            position: relative;
-            display: grid;
-            grid-template-columns: 6fr 4fr;
-            column-gap: 0.3125rem;
-            font-size: 1.375rem;
-            text-transform: uppercase;
-            padding: $px5;
-            &:nth-child(even) {
-                background: $string-even-bg-color;
-            }
-        }
-        &__prefix {
-            font-weight: 300;
-        }
-        &__postfix {
-            justify-self: end;
-            font-weight: 300;
-        }
-        &__stat-box {
-            width: 88%;
-        }
-        &__alltime-box {
-            grid-column: 1 / 2;
-            grid-row: 1 / 2;
-        }
-        &__avatar-box {
-            grid-column: 2 / 3;
-            grid-row: 1 / 2;
-        }
-        &__avg {
-            &-box {
-                grid-column: 3 / 4;
-                grid-row: 1 / 2;
-                &_full {
-                    grid-row: 1 / 3
-                }
-            }
-            &-title {
-                font-size: $px20;
-                text-align: center;
-                margin-bottom: $px20;
-                color: $secondary-color;
-                font-weight: 300;
-            }
-        }
+        width: 13.4375rem;
+        height: 13.4375rem;     
+      }
     }
+    &__btn-detailes {
+      margin-top: $px15;
+      // background: transparent;
+      // text-decoration: underline;
+    }
+    &__string {
+      position: relative;
+      display: grid;
+      grid-template-columns: 6fr 4fr;
+      column-gap: 0.3125rem;
+      font-size: 1.375rem;
+      text-transform: uppercase;
+      padding: $px5;
+      &:nth-child(even) {
+        background: $string-even-bg-color;
+      }
+    }
+    &__prefix {
+      font-weight: 300;
+    }
+    &__postfix {
+      justify-self: end;
+      font-weight: 300;
+    }
+    &__stat-box {
+      width: 88%;
+    }
+    &__alltime-box {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+    }
+    &__avatar-box {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+    &__avg {
+      &-box {
+        grid-column: 3 / 4;
+        grid-row: 1 / 2;
+        &_full {
+          grid-row: 1 / 3
+        }
+      }
+      &-title {
+        font-size: $px20;
+        text-align: center;
+        margin-bottom: $px20;
+        color: $secondary-color;
+        font-weight: 300;
+      }
+    }
+  }
 }
 
 .match {
-    &__wrapper {
-        width: 100%;
-        font-size: $px16;
-        transform-origin: top center;
+  &__wrapper {
+    width: 100%;
+    font-size: $px16;
+    transform-origin: top center;
+  }
+  &__item,
+  &__item-titles {
+    display: grid;
+    grid-template-columns: 4fr 3fr 3fr 2fr 2fr 2fr repeat(3, 1fr) 3fr 4fr;
+    justify-items: center;
+    align-items: center;
+    padding: 0 $px10;
+  }
+  &__item-titles {
+    margin-bottom: $px10;
+    font-weight: 400;
+    // border-top: 1px solid $table-top-border-color;
+    padding-top: $px10;
+    margin-left: 8px;
+    color: $secondary-color;
+    text-transform: uppercase;
+    margin-bottom: $px10;
+  }
+  &__item {        
+    height: $px50;
+    &:nth-child(odd) {
+      background: $string-even-bg-color;
     }
-    &__item,
-    &__item-titles {
-        display: grid;
-        grid-template-columns: 4fr 3fr 3fr 2fr 2fr repeat(3, 1fr) 3fr 4fr;
-        justify-items: center;
-        align-items: center;
-        padding: 0 $px10;
+    &:hover {
+      cursor: pointer;
     }
-    &__item-titles {
-        margin-bottom: $px10;
-        font-weight: 400;
-        border-top: 1px solid $table-top-border-color;
-        padding-top: $px10;
-        color: $secondary-color;
-    }
-    &__item {        
-        height: $px40;
-        border-radius: $border-radius;
-        margin-bottom: $px10;
-        &:hover {
-            cursor: pointer;
-        }
-    }
-    &__win {
-        background: $winner-match-bg;
-    }
-    &__lose {
-        background: $loser-match-bg;
-    }
-}
-.kd {
-    &-high {
-        color: $kd-green;
-    }
-    &-low {
-        color: $kd-red;
-    }
-    &-one,
-    &-low,
-    &-high {
-        font-weight: 700;
-    }
+  }
+  &__win {
+    border-left: 8px solid $kd-green;
+  }
+  &__lose {
+    border-left: 8px solid $kd-red;
+  }
+  &__elo {
+    display: flex;
+  }
 }
 
-.preview {
-    display: flex;
-    flex-direction: column;
-    &__h1 {
-        text-align: center;
-        font-size: 2.8125rem;
-        margin-bottom: $px60;
-        font-weight: 400;
-    }
-    &__subtitle {
-        font-size: $px30;
-        font-weight: 300;
-        margin-bottom: $px20;
-    }
-    &__list li {
-        margin-bottom: $px10;
-    }
-    &__item {
-        position: relative;
-        font-size: $px20;
-        font-weight: 400;
-        letter-spacing: .02em;
-    }
+.kd {
+  &-high {
+    color: $kd-green;
+  }
+  &-low {
+    color: $kd-red;
+  }
+  &-one,
+  &-low,
+  &-high {
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+  }   
+}
+
+.team-long {
+  font-size: $px12;
 }

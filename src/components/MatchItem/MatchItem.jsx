@@ -19,10 +19,20 @@ function MatchItem({ match, eloDif, setMatchId, setShowMatches }) {
 		'kd-one': Number.parseFloat(match.c2) === 1
 	});
 
-	const matchElo = match.elo ? match.elo : '(+0)';
+	const teamString = match.i5.includes('team_') ? match.i5.slice(5) : match.i5;
+
+	const teamClass = classNames({
+		'team-long': teamString.length > 15,
+	});
+
+	const matchElo = match.elo ? match.elo : '+0';
 	const eloSign = eloDif > 0 ? `+${eloDif}` : eloDif;
-	const eloDiffNaN = Number.isNaN(eloDif) ? '(+0)' : (eloSign);
-	const eloDiff =  eloDif ? `(${eloDiffNaN})` : '';
+	const eloDiffNaN = Number.isNaN(eloDif) ? '+0' : (eloSign);
+	const eloDiff =  eloDif ? eloDiffNaN : '';
+	const eloClass = classNames({
+		'kd-high': eloDif > 0,
+		'kd-low': eloDif < 0,
+	});
 
 	return (
 		<div onClick={() => {
@@ -32,15 +42,19 @@ function MatchItem({ match, eloDif, setMatchId, setShowMatches }) {
 			className={bgClass}
 		>
 			<span>{secToDate(match.created_at)}</span>
-			<span>{`${matchElo} ${eloDiff}`}</span>
-			<span>{match.i18}</span>
+			<div className="match__elo">
+				{matchElo}&nbsp;
+				<span className={eloClass}>{eloDiff}</span>
+			</div>
+			<span>{match.i18.split('/').join('-')}</span>
+			<span>{match.c3}</span>
 			<span className={kdClass}>{match.c2}</span>
 			<span>{match.c4}%</span>
 			<span>{match.i6}</span>
 			<span>{match.i7}</span>
 			<span>{match.i8}</span>			
 			<span>{match.i1.split('/').pop()}</span>
-			<span>{match.i5}</span>
+			<span className={teamClass}>{teamString}</span>
 		</div>
 	);
 }

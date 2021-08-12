@@ -1,32 +1,37 @@
 import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { findIconDefinition, library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faVk, faSteam } from '@fortawesome/free-brands-svg-icons';
 
-import '../../assets/scss/footer.scss';
+import './Footer.scss';
 
 function Footer() {
-  library.add(fab);
-  const vk = findIconDefinition({ prefix: 'fab', iconName: 'vk'});
+  library.add(faVk, faSteam);
 
   const onClickHandler = (e, newPageUrl) => {
     e.preventDefault();
-    window.open(newPageUrl, "_blank")
+    window.open(newPageUrl, "_blank");
   }
   
   return (
     <footer className="footer">
-      <div>
-        <a 
-          target="_blank" 
-          rel="noopener noreferrer"
-          href="https://vk.com/iph9x" 
-          onClick={(e) => onClickHandler(e, 'https://vk.com/iph9x')}
-        >
-            <FontAwesomeIcon icon={vk} />
-        </a>
-      </div>
+      <a 
+        target="_blank" 
+        rel="noopener noreferrer"
+        href="https://vk.com/iph9x"
+        onClick={(e) => onClickHandler(e, 'https://vk.com/iph9x')}
+      >
+          <FontAwesomeIcon icon={faVk} />
+      </a>
+      <a 
+        target="_blank" 
+        rel="noopener noreferrer"
+        href="https://steamcommunity.com/tradeoffer/new/?partner=154007278&token=CLTGO42o"
+        onClick={(e) => onClickHandler(e, 'https://steamcommunity.com/tradeoffer/new/?partner=154007278&token=CLTGO42o')}
+      >
+          <FontAwesomeIcon icon={faSteam} />
+      </a>
     </footer>
   );
 }
