@@ -1,23 +1,24 @@
 {
   "files": {
-    "main.css": "/faceit-metric/static/css/main.2b19339d.chunk.css",
-    "main.js": "/faceit-metric/static/js/main.30d0a1d2.chunk.js",
-    "main.js.map": "/faceit-metric/static/js/main.30d0a1d2.chunk.js.map",
-    "runtime-main.js": "/faceit-metric/static/js/runtime-main.f2b938bc.js",
-    "runtime-main.js.map": "/faceit-metric/static/js/runtime-main.f2b938bc.js.map",
-    "static/js/2.8b3bfc37.chunk.js": "/faceit-metric/static/js/2.8b3bfc37.chunk.js",
-    "static/js/2.8b3bfc37.chunk.js.map": "/faceit-metric/static/js/2.8b3bfc37.chunk.js.map",
-    "index.html": "/faceit-metric/index.html",
-    "precache-manifest.e5acba249d3ed220b5268312532e7996.js": "/faceit-metric/precache-manifest.e5acba249d3ed220b5268312532e7996.js",
-    "service-worker.js": "/faceit-metric/service-worker.js",
-    "static/css/main.2b19339d.chunk.css.map": "/faceit-metric/static/css/main.2b19339d.chunk.css.map",
-    "static/js/2.8b3bfc37.chunk.js.LICENSE.txt": "/faceit-metric/static/js/2.8b3bfc37.chunk.js.LICENSE.txt",
-    "static/media/main.scss": "https://faceit-metric.online/static/media/de_nuke.8e035cd0.jpg"
+    "main.css": "/static/css/main.b10f71af.chunk.css",
+    "main.js": "/static/js/main.c6c12b98.chunk.js",
+    "main.js.map": "/static/js/main.c6c12b98.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.a43d2cea.js",
+    "runtime-main.js.map": "/static/js/runtime-main.a43d2cea.js.map",
+    "static/js/2.6764b69b.chunk.js": "/static/js/2.6764b69b.chunk.js",
+    "static/js/2.6764b69b.chunk.js.map": "/static/js/2.6764b69b.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.8895da61a42a4b5df9b3869b9fca0b16.js": "/precache-manifest.8895da61a42a4b5df9b3869b9fca0b16.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.b10f71af.chunk.css.map": "/static/css/main.b10f71af.chunk.css.map",
+    "static/js/2.6764b69b.chunk.js.LICENSE.txt": "/static/js/2.6764b69b.chunk.js.LICENSE.txt",
+    "static/media/main.scss": "/static/media/roboto-regular.f36638c2.ttf",
+    "static/media/karambit.svg": "/static/media/karambit.cf3156e1.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.f2b938bc.js",
-    "static/js/2.8b3bfc37.chunk.js",
-    "static/css/main.2b19339d.chunk.css",
-    "static/js/main.30d0a1d2.chunk.js"
+    "static/js/runtime-main.a43d2cea.js",
+    "static/js/2.6764b69b.chunk.js",
+    "static/css/main.b10f71af.chunk.css",
+    "static/js/main.c6c12b98.chunk.js"
   ]
 }
