@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.b10f71af.chunk.css",
-    "main.js": "/static/js/main.c6c12b98.chunk.js",
+    "main.css": "/faceit-metric/static/css/main.b10f71af.chunk.css",
+    "main.js": "/faceit-metric/static/js/main.c6c12b98.chunk.js",
     "main.js.map": "/static/js/main.c6c12b98.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.a43d2cea.js",
     "runtime-main.js.map": "/static/js/runtime-main.a43d2cea.js.map",
-    "static/js/2.6764b69b.chunk.js": "/static/js/2.6764b69b.chunk.js",
+    "static/js/2.6764b69b.chunk.js": "/faceit-metric/static/js/2.6764b69b.chunk.js",
     "static/js/2.6764b69b.chunk.js.map": "/static/js/2.6764b69b.chunk.js.map",
     "index.html": "/index.html",
     "precache-manifest.9ff156b482f566163646f574d1cf908c.js": "/precache-manifest.9ff156b482f566163646f574d1cf908c.js",
